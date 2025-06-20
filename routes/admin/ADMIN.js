@@ -1,25 +1,22 @@
 const express = require("express")
 const router = express.Router()
+// Controllers
 const {
   getStudents,
   createStudent,
   deleteStudent,
-  addCourse,
-} = require("../../controllers/adminController")
+} = require("../../controllers/admin/studentController") // Student Controller
+const { addCourse } = require("../../controllers/admin/courseController") // Course Controller
 
 // ADMIN Operation: Student
 
-// GET
-router.get("/student/list", getStudents)
-// POST
-router.post("/student/create", createStudent)
+router.get("/student/list", getStudents) // GET
+router.post("/student/create", createStudent) // POST
 // PUT
 //
-// DELETE
-router.delete("/student/delete/:id", deleteStudent)
+router.delete("/student/delete/:id", deleteStudent) // DELETE
 
 // ADMIN Operation: Course
-// POST
-router.post("/course/add", addCourse)
+router.post("/course/add", addCourse) // POST
 
 module.exports = router

@@ -1,5 +1,5 @@
-const Student = require("../models/Student")
-const Course = require("../models/Course")
+const Student = require("../../models/Student")
+const Course = require("../../models/Course")
 
 // Student Controller
 exports.getStudents = async (req, res) => {
