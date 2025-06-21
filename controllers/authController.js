@@ -1,11 +1,12 @@
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-const nodemailer = require("nodemailer")
 
 // Importing Models - MongoDB SChemas(otpSchema)
 const Student = require("../models/Student")
 const Otp = require("../models/Otp")
 
+// Importing Email Sender
+const sendEmail = require("../utils/sendEmail")
 // 1. OTP Verification
 
 exports.otpVerification = async (req, res) => {
@@ -15,7 +16,6 @@ exports.otpVerification = async (req, res) => {
     return res.status(400).json({ message: "Student already exists" })
 
   try {
-    // Generating OTP
     const otpGenerator = require("otp-generator")
     const generatedOtpCode = otpGenerator.generate(6, {
       digits: true,
@@ -24,22 +24,11 @@ exports.otpVerification = async (req, res) => {
       specialChars: false,
     })
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail", // or use SMTP
-      auth: {
-        user: process.env.EMAIL_ADDRESS,
-        pass: process.env.EMAIL_PASSWORD, // Use "app password", NOT Gmail login password
-      },
-    })
-
-    const mailOptions = {
-      from: process.env.EMAIL_ADDRESS,
-      to: email,
-      subject: "OTP Code - ProximaIT",
-      text: `Your OTP code is ${generatedOtpCode}`,
-    }
-
-    await transporter.sendMail(mailOptions)
+    sendEmail(
+      email,
+      "OTP Code - ProximaIT",
+      `Your OTP code is ${generatedOtpCode}`
+    )
 
     // Storing OTP into database.
     const otp = new Otp({ email, otp: generatedOtpCode })
@@ -59,25 +48,30 @@ exports.register = async (req, res) => {
 
   let takenOtpCode = otp
   const getOtp = await Otp.findOne({ email })
-  const generatedOtpCode = getOtp.otp
+  if (!getOtp) {
+    return res.status(400).json({ message: "OTP not found, deleted." })
+  }
 
+  const generatedOtpCode = getOtp.otp
   try {
     if (generatedOtpCode == takenOtpCode) {
       const hashedPassword = await bcrypt.hash(password, 10)
-      const Student = new Student({
+
+      const student = new Student({
         name,
         email,
         phone,
         password: hashedPassword,
       })
-      await Student.save()
 
+      await student.save()
       res.status(201).json({ message: "Student registered" })
     } else {
       res.status(201).json({ message: "OTP didn't matched" })
     }
   } catch (err) {
     res.status(500).json({ error: err.message })
+    console.log(err)
   }
 }
 
@@ -86,16 +80,28 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   const { email, password } = req.body
   try {
-    const Student = await Student.findOne({ email })
+    const student = await Student.findOne({ email })
 
-    if (!Student || !(await bcrypt.compare(password, Student.password))) {
+    if (!student || !(await bcrypt.compare(password, student.password))) {
       return res.status(401).json({ message: "Invalid credentials" })
     }
 
     const token = jwt.sign(
-      { id: Student._id, role: Student.role },
+      {
+        id: student._id,
+        name: student.name,
+        email: student.email,
+        role: student.role,
+      },
       process.env.JWT_SECRET
     )
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      // secure: process.env.NODE_ENV === "production", // send only over HTTPS in prod
+      sameSite: "Strict", // or "Lax" or "None" (with Secure)
+      maxAge: 24 * 60 * 60 * 1000 * 7, // 7 days
+    })
     res.json({ message: "Successfully Logged In!", token })
   } catch (err) {
     res.status(500).json({ error: err.message })

@@ -25,9 +25,6 @@ const studentSchema = new mongoose.Schema(
       enum: ["student", "admin"],
       default: "student",
     },
-    profileImage: {
-      type: String,
-    },
     enrolledCourses: [
       {
         courseId: {

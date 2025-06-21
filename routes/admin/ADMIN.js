@@ -6,17 +6,14 @@ const {
   createStudent,
   deleteStudent,
 } = require("../../controllers/admin/studentController") // Student Controller
-const { addCourse } = require("../../controllers/admin/courseController") // Course Controller
 
 // ADMIN Operation: Student
 
+// ROOT: /api/admin
 router.get("/student/list", getStudents) // GET
 router.post("/student/create", createStudent) // POST
 // PUT
 //
 router.delete("/student/delete/:id", deleteStudent) // DELETE
-
-// ADMIN Operation: Course
-router.post("/course/add", addCourse) // POST
 
 module.exports = router
