@@ -112,7 +112,7 @@ exports.login = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      // secure: process.env.NODE_ENV === "production", // send only over HTTPS in prod
+      // secure: process.env.NODE_ENV === "production",
       sameSite: "Strict", // or "Lax" or "None" (with Secure)
       maxAge: 24 * 60 * 60 * 1000 * 7, // 7 days
     })

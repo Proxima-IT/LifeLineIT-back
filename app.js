@@ -15,11 +15,25 @@ const ADMIN = require("./routes/admin/ADMIN")
 
 const app = express()
 
-app.use(express.json())
-app.use(cors())
 app.use(helmet())
 app.use(cookieParser())
 app.use(morgan("dev"))
+
+app.use(express.json())
+const allowedOrigins = ["http://localhost:5173"]
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true)
+      } else {
+        callback(new Error("Not allowed by CORS"))
+      }
+    },
+    credentials: true,
+  })
+)
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
