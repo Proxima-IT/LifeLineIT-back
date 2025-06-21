@@ -11,7 +11,11 @@ const sendEmail = require("../utils/sendEmail")
 
 exports.otpVerification = async (req, res) => {
   const { email } = req.body
+  console.log(email)
+
   const existingStudent = await Student.findOne({ email })
+
+  console.log("Existing Student:", existingStudent)
   if (existingStudent)
     return res.status(400).json({ message: "Student already exists" })
 
@@ -30,6 +34,7 @@ exports.otpVerification = async (req, res) => {
       `Your OTP code is ${generatedOtpCode}`
     )
 
+    console.log("Email Send! OTP Code:", generatedOtpCode)
     // Storing OTP into database.
     const otp = new Otp({ email, otp: generatedOtpCode })
     await otp.save()
