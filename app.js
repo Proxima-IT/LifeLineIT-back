@@ -38,4 +38,14 @@ app.get("/", (req, res) => {
   res.send("API is running")
 })
 
+app.use((req, res, next) => {
+  // check if node env is development, do new error and if not, use the error from the next middleware
+  const error =
+    process.env.NODE_ENV === "development"
+      ? new Error().stack
+      : "Route not found"
+  error.status = 404
+  next(error)
+})
+
 module.exports = app

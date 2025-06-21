@@ -9,3 +9,12 @@ exports.getCourses = async (req, res) => {
   }
 }
 
+exports.getCoursesById = async (req, res) => {
+  try {
+    console.log(req.params.id)
+    const course = await Course.findById(req.params.id)
+    res.json(course)
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+}

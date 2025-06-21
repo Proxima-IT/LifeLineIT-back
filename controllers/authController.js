@@ -7,8 +7,8 @@ const Otp = require("../models/Otp")
 
 // Importing Email Sender
 const sendEmail = require("../utils/sendEmail")
-// 1. OTP Verification
 
+// 1. OTP Verification
 exports.otpVerification = async (req, res) => {
   const { email } = req.body
   console.log(email)
@@ -35,9 +35,18 @@ exports.otpVerification = async (req, res) => {
     )
 
     console.log("Email Send! OTP Code:", generatedOtpCode)
+
     // Storing OTP into database.
-    const otp = new Otp({ email, otp: generatedOtpCode })
-    await otp.save()
+    const existingOtp = await Otp.findOne({ email })
+    if (existingOtp) {
+      // If OTP already exists, update it
+      existingOtp.otp = generatedOtpCode
+      await existingOtp.save()
+    } else {
+      // If OTP does not exist, create a new one
+      const otp = new Otp({ email, otp: generatedOtpCode })
+      await otp.save()
+    }
 
     res.status(200).json({ message: `OTP Sent to ${email}` })
   } catch (err) {
