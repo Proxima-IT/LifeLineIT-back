@@ -1,4 +1,5 @@
 const sendEmail = require("../../utils/sendEmail")
+const sanitize = require("mongo-sanitize")
 
 exports.addPayment = async (req, res) => {
   const Payment = require("../../models/Payment")
@@ -31,7 +32,7 @@ exports.getPayements = async (req, res) => {
 }
 
 exports.updatePayment = async (req, res) => {
-  const { status } = req.body
+  const { status } = sanitize(req.body)
   const Payment = require("../../models/Payment")
   const getPayment = await Payment.findById(req.params.id)
   const { name, email } = getPayment

@@ -1,5 +1,6 @@
 const Student = require("../../models/Student")
 const Course = require("../../models/Course")
+const sanitize = require("mongo-sanitize")
 
 // Student Controller
 exports.getStudents = async (req, res) => {
@@ -13,7 +14,7 @@ exports.getStudents = async (req, res) => {
 }
 
 exports.createStudent = async (req, res) => {
-  const { name, email, phone, password } = req.body
+  const { name, email, phone, password } = sanitize(req.body)
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10)
@@ -47,7 +48,9 @@ exports.deleteStudent = async (req, res) => {
 // Course Controller
 
 exports.addCourse = async (req, res) => {
-  const { title, description, category, instructor, thumbnailUrl } = req.body
+  const { title, description, category, instructor, thumbnailUrl } = sanitize(
+    req.body
+  )
 
   try {
     const Course = await bcrypt.hash(password, 10)

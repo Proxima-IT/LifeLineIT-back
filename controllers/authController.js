@@ -1,5 +1,8 @@
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+// Validation and Sanitization
+const studentSchema = require("../schemas/studentSchema")
+const sanitize = require("mongo-sanitize")
 
 // Importing Models - MongoDB SChemas(otpSchema)
 const Student = require("../models/Student")
@@ -10,7 +13,7 @@ const sendEmail = require("../utils/sendEmail")
 
 // 1. OTP Verification
 exports.otpVerification = async (req, res) => {
-  const { email } = req.body
+  const { email } = sanitize(req.body)
   console.log(email)
 
   const existingStudent = await Student.findOne({ email })
@@ -58,7 +61,15 @@ exports.otpVerification = async (req, res) => {
 // 2. Registering Account with Confirmation
 
 exports.register = async (req, res) => {
-  const { name, email, phone, password, otp } = req.body
+  const { error, value } = studentSchema.validate(sanitize(req.body), {
+    stripUnknown: true,
+  })
+  console.log("Validation Result:", error, value)
+  const { name, email, phone, password, otp } = value
+
+  if (error) {
+    return res.status(400).json({ message: error.details[0].message })
+  }
 
   let takenOtpCode = otp
   const getOtp = await Otp.findOne({ email })
@@ -66,6 +77,7 @@ exports.register = async (req, res) => {
     return res.status(400).json({ message: "OTP not found, deleted." })
   }
 
+  console.log("takenOtpCode:", takenOtpCode)
   const generatedOtpCode = getOtp.otp
   try {
     if (generatedOtpCode == takenOtpCode) {
@@ -92,12 +104,15 @@ exports.register = async (req, res) => {
 // 3. Login
 
 exports.login = async (req, res) => {
-  const { email, password } = req.body
+  const { email, password } = sanitize(req.body)
   try {
     const student = await Student.findOne({ email })
 
+    console.log("Student Found:", !student)
     if (!student || !(await bcrypt.compare(password, student.password))) {
-      return res.status(401).json({ message: "Invalid credentials" })
+      return res.status(401).json({
+        message: "Invalid credentials, User not found in the database",
+      })
     }
 
     const token = jwt.sign(
@@ -118,6 +133,7 @@ exports.login = async (req, res) => {
     })
     res.json({ message: "Successfully Logged In!", token })
   } catch (err) {
+    console.error("Login Error:", err)
     res.status(500).json({ error: err.message })
   }
 }
