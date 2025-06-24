@@ -5,7 +5,7 @@ const {
   getStudents,
   createStudent,
   deleteStudent,
-} = require("../../controllers/admin/studentController") // Student Controller
+} = require("../controllers/admin/studentController") // Student Controller
 
 // ADMIN Operation: Student
 

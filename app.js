@@ -2,24 +2,20 @@ const express = require("express")
 const cors = require("cors")
 const helmet = require("helmet")
 const morgan = require("morgan")
-const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 
-// General Routes
+// Routes
 const authRoutes = require("./routes/auth")
 const courseRoutes = require("./routes/courses")
 const paymentRoutes = require("./routes/payment")
-
-// Admin Routes
-const ADMIN = require("./routes/admin/ADMIN")
+const studentRoutes = require("./routes/student")
 
 const app = express()
 
 app.use(helmet())
-app.use(cookieParser())
 app.use(morgan("dev"))
+app.use(cookieParser())
 
-app.use(express.json())
 const allowedOrigins = ["http://localhost:5173"]
 
 app.use(
@@ -35,31 +31,21 @@ app.use(
   })
 )
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }))
-// parse application/json
-app.use(bodyParser.json())
+app.use(express.urlencoded({ extended: true })) // application/x-www-form-urlencoded
+app.use(express.json()) // application/json
 
 // Routes
 app.use("/api/auth", authRoutes)
 app.use("/api/courses", courseRoutes)
 app.use("/api/payment", paymentRoutes)
-
-// ADMIN Routes
-app.use("/api/admin/", ADMIN)
+app.use("/api/student", studentRoutes)
 
 app.get("/", (req, res) => {
-  res.send("API is running")
+  res.send("Server is running")
 })
 
-app.use((req, res, next) => {
-  // check if node env is development, do new error and if not, use the error from the next middleware
-  const error =
-    process.env.NODE_ENV === "development"
-      ? new Error().stack
-      : "Route not found"
-  error.status = 404
-  next(error)
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found" })
 })
 
 module.exports = app
