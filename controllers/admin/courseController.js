@@ -6,6 +6,7 @@ exports.addCourse = async (req, res) => {
   if (req.body.instructors && typeof req.body.instructors === "string") {
     req.body.instructors = JSON.parse(req.body.instructors)
   }
+  req.body.route = req.body.route.split(" ").join("-")
 
   try {
     console.log(req.body)

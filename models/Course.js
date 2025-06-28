@@ -31,6 +31,12 @@ const courseSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    route: {
+      type: String,
+      trim: true,
+      index: true,
+      unique: true,
+    },
     category: {
       type: String,
       trim: true,

@@ -1,4 +1,5 @@
 const Course = require("../models/Course")
+const sanitize = require("mongo-sanitize")
 
 exports.getCourses = async (req, res) => {
   try {
@@ -9,10 +10,12 @@ exports.getCourses = async (req, res) => {
   }
 }
 
-exports.getCoursesById = async (req, res) => {
+exports.getCoursesByName = async (req, res) => {
   try {
-    console.log(req.params.id)
-    const course = await Course.findById(req.params.id)
+    console.log(req.params.name)
+    const paramName = sanitize(req.params.name).split(" ").join("-")
+    console.log(paramName)
+    const course = await Course.find({ route: paramName })
     res.json(course)
   } catch (err) {
     res.status(500).json({ error: err.message })
