@@ -135,12 +135,21 @@ exports.login = async (req, res) => {
       process.env.JWT_SECRET
     )
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      // secure: process.env.NODE_ENV === "production",
-      sameSite: "Strict", // or "Lax" or "None" (with Secure)
-      maxAge: 24 * 60 * 60 * 1000 * 7, // 7 days
-    })
+    res.cookie(
+      "token",
+      token,
+      //   httpOnly: true,
+      //   // secure: process.env.NODE_ENV === "production",
+      //   sameSite: "Strict", // or "Lax" or "None" (with Secure)
+      //   maxAge: 24 * 60 * 60 * 1000 * 7, // 7 days
+      // }
+      {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      }
+    )
     res.json({
       success: true,
       name: student.name,
