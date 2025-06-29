@@ -1,3 +1,5 @@
+const fs = require("fs").promises
+const path = require("path")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 // Validation and Sanitization
@@ -14,9 +16,7 @@ const sendEmail = require("../utils/sendEmail")
 // 1. OTP Verification
 exports.otpVerification = async (req, res) => {
   const { email } = sanitize(req.body)
-  console.log(email)
-
-  const existingStudent = await Student.findOne({ email })
+  const existingStudent = await Student.findOne({ email }).lean()
 
   console.log("Existing Student:", existingStudent)
   if (existingStudent)
@@ -31,13 +31,15 @@ exports.otpVerification = async (req, res) => {
       specialChars: false,
     })
 
-    sendEmail(
-      email,
-      "OTP Code - ProximaIT",
-      `Your OTP code is ${generatedOtpCode}`
+    const rootDir = path.resolve(__dirname, "../")
+    let otpHtmlContent = await fs.readFile(
+      path.join(rootDir, "utils", "templates", "otpMail.html"),
+      "utf8"
     )
 
-    console.log("Email Send! OTP Code:", generatedOtpCode)
+    otpHtmlContent = otpHtmlContent.replace("000000", generatedOtpCode)
+
+    sendEmail(email, "OTP Code - ProximaIT", otpHtmlContent)
 
     // Storing OTP into database.
     const existingOtp = await Otp.findOne({ email })
@@ -107,11 +109,12 @@ exports.login = async (req, res) => {
   const { email, password } = sanitize(req.body)
   try {
     const student = await Student.findOne({ email })
+      .select("name email role password")
+      .lean()
 
-    console.log("Student Found:", !student)
     if (!student || !(await bcrypt.compare(password, student.password))) {
       return res.status(401).json({
-        message: "Invalid credentials, User not found in the database",
+        message: "Invalid credentials, Please cross-check your inputs.",
       })
     }
 

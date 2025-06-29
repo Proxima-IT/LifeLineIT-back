@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer")
 
-async function sendEmail(email, subject, text) {
+async function sendEmail(email, subject, htmlContent) {
   const transporter = nodemailer.createTransport({
     service: "gmail", // or use SMTP
     auth: {
@@ -13,7 +13,7 @@ async function sendEmail(email, subject, text) {
     from: process.env.EMAIL_ADDRESS,
     to: email,
     subject: subject || "ProximaIT Email",
-    text: text,
+    html: htmlContent,
   }
 
   await transporter.sendMail(mailOptions)

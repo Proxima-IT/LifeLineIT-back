@@ -4,10 +4,15 @@ const sanitize = require("mongo-sanitize")
 
 // Student Controller
 exports.getStudents = async (req, res) => {
+  const page = parseInt(req.query.page) || 1
+  const limit = parseInt(req.query.limit) || 100
   try {
-    const getUser = await User.find({})
-    console.log(getUser)
-    res.status(201).json({ users: getUser })
+    const getStudents = await Student.find({})
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .lean()
+    res.status(201).json({ users: getStudents })
+    console.log(getStudents.length + " Students Found")
   } catch (err) {
     res.status(500).json({ error: err.message })
   }

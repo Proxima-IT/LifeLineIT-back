@@ -16,7 +16,7 @@ app.use(helmet())
 app.use(morgan("dev"))
 app.use(cookieParser())
 
-const allowedOrigins = ["http://localhost:5173"]
+const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"]
 
 app.use(
   cors({

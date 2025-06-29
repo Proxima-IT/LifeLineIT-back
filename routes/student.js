@@ -9,9 +9,9 @@ const {
 
 // ADMIN Operation: Student
 
-// ROOT: /api/admin
-router.get("/student/list", getStudents) // GET
-router.post("/student/create", createStudent) // POST
+// ROOT: /api/student
+router.get("/list", getStudents) // GET
+router.post("/create", createStudent) // POST
 // PUT
 //
 router.delete("/student/delete/:id", deleteStudent) // DELETE

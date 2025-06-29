@@ -43,7 +43,8 @@ const courseSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      trim: true,
+      index: true,
+      required: true,
       lowercase: true,
       enum: ["online", "offline"],
     },
