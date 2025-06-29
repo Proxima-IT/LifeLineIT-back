@@ -7,6 +7,10 @@ const instructorSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    about: {
+      type: String,
+      required: true,
+    },
     image: {
       type: String,
       required: true,
@@ -36,6 +40,12 @@ const courseSchema = new mongoose.Schema(
       trim: true,
       index: true,
       unique: true,
+    },
+    type: {
+      type: String,
+      trim: true,
+      lowercase: true,
+      enum: ["online", "offline"],
     },
     category: {
       type: String,
