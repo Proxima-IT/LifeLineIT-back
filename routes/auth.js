@@ -14,7 +14,7 @@ router.post("/register", register)
 router.post("/login", login)
 
 router.get("/check", verifyJWT, (req, res) => {
-  res.json({ loggedIn: true, user: req.user })
+  res.json({ status: true, user: req.user })
 }) // Checking if JWT is valid or not.
 
 module.exports = router

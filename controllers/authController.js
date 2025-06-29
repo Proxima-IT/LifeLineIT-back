@@ -70,13 +70,17 @@ exports.register = async (req, res) => {
   const { name, email, phone, password, otp } = value
 
   if (error) {
-    return res.status(400).json({ message: error.details[0].message })
+    return res
+      .status(400)
+      .json({ status: false, message: error.details[0].message })
   }
 
   let takenOtpCode = otp
   const getOtp = await Otp.findOne({ email })
   if (!getOtp) {
-    return res.status(400).json({ message: "OTP not found, deleted." })
+    return res
+      .status(400)
+      .json({ status: false, message: "OTP not found, deleted." })
   }
 
   console.log("takenOtpCode:", takenOtpCode)
@@ -93,9 +97,12 @@ exports.register = async (req, res) => {
       })
 
       await student.save()
-      res.status(201).json({ message: "Student registered" })
+      res.status(201).json({
+        status: true,
+        message: "Student has been successfully registered!",
+      })
     } else {
-      res.status(201).json({ message: "OTP didn't matched" })
+      res.status(201).json({ status: false, message: "OTP didn't matched" })
     }
   } catch (err) {
     res.status(500).json({ error: err.message })
@@ -134,7 +141,11 @@ exports.login = async (req, res) => {
       sameSite: "Strict", // or "Lax" or "None" (with Secure)
       maxAge: 24 * 60 * 60 * 1000 * 7, // 7 days
     })
-    res.json({ message: "Successfully Logged In!", token })
+    res.json({
+      success: true,
+      name: student.name,
+      message: "Successfully Logged In!",
+    })
   } catch (err) {
     console.error("Login Error:", err)
     res.status(500).json({ error: err.message })

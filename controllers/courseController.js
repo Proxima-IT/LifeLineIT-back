@@ -10,6 +10,7 @@ exports.getCourses = async (req, res) => {
         subtitle: 1,
         description: 1,
         route: 1,
+        duration: 1,
         type: 1,
         category: 1,
         thumbnail: 1,
