@@ -9,8 +9,8 @@ const { addCourse } = require("../controllers/admin/courseController") // Course
 
 // ROOT: /api/courses
 router.get("/", getCourses) // get All Courses
+router.get("/search", getCoursesBySearch) // get Course by Search
 router.get("/:name", getCoursesByName) // get Course by ID
-router.post("/", getCoursesBySearch) // get Course by Search
 
 // ADMIN Operation: Course
 router.post("/add", addCourse) // POST

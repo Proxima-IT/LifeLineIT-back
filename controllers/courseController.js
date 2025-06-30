@@ -36,10 +36,9 @@ exports.getCoursesByName = async (req, res) => {
 
 exports.getCoursesBySearch = async (req, res) => {
   try {
-    const searchQuery = sanitize(req.query.search).split(" ").join("-")
-    console.log(searchQuery)
-    // I want to find from both route and title
-
+    // console.log("Query data", req.query)
+    const searchQuery = sanitize(req.query.name).split(" ").join("-")
+    // console.log(searchQuery)
     const course = await Course.find({
       $or: [
         { route: { $regex: searchQuery, $options: "i" } },
@@ -47,6 +46,7 @@ exports.getCoursesBySearch = async (req, res) => {
       ],
     }).lean()
 
+    console.log(course)
     res.json(course)
   } catch (err) {
     res.status(500).json({ error: err.message })
