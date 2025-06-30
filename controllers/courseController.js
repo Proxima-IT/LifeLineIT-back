@@ -37,6 +37,14 @@ exports.getCoursesByName = async (req, res) => {
 exports.getCoursesBySearch = async (req, res) => {
   try {
     // console.log("Query data", req.query)
+    if (req.query.limit && req.query.type) {
+      console.log("Into Limit")
+      console.log(req.query.status, req.query.limit)
+      const course = await Course.find({ type: req.query.type })
+        .limit(req.query.limit)
+        .lean()
+      return res.json(course)
+    }
     const searchQuery = sanitize(req.query.name).split(" ").join("-")
     // console.log(searchQuery)
     const course = await Course.find({
