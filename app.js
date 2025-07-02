@@ -12,28 +12,24 @@ const studentRoutes = require("./routes/student")
 
 const app = express()
 
-app.use(helmet())
-app.use(morgan("dev"))
-app.use(cookieParser())
-
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
   "https://lifelineit-d5cbf.web.app",
+  "https://lifelineit-d5cbf.firebaseapp.com",
 ]
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true)
-      } else {
-        callback(new Error("Not allowed by CORS"))
-      }
-    },
-    credentials: true,
-  })
-)
+const corsOptions = {
+  origin: allowedOrigins, // function দরকারই নেই
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}
+
+app.use(cors(corsOptions))
+app.use(helmet())
+app.use(morgan("dev"))
+app.use(cookieParser())
 
 app.use(express.urlencoded({ extended: true })) // application/x-www-form-urlencoded
 app.use(express.json()) // application/json
