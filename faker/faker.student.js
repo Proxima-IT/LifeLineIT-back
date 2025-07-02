@@ -41,7 +41,7 @@ async function main() {
 
   console.log("MongoDB connected")
 
-  const fakeStudents = Array.from({ length: 100000 }, generateFakeStudent)
+  const fakeStudents = Array.from({ length: 10000 }, generateFakeStudent)
 
   const inserted = await User.insertMany(fakeStudents)
 

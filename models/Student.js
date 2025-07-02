@@ -10,13 +10,10 @@ const studentSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
-      unique: true,
-      index: true,
       lowercase: true,
     },
     phone: {
       type: String,
-      index: true,
     },
     password: {
       type: String,

@@ -24,9 +24,7 @@ exports.getCourses = async (req, res) => {
 
 exports.getCoursesByName = async (req, res) => {
   try {
-    console.log(req.params.name)
     const paramName = sanitize(req.params.name).split(" ").join("-")
-    console.log(paramName)
     const course = await Course.findOne({ route: paramName }).lean()
     res.json(course)
   } catch (err) {
@@ -38,8 +36,6 @@ exports.getCoursesBySearch = async (req, res) => {
   try {
     // console.log("Query data", req.query)
     if (req.query.limit && req.query.type) {
-      console.log("Into Limit")
-      console.log(req.query.status, req.query.limit)
       const course = await Course.find({ type: req.query.type })
         .limit(req.query.limit)
         .lean()
@@ -54,7 +50,6 @@ exports.getCoursesBySearch = async (req, res) => {
       ],
     }).lean()
 
-    console.log(course)
     res.json(course)
   } catch (err) {
     res.status(500).json({ error: err.message })

@@ -38,12 +38,9 @@ const courseSchema = new mongoose.Schema(
     route: {
       type: String,
       trim: true,
-      index: true,
-      unique: true,
     },
     type: {
       type: String,
-      index: true,
       required: true,
       lowercase: true,
       enum: ["online", "offline"],
