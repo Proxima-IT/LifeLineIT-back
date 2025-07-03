@@ -2,16 +2,21 @@ const express = require("express")
 const router = express.Router()
 const {
   otpVerification,
-  register,
-  login,
+  registerController,
+  loginController,
+  logoutController,
 } = require("../controllers/authController")
 
-const { verifyJWT } = require("../middlewares/authMiddleware")
+const verifyJWT = require("../middlewares/authMiddleware")
 
 // ROOT: /api/auth
 router.post("/otp-verify", otpVerification)
-router.post("/register", register)
-router.post("/login", login)
+
+router.post("/register", registerController)
+
+router.post("/login", loginController)
+
+router.post("/logout", logoutController) // Logout Route
 
 router.get("/check", verifyJWT, (req, res) => {
   res.json({ status: true, user: req.user })

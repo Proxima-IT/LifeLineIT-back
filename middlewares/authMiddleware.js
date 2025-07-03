@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken")
 
-exports.verifyJWT = (req, res, next) => {
+const verifyJWT = (req, res, next) => {
   const token = req.cookies.token // stored as HttpOnly cookie
+  console.log(token)
   if (!token)
     return res.status(200).json({ status: false, message: "Unauthorized" })
 
@@ -10,6 +11,9 @@ exports.verifyJWT = (req, res, next) => {
     req.user = decoded // user info like name, email, etc.
     next()
   } catch (err) {
+    console.error("Error at authMiddleware:", err)
     return res.status(403).json({ status: false, message: "Forbidden" })
   }
 }
+
+module.exports = verifyJWT

@@ -62,7 +62,7 @@ exports.otpVerification = async (req, res) => {
 
 // 2. Registering Account with Confirmation
 
-exports.register = async (req, res) => {
+exports.registerController = async (req, res) => {
   const { error, value } = studentSchema.validate(sanitize(req.body), {
     stripUnknown: true,
   })
@@ -112,7 +112,7 @@ exports.register = async (req, res) => {
 
 // 3. Login
 
-exports.login = async (req, res) => {
+exports.loginController = async (req, res) => {
   const { email, password } = sanitize(req.body)
   try {
     const student = await Student.findOne({ email })
@@ -154,9 +154,21 @@ exports.login = async (req, res) => {
       success: true,
       name: student.name,
       message: "Successfully Logged In!",
+      token,
     })
   } catch (err) {
     console.error("Login Error:", err)
     res.status(500).json({ error: err.message })
   }
+}
+
+exports.logoutController = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "Strict",
+  })
+  return res
+    .status(200)
+    .json({ logout: true, message: "Logged out successfully" })
 }

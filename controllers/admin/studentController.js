@@ -4,8 +4,8 @@ const sanitize = require("mongo-sanitize")
 
 // Student Controller
 exports.getStudents = async (req, res) => {
-  const page = parseInt(req.query.page) || 1
-  const limit = parseInt(req.query.limit) || 100
+  const page = parseInt(sanitize(req.query.page)) || 1
+  const limit = parseInt(sanitize(req.query.limit)) || 100
   try {
     const getStudents = await Student.find({})
       .skip((page - 1) * limit)
@@ -37,6 +37,23 @@ exports.createStudent = async (req, res) => {
   }
 }
 
+// Update Students
+exports.updateStudent = async (req, res) => {
+  const { id } = sanitize(req.params)
+  const bodyData = sanitize(req.body)
+  const updateFields = {}
+
+  for (const key of allowedFields) {
+    if (req.body.hasOwnProperty(key)) {
+      updateFields[key] = bodyData[key]
+    }
+  }
+
+  await Student.updateOne({ id }, { $set: updateFields })
+}
+
+// Delete Student
+
 exports.deleteStudent = async (req, res) => {
   try {
     const { id } = req.params
@@ -45,28 +62,6 @@ exports.deleteStudent = async (req, res) => {
     if (!deletedStudent) {
       return res.status(404).json({ message: "Student not found" })
     }
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
-}
-
-// Course Controller
-
-exports.addCourse = async (req, res) => {
-  const { title, description, category, instructor, thumbnailUrl } = sanitize(
-    req.body
-  )
-
-  try {
-    const Course = await bcrypt.hash(password, 10)
-    const course = new Course({
-      title,
-      description,
-      category,
-      instructor,
-      thumbnailUrl,
-    })
-    await course.save()
   } catch (err) {
     res.status(500).json({ error: err.message })
   }

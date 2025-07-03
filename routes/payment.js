@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const { verifyJWT } = require("../middlewares/authMiddleware")
+const verifyJWT = require("../middlewares/authMiddleware")
 const {
   addPayment,
   getPayements,

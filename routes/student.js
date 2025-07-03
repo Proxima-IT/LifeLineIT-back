@@ -4,16 +4,19 @@ const router = express.Router()
 const {
   getStudents,
   createStudent,
+  updateStudent,
   deleteStudent,
 } = require("../controllers/admin/studentController") // Student Controller
 
 // ADMIN Operation: Student
 
 // ROOT: /api/student
-router.get("/list", getStudents) // GET
+router.get("/", getStudents) // GET
 router.post("/create", createStudent) // POST
 // PUT
+// router.put("/create", updateStudent) // POST
+
 //
-router.delete("/student/delete/:id", deleteStudent) // DELETE
+router.delete("/delete/:id", deleteStudent) // DELETE
 
 module.exports = router

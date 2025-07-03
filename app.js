@@ -9,6 +9,7 @@ const authRoutes = require("./routes/auth")
 const courseRoutes = require("./routes/courses")
 const paymentRoutes = require("./routes/payment")
 const studentRoutes = require("./routes/student")
+const dashboardRoutes = require("./routes/dashboard/dashboard")
 
 const app = express()
 
@@ -39,6 +40,9 @@ app.use("/api/auth", authRoutes)
 app.use("/api/courses", courseRoutes)
 app.use("/api/payment", paymentRoutes)
 app.use("/api/student", studentRoutes)
+
+// Student Dashboard routes
+app.use("/api/dashboard", dashboardRoutes)
 
 app.get("/", (req, res) => {
   res.send("Server is running")
