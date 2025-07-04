@@ -135,21 +135,13 @@ exports.loginController = async (req, res) => {
       process.env.JWT_SECRET
     )
 
-    res.cookie(
-      "token",
-      token,
-      //   httpOnly: true,
-      //   // secure: process.env.NODE_ENV === "production",
-      //   sameSite: "Strict", // or "Lax" or "None" (with Secure)
-      //   maxAge: 24 * 60 * 60 * 1000 * 7, // 7 days
-      // }
-      {
-        httpOnly: true,
-        secure: true,
-        sameSite: "None",
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-      }
-    )
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: "/",
+    })
     res.json({
       success: true,
       name: student.name,
@@ -166,7 +158,8 @@ exports.logoutController = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
     secure: true,
-    sameSite: "Strict",
+    sameSite: "None",
+    path: "/",
   })
   return res
     .status(200)

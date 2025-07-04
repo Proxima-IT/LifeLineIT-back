@@ -14,7 +14,7 @@ exports.dashboardController = async (req, res) => {
     certificates,
   } = findStudent
 
-  const approvedCourses = await Student.aggregate(
+  const approvedCourses = await Student.aggregate([
     {
       $match: {
         _id: new Types.ObjectId(req.user.id),
@@ -33,10 +33,10 @@ exports.dashboardController = async (req, res) => {
           },
         },
       },
-    }
-  )
+    },
+  ])
 
-  const pendingCourses = await Student.aggregate(
+  const pendingCourses = await Student.aggregate([
     {
       $match: {
         _id: new Types.ObjectId(req.user.id),
@@ -55,8 +55,8 @@ exports.dashboardController = async (req, res) => {
           },
         },
       },
-    }
-  )
+    },
+  ])
 
   console.log(pendingCourses)
 
