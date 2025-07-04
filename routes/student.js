@@ -14,7 +14,7 @@ const {
 router.get("/", getStudents) // GET
 router.post("/create", createStudent) // POST
 // PUT
-// router.put("/create", updateStudent) // POST
+router.put("/update", updateStudent) // POST
 
 //
 router.delete("/delete/:id", deleteStudent) // DELETE

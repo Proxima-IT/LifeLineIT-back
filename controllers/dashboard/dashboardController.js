@@ -1,7 +1,7 @@
 const Student = require("../../models/Student")
+const { Types } = require("mongoose")
 
 exports.dashboardController = async (req, res) => {
-  const { id } = req.user.id
   const findStudent = await Student.findOne({ _id: req.user.id })
   const {
     name,
@@ -14,12 +14,10 @@ exports.dashboardController = async (req, res) => {
     certificates,
   } = findStudent
 
-  const { Types } = require("mongoose")
-
   const pendingCourses = await Student.aggregate([
     {
       $match: {
-        _id: id,
+        _id: new Types.ObjectId(req.user.id),
       },
     },
     {
@@ -38,13 +36,12 @@ exports.dashboardController = async (req, res) => {
     },
   ])
 
-  console.log(result)
+  console.log(pendingCourses)
 
   res.json({
     name,
     email,
     phone,
-    password,
     role,
     registrationCardIssued,
     enrolledCourses,
