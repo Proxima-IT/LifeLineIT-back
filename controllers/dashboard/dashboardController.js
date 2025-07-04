@@ -10,55 +10,39 @@ exports.dashboardController = async (req, res) => {
     password,
     role,
     registrationCardIssued,
-    enrolledCourses,
+    totalCourses,
     certificates,
   } = findStudent
 
-  const approvedCourses = await Student.aggregate([
+  const filteredCourses = await Student.aggregate([
     {
-      $match: {
-        _id: new Types.ObjectId(req.user.id),
-      },
+      $match: { _id: new Types.ObjectId(req.user.id) },
     },
     {
       $project: {
         _id: 0,
-        enrolledCourses: {
+        approvedCourses: {
           $filter: {
-            input: "$enrolledCourses",
+            input: "$totalCourses",
             as: "course",
-            cond: {
-              $eq: ["$$course.paymentStatus", "paid"],
-            },
+            cond: { $eq: ["$$course.paymentStatus", "paid"] },
+          },
+        },
+        pendingCourses: {
+          $filter: {
+            input: "$totalCourses",
+            as: "course",
+            cond: { $eq: ["$$course.paymentStatus", "pending"] },
           },
         },
       },
     },
   ])
 
-  const pendingCourses = await Student.aggregate([
-    {
-      $match: {
-        _id: new Types.ObjectId(req.user.id),
-      },
-    },
-    {
-      $project: {
-        _id: 0,
-        enrolledCourses: {
-          $filter: {
-            input: "$enrolledCourses",
-            as: "course",
-            cond: {
-              $eq: ["$$course.paymentStatus", "pending"],
-            },
-          },
-        },
-      },
-    },
-  ])
-
-  console.log(pendingCourses)
+  const courseStatus = filteredCourses[0] || {
+    approvedCourses: [],
+    pendingCourses: [],
+  }
 
   res.json({
     name,
@@ -66,9 +50,8 @@ exports.dashboardController = async (req, res) => {
     phone,
     role,
     registrationCardIssued,
-    enrolledCourses,
-    pendingCourses,
-    approvedCourses,
+    totalCourses,
+    courseStatus,
     certificates,
   })
 }

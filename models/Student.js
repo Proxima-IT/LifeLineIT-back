@@ -24,7 +24,7 @@ const studentSchema = new mongoose.Schema(
       enum: ["student", "admin"],
       default: "student",
     },
-    enrolledCourses: [
+    totalCourses: [
       {
         courseId: {
           type: mongoose.Schema.Types.ObjectId,
