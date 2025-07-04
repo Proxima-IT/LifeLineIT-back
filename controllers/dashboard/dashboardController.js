@@ -14,6 +14,28 @@ exports.dashboardController = async (req, res) => {
     certificates,
   } = findStudent
 
+  const approvedCourses = await Student.aggregate([
+    {
+      $match: {
+        _id: new Types.ObjectId(req.user.id),
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        enrolledCourses: {
+          $filter: {
+            input: "$enrolledCourses",
+            as: "course",
+            cond: {
+              $eq: ["$$course.paymentStatus", "paid"],
+            },
+          },
+        },
+      },
+    },
+  ])
+
   const pendingCourses = await Student.aggregate([
     {
       $match: {
@@ -46,6 +68,7 @@ exports.dashboardController = async (req, res) => {
     registrationCardIssued,
     enrolledCourses,
     pendingCourses,
+    approvedCourses,
     certificates,
   })
 }
