@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken")
 
 const verifyJWT = (req, res, next) => {
   const token = req.cookies.token // stored as HttpOnly cookie
-  console.log(token)
   if (!token)
     return res.status(200).json({ status: false, message: "Unauthorized" })
 

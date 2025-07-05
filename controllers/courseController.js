@@ -4,12 +4,15 @@ const client = require("../utils/redisClient")
 
 exports.getCourses = async (req, res) => {
   try {
+    // If data is already cached in redis, return it
     const CACHE_KEY = "courses:all"
     const cachedCourses = await client.get(CACHE_KEY)
+
     if (cachedCourses) {
-      console.log("Cached Courses Found")
       return res.json(JSON.parse(cachedCourses))
     }
+
+    // If not, find it from the database
 
     const courses = await Course.find(
       {},
@@ -34,35 +37,47 @@ exports.getCourses = async (req, res) => {
 
 exports.getCoursesByName = async (req, res) => {
   try {
+    // If data is already cached in redis, return it
+
     const paramName = sanitize(req.params.name).split(" ").join("-")
     const CACHE_KEY = `courses:${paramName}`
     const cachedCourses = await client.get(CACHE_KEY)
 
-    console.log(cachedCourses)
     if (cachedCourses) {
-      console.log("Cached key found")
       return res.json(JSON.parse(cachedCourses))
     }
 
+    // If not, find it from the database
     const course = await Course.findOne({ route: paramName }).lean()
     await client.set(CACHE_KEY, JSON.stringify(course), { EX: 3600 })
 
-    res.json(course)
+    return res.json(course)
   } catch (err) {
     res.status(500).json({ error: err.message })
   }
 }
 
+// gets reqs from client side's -> "/"
 exports.getCoursesBySearch = async (req, res) => {
   try {
-    if (req.query.limit && req.query.type) {
-      const course = await Course.find({ type: req.query.type })
+    const CACHE_KEY = `search:${
+      req.query.name + (!req.query.limit ? "" : req.query.limit)
+    }`
+
+    const cachedCourses = await client.get(CACHE_KEY)
+    if (cachedCourses) {
+      return res.json(JSON.parse(cachedCourses))
+    }
+
+    if (req.query.limit && req.query.name) {
+      const course = await Course.find({ type: req.query.name })
         .limit(req.query.limit)
         .lean()
+      await client.set(CACHE_KEY, JSON.stringify(course), { EX: 3600 })
       return res.json(course)
     }
+
     const searchQuery = sanitize(req.query.name).split(" ").join("-")
-    // console.log(searchQuery)
     const course = await Course.find({
       $or: [
         { route: { $regex: searchQuery, $options: "i" } },
@@ -72,6 +87,7 @@ exports.getCoursesBySearch = async (req, res) => {
 
     res.json(course)
   } catch (err) {
+    console.log(err)
     res.status(500).json({ error: err.message })
   }
 }
