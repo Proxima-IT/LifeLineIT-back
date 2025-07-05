@@ -1,8 +1,16 @@
 const Course = require("../models/Course")
 const sanitize = require("mongo-sanitize")
+const client = require("../utils/redisClient")
 
 exports.getCourses = async (req, res) => {
   try {
+    const CACHE_KEY = "courses:all"
+    const cachedCourses = await client.get(CACHE_KEY)
+    if (cachedCourses) {
+      console.log("Cached Courses Found")
+      return res.json(JSON.parse(cachedCourses))
+    }
+
     const courses = await Course.find(
       {},
       {
@@ -16,6 +24,8 @@ exports.getCourses = async (req, res) => {
         thumbnail: 1,
       }
     ).lean()
+
+    await client.set(CACHE_KEY, JSON.stringify(courses), { EX: 3600 })
     res.json(courses)
   } catch (err) {
     res.status(500).json({ error: err.message })
@@ -25,7 +35,18 @@ exports.getCourses = async (req, res) => {
 exports.getCoursesByName = async (req, res) => {
   try {
     const paramName = sanitize(req.params.name).split(" ").join("-")
+    const CACHE_KEY = `courses:${paramName}`
+    const cachedCourses = await client.get(CACHE_KEY)
+
+    console.log(cachedCourses)
+    if (cachedCourses) {
+      console.log("Cached key found")
+      return res.json(JSON.parse(cachedCourses))
+    }
+
     const course = await Course.findOne({ route: paramName }).lean()
+    await client.set(CACHE_KEY, JSON.stringify(course), { EX: 3600 })
+
     res.json(course)
   } catch (err) {
     res.status(500).json({ error: err.message })
@@ -34,7 +55,6 @@ exports.getCoursesByName = async (req, res) => {
 
 exports.getCoursesBySearch = async (req, res) => {
   try {
-    // console.log("Query data", req.query)
     if (req.query.limit && req.query.type) {
       const course = await Course.find({ type: req.query.type })
         .limit(req.query.limit)

@@ -30,6 +30,14 @@ const studentSchema = new mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: "Course",
         },
+        route: {
+          type: String,
+          ref: "Course",
+        },
+        price: {
+          type: String,
+          ref: "Course",
+        },
         enrolledAt: Date,
         paymentStatus: {
           type: String,
@@ -58,10 +66,7 @@ const studentSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    // address: String,
-    // gender: String,
-    // dateOfBirth: Date,
-    // timestamps will automatically add createdAt and updatedAt
+
   },
   { timestamps: true }
 )

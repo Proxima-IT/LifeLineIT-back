@@ -7,7 +7,6 @@ exports.dashboardController = async (req, res) => {
     name,
     email,
     phone,
-    password,
     role,
     registrationCardIssued,
     totalCourses,
