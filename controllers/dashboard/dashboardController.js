@@ -4,7 +4,6 @@ const { Types } = require("mongoose")
 exports.dashboardController = async (req, res) => {
   const findStudent = await Student.findOne({ _id: req.user.id })
   const {
-    _id,
     name,
     email,
     phone,
@@ -44,7 +43,7 @@ exports.dashboardController = async (req, res) => {
     pendingCourses: [],
   }
 
-  const totalPaid = courseStatus.approvedCourses.reduce(
+  const totalPaid = courseStatus.approvedCourses?.reduce(
     (sum, course) => sum + Number(course.price),
     0
   )
