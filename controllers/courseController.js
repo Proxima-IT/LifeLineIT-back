@@ -35,9 +35,35 @@ exports.getCourses = async (req, res) => {
   }
 }
 
+exports.getCoursesById = async (req, res) => {
+  try {
+    const paramId = sanitize(req.params.id)
+    console.log("param", paramId)
+
+    const CACHE_KEY = `courses:${paramId}`
+    const cachedCourses = await client.get(CACHE_KEY)
+
+    console.log(CACHE_KEY, cachedCourses)
+    if (cachedCourses) {
+      return res.json(JSON.parse(cachedCourses))
+    }
+
+    // If not, find it from the database
+    const course = await Course.findOne({
+      _id: new Types.ObjectId(paramId),
+    }).lean()
+    console.log(course)
+    await client.set(CACHE_KEY, JSON.stringify(course), { EX: 3600 })
+
+    return res.json(course)
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+}
+
 exports.getCoursesByName = async (req, res) => {
   try {
-    // If data is already cached in redis, return it
+    
 
     const paramName = sanitize(req.params.name).split(" ").join("-")
     const CACHE_KEY = `courses:${paramName}`

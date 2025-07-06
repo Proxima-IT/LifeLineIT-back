@@ -1,6 +1,7 @@
 const Student = require("../../models/Student")
 const Course = require("../../models/Course")
 const sanitize = require("mongo-sanitize")
+const bcrypt = require("bcrypt")
 
 // Student Controller
 exports.getStudents = async (req, res) => {
@@ -37,19 +38,36 @@ exports.createStudent = async (req, res) => {
   }
 }
 
-// Update Students
-exports.updateStudent = async (req, res) => {
-  const { id } = sanitize(req.params)
-  const bodyData = sanitize(req.body)
-  const updateFields = {}
+// Reset Student Data (Rename, Forgot Password etc.)
+exports.resetStudent = async (req, res) => {
+  try {
+    const rawBody = sanitize(req.body)
+    const allowedFields = ["name", "email", "password"]
+    const updateFields = {}
 
-  for (const key of allowedFields) {
-    if (req.body.hasOwnProperty(key)) {
-      updateFields[key] = bodyData[key]
+    for (const key of allowedFields) {
+      if (Object.prototype.hasOwnProperty.call(rawBody, key)) {
+        updateFields[key] = rawBody[key]
+      }
     }
-  }
 
-  await Student.updateOne({ id }, { $set: updateFields })
+    console.log(updateFields)
+    if (Object.prototype.hasOwnProperty.call(updateFields, "password")) {
+      updateFields.password = await bcrypt.hash(updateFields.password, 10)
+    }
+
+    await Student.updateOne({ _id: req.user.id }, { $set: updateFields })
+    // Clearing the previous cookie
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      path: "/",
+    })
+    return res.json({ success: true })
+  } catch (error) {
+    return res.json({ error })
+  }
 }
 
 // Delete Student

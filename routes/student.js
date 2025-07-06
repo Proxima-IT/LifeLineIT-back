@@ -4,9 +4,10 @@ const router = express.Router()
 const {
   getStudents,
   createStudent,
-  updateStudent,
+  resetStudent,
   deleteStudent,
 } = require("../controllers/admin/studentController") // Student Controller
+const verifyJWT = require("../middlewares/authMiddleware")
 
 // ADMIN Operation: Student
 
@@ -14,7 +15,7 @@ const {
 router.get("/", getStudents) // GET
 router.post("/create", createStudent) // POST
 // PUT
-router.put("/update", updateStudent) // POST
+router.put("/reset", verifyJWT, resetStudent) // POST
 
 //
 router.delete("/delete/:id", deleteStudent) // DELETE

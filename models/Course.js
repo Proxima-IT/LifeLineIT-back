@@ -20,48 +20,9 @@ const instructorSchema = new mongoose.Schema(
   { _id: false }
 )
 
-const modulesSchema = new mongoose.Schema(
-  {
-    title: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    videoLink: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-
-    resources: {
-      type: [
-        {
-          title: {
-            type: String,
-            required: true,
-            trim: true,
-          },
-          link: {
-            type: String,
-            required: true,
-            trim: true,
-          },
-        },
-      ],
-      default: [],
-      validate: [(arr) => arr.length > 0, "At least one resource is required."],
-    },
-  },
-  { _id: false }
-)
-
 const linkSchema = new mongoose.Schema(
   {
-    groups: {
+    fb: {
       type: [{ title: String, link: String }],
       required: true,
       trim: true,
@@ -71,6 +32,46 @@ const linkSchema = new mongoose.Schema(
       required: true,
     },
   },
+  { _id: false }
+)
+
+const modulesSchema = new mongoose.Schema(
+  [
+    {
+      title: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      description: {
+        type: String,
+        required: true,
+      },
+      videoLink: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+
+      resources: {
+        type: [
+          {
+            title: {
+              type: String,
+              required: true,
+              trim: true,
+            },
+            link: {
+              type: String,
+              required: true,
+              trim: true,
+            },
+          },
+        ],
+        default: [],
+      },
+    },
+  ],
   { _id: false }
 )
 

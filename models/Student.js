@@ -24,17 +24,17 @@ const studentSchema = new mongoose.Schema(
       enum: ["student", "admin"],
       default: "student",
     },
-    totalCourses: [
+    totalOrders: [
       {
         courseId: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "Course",
         },
-        route: {
+        courseRoute: {
           type: String,
           ref: "Course",
         },
-        price: {
+        paid: {
           type: String,
           ref: "Course",
         },
@@ -45,6 +45,7 @@ const studentSchema = new mongoose.Schema(
           default: "pending",
         },
       },
+      { _id: false },
     ],
     certificates: [
       {
@@ -66,7 +67,6 @@ const studentSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-
   },
   { timestamps: true }
 )

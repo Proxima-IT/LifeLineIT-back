@@ -4,12 +4,13 @@ const { Types } = require("mongoose")
 exports.dashboardController = async (req, res) => {
   const findStudent = await Student.findOne({ _id: req.user.id })
   const {
+    _id,
     name,
     email,
     phone,
     role,
     registrationCardIssued,
-    totalCourses,
+    totalOrders,
     certificates,
   } = findStudent
 
@@ -22,14 +23,14 @@ exports.dashboardController = async (req, res) => {
         _id: 0,
         approvedCourses: {
           $filter: {
-            input: "$totalCourses",
+            input: "$totalOrders",
             as: "course",
             cond: { $eq: ["$$course.paymentStatus", "paid"] },
           },
         },
         pendingCourses: {
           $filter: {
-            input: "$totalCourses",
+            input: "$totalOrders",
             as: "course",
             cond: { $eq: ["$$course.paymentStatus", "pending"] },
           },
@@ -43,14 +44,20 @@ exports.dashboardController = async (req, res) => {
     pendingCourses: [],
   }
 
+  const totalPaid = courseStatus.approvedCourses.reduce(
+    (sum, course) => sum + Number(course.price),
+    0
+  )
+
   res.json({
     name,
     email,
     phone,
     role,
     registrationCardIssued,
-    totalCourses,
+    totalOrders,
     courseStatus,
+    totalPaid,
     certificates,
   })
 }
