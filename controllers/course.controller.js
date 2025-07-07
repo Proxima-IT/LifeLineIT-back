@@ -14,19 +14,7 @@ exports.getCourses = async (req, res) => {
 
     // If not, find it from the database
 
-    const courses = await Course.find(
-      {},
-      {
-        title: 1,
-        subtitle: 1,
-        description: 1,
-        route: 1,
-        duration: 1,
-        type: 1,
-        category: 1,
-        thumbnail: 1,
-      }
-    ).lean()
+    const courses = await Course.find({}).lean()
 
     await client.set(CACHE_KEY, JSON.stringify(courses), { EX: 3600 })
     res.json(courses)

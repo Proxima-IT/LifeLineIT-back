@@ -21,6 +21,9 @@ const paymentSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
     },
+    transId: {
+      type: String,
+    },
     accountNumber: {
       type: String,
     },
