@@ -4,8 +4,9 @@ const {
   getCourses,
   getCoursesByName,
   getCoursesBySearch,
-} = require("../controllers/courseController")
-const { addCourse } = require("../controllers/admin/courseController") // Course Controller
+} = require("../controllers/course.controller")
+// ADMIN CONTROLLERS
+const { addCourse } = require("../controllers/course.controller") // Course Controller
 
 // ROOT: /api/courses
 router.get("/", getCourses) // get All Courses

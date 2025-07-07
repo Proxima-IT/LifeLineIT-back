@@ -7,9 +7,16 @@ const router = express.Router()
 // Controllers:
 const {
   dashboardController,
-} = require("../../controllers/dashboard/dashboardController")
+} = require("../../controllers/dashboard/dashboard.controller")
 
-// ROOT: /api/dashboard/details
+const {
+  addNotice,
+  viewNotice,
+} = require("../../controllers/dashboard/notice.controller")
+
+// ROOT: /api/dashboard
 router.get("/", verifyJWT, dashboardController)
+router.get("/notice", viewNotice)
+router.post("/notice", addNotice)
 
 module.exports = router

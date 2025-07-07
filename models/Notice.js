@@ -1,23 +1,19 @@
 const mongoose = require("mongoose")
 
-const noticeSchema = new mongoose.Schema(
-  {
-    title: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    image: {
-      type: String,
-      required: true,
-      trim: true,
-    },
+const noticeSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true,
   },
-  { _id: false }
-)
+  description: {
+    type: String,
+    required: true,
+  },
+  image: {
+    type: String,
+    trim: true,
+  },
+})
 
 module.exports = mongoose.model("Notice", noticeSchema)

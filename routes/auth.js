@@ -5,7 +5,7 @@ const {
   registerController,
   loginController,
   logoutController,
-} = require("../controllers/authController")
+} = require("../controllers/auth.controller")
 
 const verifyJWT = require("../middlewares/authMiddleware")
 
