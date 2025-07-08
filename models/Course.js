@@ -160,6 +160,10 @@ const courseSchema = new mongoose.Schema(
       type: [modulesSchema],
       required: true,
     },
+    certificate: {
+      type: Boolean,
+      required: true,
+    },
   },
   { timestamps: true }
 )

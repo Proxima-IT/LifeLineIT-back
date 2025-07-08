@@ -16,7 +16,7 @@ const {
 
 // ROOT: /api/dashboard
 router.get("/", verifyJWT, dashboardController)
-router.get("/notice", viewNotice)
-router.post("/notice", addNotice)
+router.get("/notices", viewNotice)
+router.post("/notices", addNotice)
 
 module.exports = router

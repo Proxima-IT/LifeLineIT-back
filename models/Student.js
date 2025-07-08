@@ -63,10 +63,6 @@ const studentSchema = new mongoose.Schema(
         },
       },
     ],
-    registrationCardIssued: {
-      type: Boolean,
-      default: false,
-    },
   },
   { timestamps: true }
 )
