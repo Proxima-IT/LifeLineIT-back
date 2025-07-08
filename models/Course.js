@@ -48,11 +48,23 @@ const modulesSchema = new mongoose.Schema(
         required: true,
       },
       videoLink: {
-        type: String,
+        type: [
+          {
+            title: {
+              type: String,
+              required: true,
+              trim: true,
+            },
+            link: {
+              type: String,
+              required: true,
+              trim: true,
+            },
+          },
+        ],
         required: true,
         trim: true,
       },
-
       resources: {
         type: [
           {
