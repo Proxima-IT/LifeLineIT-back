@@ -9,7 +9,7 @@ exports.getCourses = async (req, res) => {
     const cachedCourses = await client.get(CACHE_KEY)
 
     if (cachedCourses) {
-      return res.json(JSON.parse(cachedCourses))
+      return res.status(200).json(JSON.parse(cachedCourses))
     }
 
     // If not, find it from the database
@@ -30,7 +30,7 @@ exports.getCoursesByName = async (req, res) => {
     const cachedCourses = await client.get(CACHE_KEY)
 
     if (cachedCourses) {
-      return res.json(JSON.parse(cachedCourses))
+      return res.status(200).json(JSON.parse(cachedCourses))
     }
 
     // If not, find it from the database
@@ -92,6 +92,9 @@ exports.addCourse = async (req, res) => {
     const course = new Course(req.body)
     await course.save()
     res.status(200).json({ message: "Success" })
+
+    // Delete the previous cache, for storing and updating it.
+    redisClient.del("courses:all")
   } catch (err) {
     res.status(500).json({ error: err.message })
     console.log(err)

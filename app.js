@@ -35,6 +35,10 @@ app.use(cookieParser())
 app.use(express.urlencoded({ extended: true })) // application/x-www-form-urlencoded
 app.use(express.json()) // application/json
 
+app.get("/", (req, res) => {
+  // Public URL goes here
+  res.redirect("https://www.youtube.com")
+})
 // Routes
 app.use("/api/auth", authRoutes)
 app.use("/api/courses", courseRoutes)

@@ -44,7 +44,7 @@ exports.dashboardController = async (req, res) => {
   }
 
   const totalPaid = courseStatus.approvedCourses?.reduce(
-    (sum, course) => sum + Number(course.price),
+    (sum, course) => sum + Number(course.paid),
     0
   )
 
