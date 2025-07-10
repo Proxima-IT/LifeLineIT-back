@@ -5,6 +5,7 @@ exports.dashboardController = async (req, res) => {
   const findStudent = await Student.findOne({ _id: req.user.id })
   const {
     name,
+    sid,
     email,
     phone,
     role,
@@ -50,6 +51,7 @@ exports.dashboardController = async (req, res) => {
 
   res.json({
     name,
+    sid,
     email,
     phone,
     role,

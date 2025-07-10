@@ -1,3 +1,4 @@
+const path = require("path")
 const express = require("express")
 const cors = require("cors")
 const helmet = require("helmet")
@@ -34,6 +35,7 @@ app.use(cookieParser())
 
 app.use(express.urlencoded({ extended: true })) // application/x-www-form-urlencoded
 app.use(express.json()) // application/json
+app.use(express.static(path.join(__dirname, "public")))
 
 app.get("/", (req, res) => {
   // Public URL goes here

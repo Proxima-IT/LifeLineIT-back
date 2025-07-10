@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const studentID = require("./id/counter.student")
 
 const studentSchema = new mongoose.Schema(
   {
@@ -6,6 +7,11 @@ const studentSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+    },
+    sid: {
+      type: String,
+      unique: true,
+      default: null,
     },
     email: {
       type: String,
@@ -38,6 +44,12 @@ const studentSchema = new mongoose.Schema(
           type: String,
           ref: "Course",
         },
+        registrationId: {
+          type: String, // 2025/ABC/${sid}
+        },
+        certificateId: {
+          type: String, // 2025-${sid}
+        },
         enrolledAt: Date,
         paymentStatus: {
           type: String,
@@ -47,24 +59,25 @@ const studentSchema = new mongoose.Schema(
       },
       { _id: false },
     ],
-    certificates: [
-      {
-        courseId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Course",
-        },
-        certificateId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Certificate",
-        },
-        issued: {
-          type: Boolean,
-          default: false,
-        },
-      },
-    ],
   },
   { timestamps: true }
 )
+
+async function getNextSequence(name) {
+  const counter = await studentID.findOneAndUpdate(
+    { name },
+    { $inc: { sid: 1 } },
+    { new: true, upsert: true }
+  )
+  return counter.sid
+}
+
+studentSchema.pre("save", async function (next) {
+  if (this.isNew) {
+    const sid = await getNextSequence("studentID")
+    this.sid = `LIT-${sid.toString().padStart(5, "0")}`
+  }
+  next()
+})
 
 module.exports = mongoose.model("Student", studentSchema)

@@ -33,7 +33,7 @@ exports.otpVerification = async (req, res) => {
 
     const rootDir = path.resolve(__dirname, "../")
     let otpHtmlContent = await fs.readFile(
-      path.join(rootDir, "utils", "templates", "otpMail.html"),
+      path.join(rootDir, "utils", "templates", "email", "otpMail.html"),
       "utf8"
     )
 
