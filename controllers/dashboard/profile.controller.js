@@ -13,11 +13,11 @@ const resetInfo = async (req, res) => {
       }
     }
 
-    console.log(updateFields)
+    console.log("UpdateFields", updateFields)
 
     if (Object.prototype.hasOwnProperty.call(updateFields, "newpass")) {
       const { email } = req.user
-      const findStudent = await Student.findOne(email)
+      const findStudent = await Student.findOne({ email })
 
       const hashedPassword = findStudent.password
       const currentPassword = updateFields.currentpass
@@ -25,18 +25,13 @@ const resetInfo = async (req, res) => {
 
       if (findStudent && isMatch) {
         updateFields.password = await bcrypt.hash(updateFields.newpass, 10)
+      } else {
+        res.json({ success: false, message: "Password didn't matched" })
       }
     }
 
     await Student.updateOne({ _id: req.user.id }, { $set: updateFields })
 
-    // Clearing the previous cookie
-    res.clearCookie("token", {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
-      path: "/",
-    })
     return res.json({ success: true })
   } catch (error) {
     return res.json({ error })

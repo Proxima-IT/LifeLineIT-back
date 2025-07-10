@@ -30,7 +30,7 @@ exports.viewNotice = async (req, res) => {
 
     const getAllNotices = await Notice.find({})
 
-    await client.set(CACHE_KEY, JSON.stringify(getAllNotices), { EX: 3600 })
+    await client.set(CACHE_KEY, JSON.stringify(getAllNotices), { EX: 60 })
     return res.json(getAllNotices)
   } catch (error) {
     console.log(error)
