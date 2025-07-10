@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 const studentID = require("./id/counter.student")
+// const certifiacteID = require("./id/counter.certificate")
 
 const studentSchema = new mongoose.Schema(
   {
@@ -51,7 +52,7 @@ const studentSchema = new mongoose.Schema(
           type: String, // 2025/ABC/${sid}
         },
         certificateId: {
-          type: String, // 2025-${sid}
+          type: String, // 2025-ABC${sid}
         },
         enrolledAt: Date,
         paymentStatus: {

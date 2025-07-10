@@ -52,6 +52,7 @@ exports.dashboardController = async (req, res) => {
 
   res.json({
     name,
+    image,
     sid,
     email,
     phone,

@@ -1,6 +1,6 @@
 const sanitize = require("mongo-sanitize")
 const Student = require("../../models/Student")
-
+const bcrypt = require("bcrypt")
 const resetInfo = async (req, res) => {
   try {
     const rawBody = sanitize(req.body)

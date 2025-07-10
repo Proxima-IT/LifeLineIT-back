@@ -16,8 +16,8 @@ exports.getCourses = async (req, res) => {
 
     const courses = await Course.find({}).lean()
 
-    await client.set(CACHE_KEY, JSON.stringify(courses), { EX: 60 })
-    res.json(courses)
+    await client.set(CACHE_KEY, JSON.stringify(courses.reverse()), { EX: 60 })
+    res.json(courses.reverse())
   } catch (err) {
     res.status(500).json({ error: err.message })
   }

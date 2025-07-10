@@ -7,6 +7,8 @@ exports.addNotice = async (req, res) => {
   try {
     const newNotice = new Notice(sanitize(req.body))
     await newNotice.save()
+
+    client.del("notices")
     return res.json({
       success: true,
       message: "Notice was added successfully.",
@@ -37,3 +39,5 @@ exports.viewNotice = async (req, res) => {
     return res.json({ err: error.message })
   }
 }
+
+// Delete Image
