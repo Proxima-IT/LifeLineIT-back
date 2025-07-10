@@ -5,6 +5,7 @@ exports.dashboardController = async (req, res) => {
   const findStudent = await Student.findOne({ _id: req.user.id })
   const {
     name,
+    image,
     sid,
     email,
     phone,
