@@ -3,15 +3,18 @@ const studentID = require("./id/counter.student")
 
 const studentSchema = new mongoose.Schema(
   {
+    sid: {
+      type: String,
+      unique: true,
+      default: null,
+    },
     name: {
       type: String,
       required: true,
       trim: true,
     },
-    sid: {
+    image: {
       type: String,
-      unique: true,
-      default: null,
     },
     email: {
       type: String,

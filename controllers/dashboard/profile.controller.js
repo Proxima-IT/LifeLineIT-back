@@ -4,7 +4,7 @@ const Student = require("../../models/Student")
 const resetInfo = async (req, res) => {
   try {
     const rawBody = sanitize(req.body)
-    const allowedFields = ["name", "phone", "currentpass", "newpass"]
+    const allowedFields = ["name", "image", "phone", "currentpass", "newpass"]
     const updateFields = {}
 
     for (const key of allowedFields) {

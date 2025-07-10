@@ -3,7 +3,8 @@ const path = require("path")
 const generateRegistrationPDF = require("../../utils/registrationcard")
 const sanitize = require("mongo-sanitize")
 const registrationCardSchema = require("../../schemas/registrationSchema")
-exports.registrationController = async (req, res) => {
+
+exports.registrationController = async (req, res) => { 
   try {
     const { error, value } = registrationCardSchema.validate(req.body)
     if (error) return res.json({ error })
