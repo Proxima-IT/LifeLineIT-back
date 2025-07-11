@@ -1,6 +1,9 @@
 const path = require("path")
 
-const generateRegistrationPDF = require("../../utils/registrationCard")
+const generateRegistrationPDF = require(path.join(
+  __dirname,
+  "../../utils/registrationCard"
+))
 const sanitize = require("mongo-sanitize")
 const Student = require("../../models/Student")
 
