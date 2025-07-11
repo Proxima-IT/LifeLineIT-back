@@ -1,6 +1,5 @@
 const path = require("path")
 
-console.log(__dirname)
 const generateRegistrationPDF = require(path.join(
   __dirname,
   "../../utils/registrationCard"
