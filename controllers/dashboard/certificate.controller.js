@@ -2,14 +2,10 @@ const path = require("path")
 
 const generateCertificate = require("../../utils/certificateCard")
 const sanitize = require("mongo-sanitize")
-const certificateSchema = require("../../schemas/certificateSchema")
 
 exports.certificateController = async (req, res) => {
   try {
-    const { error, value } = certificateSchema.validate(req.body)
-    if (error) return res.json({ error })
-
-    const data = sanitize(value)
+    const data = sanitize(req.body)
 
     const {
       name,

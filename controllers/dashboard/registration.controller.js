@@ -2,35 +2,34 @@ const path = require("path")
 
 const generateRegistrationPDF = require("../../utils/registrationCard")
 const sanitize = require("mongo-sanitize")
-const registrationCardSchema = require("../../schemas/registrationSchema")
+const Student = require("../../models/Student")
 
 exports.registrationController = async (req, res) => {
   try {
-    const { error, value } = registrationCardSchema.validate(req.body)
-    if (error) return res.json({ error })
+    const { email, courseId } = sanitize(req.body)
 
-    const data = sanitize(value)
-    
-    const {
-      name,
-      father,
-      mother,
-      gender,
-      birthday,
-      number,
-      registration,
-      sid,
-    } = data
+    console.log(email, courseId)
+
+    const findStudent = await Student.findOne({ email })
+
+    const matchedCourse = findStudent.totalOrders.find(
+      (order) => order.courseId.toString() === courseId.toString()
+    )
+
+    const { registrationId } = matchedCourse
+
+    const { name, father, mother, gender, number, dateOfBirth, sid } =
+      findStudent
 
     await generateRegistrationPDF(
       name,
+      sid,
       father,
       mother,
       gender,
-      birthday,
+      dateOfBirth,
       number,
-      registration,
-      sid
+      registrationId
     )
 
     const filePath = path.join(
