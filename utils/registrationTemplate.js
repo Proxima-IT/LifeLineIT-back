@@ -104,19 +104,8 @@ async function generateRegistrationPDF(
     // Save the updated PDF
     const updatedPdfBytes = await pdfDoc.save()
 
-    const fileName = `${formData[0].split(" ").join("_")}-registration-card.pdf`
-    const savePath = path.join(
-      __dirname,
-      "../",
-      "public",
-      "generated",
-      "reg",
-      fileName
-    )
-
-    fs.writeFileSync(savePath, updatedPdfBytes)
-
     console.log("✅ PDF updated successfully.")
+    return updatedPdfBytes
   } catch (err) {
     console.error("❌ Failed to edit PDF:", err.message)
   }

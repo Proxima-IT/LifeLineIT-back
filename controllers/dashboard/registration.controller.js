@@ -40,7 +40,8 @@ exports.registrationController = async (req, res) => {
       number,
       registration,
       sid, */
-    await generateRegistrationPDF(
+      
+    const pdfBuffer = await generateRegistrationPDF(
       name,
       father,
       mother,
@@ -51,22 +52,16 @@ exports.registrationController = async (req, res) => {
       sid
     )
 
-    const filePath = path.join(
-      __dirname,
-      "../",
-      "../",
-      "public",
-      "generated",
-      "reg",
-      name.split(" ").join("_") + "-registration-card.pdf"
-    )
-
-    res.download(filePath, (err) => {
-      if (err) {
-        console.error("Download error:", err)
-        res.status(404).send("File not found")
-      }
+    res.writeHead(200, {
+      "Content-Type": "application/pdf",
+      "Content-Disposition": `attachment; filename=${name
+        .split(" ")
+        .join("_")}-registration-card.pdf`,
+      "Content-Length": pdfBuffer.length,
     })
+
+    res.end(pdfBuffer)
+
   } catch (error) {
     console.log(error)
     return res.json({ error })
