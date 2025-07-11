@@ -35,10 +35,18 @@ exports.getCoursesByName = async (req, res) => {
 
     // If not, find it from the database
     const course = await Course.findOne({ route: paramName }).lean()
-    await client.set(CACHE_KEY, JSON.stringify(course.reverse()), { EX: 60 })
+
+    if (!course) {
+      return res
+        .status(404)
+        .json({ error: `No courses found in ${paramName} route` })
+    }
+    
+    await client.set(CACHE_KEY, JSON.stringify(course), { EX: 60 })
 
     return res.json(course)
   } catch (err) {
+    console.log(err)
     res.status(500).json({ error: err.message })
   }
 }
