@@ -4,6 +4,8 @@ const sanitize = require("mongo-sanitize")
 const Student = require("../../models/Student")
 
 const generateRegistrationPDF = require("../../utils/registrationTemplate")
+const Course = require("../../models/Course")
+const getSession = require("../../utils/sessionGen")
 
 exports.registrationController = async (req, res) => {
   try {
@@ -17,21 +19,19 @@ exports.registrationController = async (req, res) => {
       (order) => order.courseId.toString() === courseId.toString()
     )
 
-    const { registrationId } = matchedCourse
+    const findCourse = await Course.findOne({ _id: courseId }, { duration: 1 })
+    const courseDuration = findCourse ? findCourse.duration : "Unknown"
 
-    const { name, father, mother, gender, phone, dateOfBirth, sid } =
+    const { registrationId, enrolledAt } = matchedCourse
+    const courseSession = getSession(
+      enrolledAt,
+      Number(courseDuration.split(" ")[0])
+    )
+
+    const { name, image, father, mother, gender, phone, dateOfBirth, sid } =
       findStudent
 
-    console.log(
-      name,
-      father,
-      mother,
-      gender,
-      phone,
-      dateOfBirth,
-      registrationId,
-      sid
-    )
+    console.log("Image URL:", image)
     /* name,
       father,
       mother,
@@ -40,8 +40,9 @@ exports.registrationController = async (req, res) => {
       number,
       registration,
       sid, */
-      
+
     const pdfBuffer = await generateRegistrationPDF(
+      image,
       name,
       father,
       mother,
@@ -49,7 +50,8 @@ exports.registrationController = async (req, res) => {
       dateOfBirth,
       phone,
       registrationId,
-      sid
+      sid,
+      courseSession
     )
 
     res.writeHead(200, {
@@ -61,7 +63,6 @@ exports.registrationController = async (req, res) => {
     })
 
     res.end(pdfBuffer)
-
   } catch (error) {
     console.log(error)
     return res.json({ error })

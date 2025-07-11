@@ -3,7 +3,13 @@ const path = require("path")
 const { PDFDocument, rgb, StandardFonts } = require("pdf-lib")
 const fontkit = require("fontkit")
 
+async function getImageMimeType(url) {
+  const res = await fetch(url, { method: "HEAD" }) // just fetch headers
+  return res.headers.get("content-type") // e.g., image/jpeg or image/png
+}
+
 async function generateRegistrationPDF(
+  imageUrl,
   name,
   father,
   mother,
@@ -11,7 +17,8 @@ async function generateRegistrationPDF(
   birthday,
   number,
   registration,
-  sid
+  sid,
+  courseSession
 ) {
   try {
     const formData = [
@@ -58,7 +65,7 @@ async function generateRegistrationPDF(
 
     const helveticaFont = await pdfDoc.embedFont(StandardFonts.HelveticaOblique)
 
-    page.drawText("January-December 2025", {
+    page.drawText(courseSession, {
       x: 400,
       y: 264,
       size: 10,
@@ -67,9 +74,23 @@ async function generateRegistrationPDF(
     })
 
     // Load and embed image (JPEG)
-    const imagePath = path.join(__dirname, "../", "public", "img", "image.jpeg")
-    const imageBytes = fs.readFileSync(imagePath)
-    const image = await pdfDoc.embedJpg(imageBytes)
+
+    const response = await fetch(imageUrl)
+    const arrayBuffer = await response.arrayBuffer()
+    const imageBytes = Buffer.from(arrayBuffer)
+
+    const imgType = await getImageMimeType(imageUrl)
+
+    let image
+    if (imgType == "image/jpeg" || imgType == "image/jpg") {
+      image = await pdfDoc.embedJpg(imageBytes)
+    } else if (imgType == "image/png") {
+      image = await pdfDoc.embedPng(imageBytes)
+    } else {
+      throw new Error(
+        "Unsupported image format. Only JPEG and PNG are allowed."
+      )
+    }
     const { width, height } = image
 
     // Define image box dimensions and position
@@ -107,6 +128,7 @@ async function generateRegistrationPDF(
     console.log("✅ PDF updated successfully.")
     return updatedPdfBytes
   } catch (err) {
+    console.log(err)
     console.error("❌ Failed to edit PDF:", err.message)
   }
 }
