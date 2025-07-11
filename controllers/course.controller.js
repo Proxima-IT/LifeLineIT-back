@@ -65,9 +65,10 @@ exports.getCoursesBySearch = async (req, res) => {
 
     if (req.query.limit && req.query.name) {
       const course = await Course.find({ type: req.query.name })
+        .sort({ _id: -1 })
         .limit(req.query.limit)
         .lean()
-      await client.set(CACHE_KEY, JSON.stringify(course.reverse()), { EX: 60 })
+      await client.set(CACHE_KEY, JSON.stringify(course), { EX: 60 })
       return res.json(course)
     }
 
@@ -79,7 +80,7 @@ exports.getCoursesBySearch = async (req, res) => {
       ],
     }).lean()
 
-    res.json(course.reverse())
+    res.json(course)
   } catch (err) {
     console.log(err)
     res.status(500).json({ error: err.message })
