@@ -8,18 +8,7 @@ const {
 // ADMIN CONTROLLERS
 const { addCourse } = require("../controllers/course.controller") // Course Controller
 
-const rateLimit = require("express-rate-limit")
-
-function rateLimiter(time, limit, message) {
-  return rateLimit({
-    windowMs: time, // 1 hour
-    max: limit,
-    message: {
-      status: false,
-      message: message,
-    },
-  })
-}
+const rateLimiter = require("../middlewares/rateLimiter")
 
 // ROOT: /api/courses
 router.get("/", rateLimiter(60 * 5 * 1000, 60, "Too many Requests"), getCourses) // get All Courses

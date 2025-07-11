@@ -9,18 +9,7 @@ const {
 
 const verifyJWT = require("../middlewares/authMiddleware")
 
-const rateLimit = require("express-rate-limit")
-
-function rateLimiter(time, limit, message) {
-  return rateLimit({
-    windowMs: time,
-    max: limit,
-    message: {
-      status: false,
-      message: message,
-    },
-  })
-}
+const rateLimiter = require("../middlewares/rateLimiter")
 
 // ROOT: /api/auth
 router.post(

@@ -19,21 +19,13 @@ const {
 const {
   registrationController,
 } = require("../../controllers/dashboard/registration.controller")
+const {
+  certificateController,
+} = require("../../controllers/dashboard/certificate.controller")
 
 const resetInfo = require("../../controllers/dashboard/profile.controller")
 
-const rateLimit = require("express-rate-limit")
-
-function rateLimiter(time, limit, message) {
-  return rateLimit({
-    windowMs: time, // 1 hour
-    max: limit,
-    message: {
-      status: false,
-      message: message,
-    },
-  })
-}
+const rateLimiter = require("../../middlewares/rateLimiter")
 
 // ROOT: /api/dashboard
 router.get(
@@ -46,6 +38,7 @@ router.get(
   verifyJWT,
   dashboardController
 )
+
 router.get("/notices", viewNotice)
 router.post("/notices", addNotice)
 router.post(
@@ -58,6 +51,6 @@ router.post(
 )
 
 router.post("/registration", registrationController)
-// router.post("/certificate", registrationController)
+router.post("/certificate", certificateController)
 
 module.exports = router

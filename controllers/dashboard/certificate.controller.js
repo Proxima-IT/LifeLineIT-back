@@ -1,36 +1,36 @@
 const path = require("path")
 
-const generateRegistrationPDF = require("../../utils/registrationCard")
+const generateCertificate = require("../../utils/certificateCard")
 const sanitize = require("mongo-sanitize")
-const registrationCardSchema = require("../../schemas/registrationSchema")
+const certificateSchema = require("../../schemas/certificateSchema")
 
-exports.registrationController = async (req, res) => {
+exports.certificateController = async (req, res) => {
   try {
-    const { error, value } = registrationCardSchema.validate(req.body)
+    const { error, value } = certificateSchema.validate(req.body)
     if (error) return res.json({ error })
 
     const data = sanitize(value)
-    
+
     const {
       name,
-      father,
-      mother,
-      gender,
-      birthday,
-      number,
-      registration,
+      course,
+      grade,
+      courseDuration,
+      certificateId,
       sid,
+      regid,
+      instructorName,
     } = data
 
-    await generateRegistrationPDF(
+    await generateCertificate(
       name,
-      father,
-      mother,
-      gender,
-      birthday,
-      number,
-      registration,
-      sid
+      course,
+      grade,
+      courseDuration,
+      certificateId,
+      sid,
+      regid,
+      instructorName
     )
 
     const filePath = path.join(
@@ -39,8 +39,8 @@ exports.registrationController = async (req, res) => {
       "../",
       "public",
       "generated",
-      "reg",
-      name.split(" ").join("_") + "-registration-card.pdf"
+      "cert",
+      name.split(" ").join("_") + "-certificate.pdf"
     )
 
     res.download(filePath, (err) => {
