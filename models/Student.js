@@ -54,6 +54,10 @@ const studentSchema = new mongoose.Schema(
         certificateId: {
           type: String, // 2025-ABC${sid}
         },
+        canIssueCertificate: {
+          type: Boolean,
+          default: false,
+        },
         enrolledAt: Date,
         paymentStatus: {
           type: String,

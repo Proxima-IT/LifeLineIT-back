@@ -14,10 +14,10 @@ exports.getCourses = async (req, res) => {
 
     // If not, find it from the database
 
-    const courses = await Course.find({}).lean()
+    const courses = await Course.find({}).sort({ _id: -1 }).lean()
 
-    await client.set(CACHE_KEY, JSON.stringify(courses.reverse()), { EX: 60 })
-    res.json(courses.reverse())
+    await client.set(CACHE_KEY, JSON.stringify(courses), { EX: 60 })
+    res.json(courses)
   } catch (err) {
     res.status(500).json({ error: err.message })
   }
@@ -41,7 +41,7 @@ exports.getCoursesByName = async (req, res) => {
         .status(404)
         .json({ error: `No courses found in ${paramName} route` })
     }
-    
+
     await client.set(CACHE_KEY, JSON.stringify(course), { EX: 60 })
 
     return res.json(course)

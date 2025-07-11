@@ -48,18 +48,7 @@ const modulesSchema = new mongoose.Schema(
         required: true,
       },
       videoLink: {
-        type: {
-          title: {
-            type: String,
-            required: true,
-            trim: true,
-          },
-          link: {
-            type: String,
-            required: true,
-            trim: true,
-          },
-        },
+        type: String,
         required: true,
         trim: true,
       },
@@ -156,10 +145,6 @@ const courseSchema = new mongoose.Schema(
     },
     modules: {
       type: [modulesSchema],
-      required: true,
-    },
-    certificate: {
-      type: Boolean,
       required: true,
     },
   },
