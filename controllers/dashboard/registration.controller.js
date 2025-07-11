@@ -1,11 +1,9 @@
 const path = require("path")
 
-const generateRegistrationPDF = require(path.join(
-  __dirname,
-  "../../utils/registrationCard"
-))
 const sanitize = require("mongo-sanitize")
 const Student = require("../../models/Student")
+
+const generateRegistrationPDF = require('../../utils/registrationCard');
 
 exports.registrationController = async (req, res) => {
   try {
