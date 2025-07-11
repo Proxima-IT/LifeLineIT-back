@@ -21,15 +21,23 @@ exports.registrationController = async (req, res) => {
     const { name, father, mother, gender, number, dateOfBirth, sid } =
       findStudent
 
+    /* name,
+      father,
+      mother,
+      gender,
+      birthday,
+      number,
+      registration,
+      sid, */
     await generateRegistrationPDF(
       name,
-      sid,
       father,
       mother,
       gender,
       dateOfBirth,
       number,
-      registrationId
+      registrationId,
+      sid
     )
 
     const filePath = path.join(
