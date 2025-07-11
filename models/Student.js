@@ -9,13 +9,29 @@ const studentSchema = new mongoose.Schema(
       unique: true,
       default: null,
     },
+    image: {
+      type: String,
+    },
     name: {
       type: String,
       required: true,
       trim: true,
     },
-    image: {
+    father: {
       type: String,
+      trim: true,
+    },
+    mother: {
+      type: String,
+      trim: true,
+    },
+    gender: {
+      type: String,
+      trim: true,
+    },
+    dateOfBirth: {
+      type: String,
+      trim: true,
     },
     email: {
       type: String,

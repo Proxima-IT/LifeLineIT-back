@@ -4,7 +4,17 @@ const bcrypt = require("bcrypt")
 const resetInfo = async (req, res) => {
   try {
     const rawBody = sanitize(req.body)
-    const allowedFields = ["name", "image", "phone", "currentpass", "newpass"]
+    const allowedFields = [
+      "name",
+      "image",
+      "father",
+      "mother",
+      "gender",
+      "dateOfBirth",
+      "phone",
+      "currentpass",
+      "newpass",
+    ]
     const updateFields = {}
 
     for (const key of allowedFields) {
