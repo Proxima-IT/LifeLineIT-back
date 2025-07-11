@@ -35,7 +35,7 @@ exports.getCoursesByName = async (req, res) => {
 
     // If not, find it from the database
     const course = await Course.findOne({ route: paramName }).lean()
-    await client.set(CACHE_KEY, JSON.stringify(course), { EX: 60 })
+    await client.set(CACHE_KEY, JSON.stringify(course.reverse()), { EX: 60 })
 
     return res.json(course)
   } catch (err) {
@@ -59,7 +59,7 @@ exports.getCoursesBySearch = async (req, res) => {
       const course = await Course.find({ type: req.query.name })
         .limit(req.query.limit)
         .lean()
-      await client.set(CACHE_KEY, JSON.stringify(course), { EX: 60 })
+      await client.set(CACHE_KEY, JSON.stringify(course.reverse()), { EX: 60 })
       return res.json(course)
     }
 
@@ -71,7 +71,7 @@ exports.getCoursesBySearch = async (req, res) => {
       ],
     }).lean()
 
-    res.json(course)
+    res.json(course.reverse())
   } catch (err) {
     console.log(err)
     res.status(500).json({ error: err.message })

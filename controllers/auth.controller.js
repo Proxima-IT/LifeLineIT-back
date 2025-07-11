@@ -15,14 +15,14 @@ const sendEmail = require("../utils/sendEmail")
 
 // 1. OTP Verification
 exports.otpVerification = async (req, res) => {
-  const { email } = sanitize(req.body)
-  const existingStudent = await Student.findOne({ email }).lean()
-
-  console.log("Existing Student:", existingStudent)
-  if (existingStudent)
-    return res.status(400).json({ message: "Student already exists" })
-
   try {
+    const { email } = sanitize(req.body)
+    const existingStudent = await Student.findOne({ email }).lean()
+
+    console.log("Existing Student:", existingStudent)
+    if (existingStudent)
+      return res.status(400).json({ message: "Student already exists" })
+
     const otpGenerator = require("otp-generator")
     const generatedOtpCode = otpGenerator.generate(6, {
       digits: true,
@@ -39,7 +39,8 @@ exports.otpVerification = async (req, res) => {
 
     otpHtmlContent = otpHtmlContent.replace("000000", generatedOtpCode)
 
-    sendEmail(email, "OTP Code - ProximaIT", otpHtmlContent)
+    if (email && otpHtmlContent)
+      sendEmail(email, "OTP Code - ProximaIT", otpHtmlContent)
 
     // Storing OTP into database.
     const existingOtp = await Otp.findOne({ email })
@@ -56,7 +57,6 @@ exports.otpVerification = async (req, res) => {
     res.status(200).json({ message: `OTP Sent to ${email}` })
   } catch (err) {
     res.status(500).json({ error: err.message })
-    console.log(err)
   }
 }
 
