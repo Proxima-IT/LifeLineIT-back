@@ -4,9 +4,13 @@ const { Types } = require("mongoose")
 exports.dashboardController = async (req, res) => {
   const findStudent = await Student.findOne({ _id: req.user.id })
   const {
+    sid,
     name,
     image,
-    sid,
+    father,
+    mother,
+    gender,
+    dateOfBirth,
     email,
     phone,
     role,
@@ -53,6 +57,10 @@ exports.dashboardController = async (req, res) => {
   res.json({
     name,
     image,
+    father,
+    mother,
+    gender,
+    dateOfBirth,
     sid,
     email,
     phone,
