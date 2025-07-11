@@ -18,9 +18,19 @@ exports.registrationController = async (req, res) => {
 
     const { registrationId } = matchedCourse
 
-    const { name, father, mother, gender, number, dateOfBirth, sid } =
+    const { name, father, mother, gender, phone, dateOfBirth, sid } =
       findStudent
 
+    console.log(
+      name,
+      father,
+      mother,
+      gender,
+      phone,
+      dateOfBirth,
+      registrationId,
+      sid
+    )
     /* name,
       father,
       mother,
@@ -35,7 +45,7 @@ exports.registrationController = async (req, res) => {
       mother,
       gender,
       dateOfBirth,
-      number,
+      phone,
       registrationId,
       sid
     )
