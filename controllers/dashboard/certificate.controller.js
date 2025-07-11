@@ -1,6 +1,6 @@
 const path = require("path")
 
-const generateCertificate = require("../../utils/certificateCard")
+const generateCertificate = require("../../utils/certificateTemplate")
 const sanitize = require("mongo-sanitize")
 
 exports.certificateController = async (req, res) => {

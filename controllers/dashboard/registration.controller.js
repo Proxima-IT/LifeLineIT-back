@@ -3,7 +3,7 @@ const path = require("path")
 const sanitize = require("mongo-sanitize")
 const Student = require("../../models/Student")
 
-const generateRegistrationPDF = require('../../utils/registrationCard');
+const generateRegistrationPDF = require("../../utils/registrationTemplate")
 
 exports.registrationController = async (req, res) => {
   try {
