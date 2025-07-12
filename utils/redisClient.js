@@ -14,4 +14,5 @@ client.on("error", (err) => {
   console.error("Redis error:", err)
 })
 
+client.flushAll()
 module.exports = client
