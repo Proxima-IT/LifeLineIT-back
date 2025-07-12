@@ -81,7 +81,7 @@ exports.dashboardController = async (req, res) => {
     certificates,
   }
 
-  await client.set(CACHE_DATA, JSON.stringify(responseData), { EX: 3600 * 24 })
+  await client.set(CACHE_DATA, JSON.stringify(responseData), { EX: 60 })
 
   res.json(responseData)
 }
