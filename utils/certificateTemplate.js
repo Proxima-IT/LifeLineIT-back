@@ -16,7 +16,7 @@ async function generateCertificate(
   courseDuration,
   certificateId,
   sid,
-  regid,
+  regId,
   instructorName
 ) {
   // Importing the Template
@@ -122,7 +122,7 @@ async function generateCertificate(
       color: rgb(0, 0, 0),
     })
 
-    page.drawText(regid, {
+    page.drawText(regId, {
       x: 432,
       y: 82,
       size: 10,
@@ -158,7 +158,6 @@ async function generateCertificate(
 
     console.log("✅ PDF updated successfully.")
     return updatedPdfBytes
-    
   } catch (error) {
     console.log(error)
   }

@@ -1,7 +1,7 @@
 const generateCertificate = require("../../utils/certificateTemplate")
 const sanitize = require("mongo-sanitize")
 // MongoDB Models
-const Student = require("../../models/Student")
+const Certificate = require("../../models/Certificate")
 const Course = require("../../models/Course")
 
 exports.certificateController = async (req, res) => {
@@ -33,11 +33,20 @@ exports.certificateController = async (req, res) => {
       sid.split("-")[1]
     }`
     // 2025/ABC/${sid}
-    const regid = `${courseYear}/${courseCode.toUpperCase()}/${
+    const regId = `${courseYear}/${courseCode.toUpperCase()}/${
       sid.split("-")[1]
     }`
 
-    console.log(certificateId, regid)
+    console.log(certificateId, regId)
+
+    const certificate = new Certificate({
+      studentId,
+      courseId,
+      certificateId,
+      regId,
+    })
+
+    await certificate.save()
 
     const pdfBuffer = await generateCertificate(
       name,
@@ -46,7 +55,7 @@ exports.certificateController = async (req, res) => {
       duration /*courseDuration*/,
       certificateId,
       sid,
-      regid,
+      regId,
       instructors[0].name
       // instructors[0].sign
     )
