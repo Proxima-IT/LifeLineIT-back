@@ -10,4 +10,6 @@ COPY . .
 
 EXPOSE 5000
 
+RUN redis-cli -h redis FLUSHALL
+
 CMD ["node", "server.js"]
