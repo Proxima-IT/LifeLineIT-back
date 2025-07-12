@@ -10,6 +10,8 @@ COPY . .
 
 EXPOSE 5000
 
-RUN redis-cli -h redis FLUSHALL
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
+ENTRYPOINT ["./entrypoint.sh"]
 
 CMD ["node", "server.js"]
