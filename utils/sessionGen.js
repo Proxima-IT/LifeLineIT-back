@@ -1,6 +1,6 @@
 function getSession(dateInput, months) {
-  if (![3, 6].includes(months)) {
-    throw new Error("Duration must be 3 or 6 months")
+  if (![1, 3, 6].includes(months)) {
+    throw new Error("Duration must be 1, 3 or 6 months")
   }
 
   // Always work in UTC so there’s no timezone surprise:
@@ -9,6 +9,24 @@ function getSession(dateInput, months) {
 
   const month = d.getUTCMonth() // 0–11 (Jan = 0)
   const year = d.getUTCFullYear()
+
+  if (months === 1) {
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ]
+    return `${monthNames[month]}, ${year}`
+  }
 
   if (months === 3) {
     // 4 possible quarters

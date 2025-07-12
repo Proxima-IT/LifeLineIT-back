@@ -25,22 +25,24 @@ const {
 
 const resetInfo = require("../../controllers/dashboard/profile.controller")
 
+// Middlewares
 const rateLimiter = require("../../middlewares/rateLimiter")
 
 // ROOT: /api/dashboard
 router.get(
   "/",
-  rateLimiter(
-    60 * 15 * 1000,
-    50,
-    "Too many requests, Please wait for some time."
-  ),
+  // rateLimiter(
+  //   60 * 15 * 1000,
+  //   50,
+  //   "Too many requests, Please wait for some time."
+  // ),
   verifyJWT,
   dashboardController
 )
 
 router.get("/notices", viewNotice)
 router.post("/notices", addNotice)
+
 router.post(
   "/reset",
   // Comment out the rate limiter for now

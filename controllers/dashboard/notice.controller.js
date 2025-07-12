@@ -8,7 +8,7 @@ exports.addNotice = async (req, res) => {
     const newNotice = new Notice(sanitize(req.body))
     await newNotice.save()
 
-    client.del("notices")
+    await client.del("notices")
     return res.json({
       success: true,
       message: "Notice was added successfully.",

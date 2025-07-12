@@ -16,6 +16,11 @@ const instructorSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    sign: {
+      type: String,
+      required: true,
+      trim: true,
+    },
   },
   { _id: false }
 )

@@ -1,6 +1,9 @@
 const sanitize = require("mongo-sanitize")
 const Student = require("../../models/Student")
 const bcrypt = require("bcrypt")
+// Client Redis
+const client = require("../../utils/redisClient")
+
 const resetInfo = async (req, res) => {
   try {
     const rawBody = sanitize(req.body)
@@ -25,7 +28,17 @@ const resetInfo = async (req, res) => {
 
     console.log("UpdateFields", updateFields)
 
-    if (Object.prototype.hasOwnProperty.call(updateFields, "newpass")) {
+    if (
+      Object.prototype.hasOwnProperty.call(updateFields, "currentpass") &&
+      Object.prototype.hasOwnProperty.call(updateFields, "newpass")
+    ) {
+      if (updateFields.newpass == "") {
+        return res.json({
+          success: false,
+          message: "Password cannot be empty",
+        })
+      }
+
       const { email } = req.user
       const findStudent = await Student.findOne({ email })
 
@@ -41,10 +54,10 @@ const resetInfo = async (req, res) => {
     }
 
     await Student.updateOne({ _id: req.user.id }, { $set: updateFields })
-
+    await client.del(`student:${req.user.id}`)
     return res.json({ success: true })
   } catch (error) {
-    return res.json({ error })
+    console.log(error)
   }
 }
 

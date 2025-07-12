@@ -156,18 +156,9 @@ async function generateCertificate(
 
     const updatedPdfBytes = await pdfDoc.save()
 
-    const fileName = `${name.split(" ").join("_")}-certificate.pdf`
-    const savePath = path.join(
-      __dirname,
-      "../",
-      "public",
-      "generated",
-      "cert",
-      fileName
-    )
-
-    fs.writeFileSync(savePath, updatedPdfBytes)
-    console.log("QR embedded in PDF.")
+    console.log("✅ PDF updated successfully.")
+    return updatedPdfBytes
+    
   } catch (error) {
     console.log(error)
   }

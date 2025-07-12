@@ -1,45 +1,50 @@
-const path = require("path")
-
 const sanitize = require("mongo-sanitize")
 const Student = require("../../models/Student")
+const Course = require("../../models/Course")
 
 const generateRegistrationPDF = require("../../utils/registrationTemplate")
-const Course = require("../../models/Course")
 const getSession = require("../../utils/sessionGen")
+const client = require("../../utils/redisClient")
 
 exports.registrationController = async (req, res) => {
   try {
-    const { email, courseId } = sanitize(req.body)
+    const { studentId, courseId } = sanitize(req.body)
 
-    console.log(email, courseId)
+    const CACHE_DATA = `student:${studentId}`
+    const cachedData = await client.get(CACHE_DATA)
 
-    const findStudent = await Student.findOne({ email })
+    let studentData
+    
+    if (cachedData) {
+      studentData = JSON.parse(cachedData)
+    } else {
+      studentData = await Student.findOne({ _id: studentId })
+    }
 
-    const matchedCourse = findStudent.totalOrders.find(
+    const {
+      name,
+      image,
+      father,
+      mother,
+      gender,
+      phone,
+      dateOfBirth,
+      sid,
+      totalOrders,
+    } = studentData
+
+    const matchedCourse = totalOrders.find(
       (order) => order.courseId.toString() === courseId.toString()
     )
+    const { registrationId, enrolledAt } = matchedCourse
 
     const findCourse = await Course.findOne({ _id: courseId }, { duration: 1 })
     const courseDuration = findCourse ? findCourse.duration : "Unknown"
 
-    const { registrationId, enrolledAt } = matchedCourse
     const courseSession = getSession(
       enrolledAt,
       Number(courseDuration.split(" ")[0])
     )
-
-    const { name, image, father, mother, gender, phone, dateOfBirth, sid } =
-      findStudent
-
-    console.log("Image URL:", image)
-    /* name,
-      father,
-      mother,
-      gender,
-      birthday,
-      number,
-      registration,
-      sid, */
 
     const pdfBuffer = await generateRegistrationPDF(
       image,

@@ -1,50 +1,65 @@
-const path = require("path")
-
 const generateCertificate = require("../../utils/certificateTemplate")
 const sanitize = require("mongo-sanitize")
+// MongoDB Models
+const Student = require("../../models/Student")
+const Course = require("../../models/Course")
 
 exports.certificateController = async (req, res) => {
   try {
-    const data = sanitize(req.body)
+    const { studentId, courseId } = sanitize(req.body)
 
-    const {
-      name,
-      course,
-      grade,
-      courseDuration,
-      certificateId,
-      sid,
-      regid,
-      instructorName,
-    } = data
+    const CACHE_DATA = `student:${studentId}`
+    const cachedData = await client.get(CACHE_DATA)
 
-    await generateCertificate(
-      name,
-      course,
-      grade,
-      courseDuration,
-      certificateId,
-      sid,
-      regid,
-      instructorName
-    )
+    const studentData = JSON.parse(cachedData)
 
-    const filePath = path.join(
-      __dirname,
-      "../",
-      "../",
-      "public",
-      "generated",
-      "cert",
-      name.split(" ").join("_") + "-certificate.pdf"
-    )
+    const { name, sid, totalOrders } = studentData
 
-    res.download(filePath, (err) => {
-      if (err) {
-        console.error("Download error:", err)
-        res.status(404).send("File not found")
-      }
+    const findCourse = await Course.findOne({
+      _id: courseId,
     })
+
+    const { title, duration, instructors } = findCourse
+
+    const matchedCourse = totalOrders.find(
+      (order) => order.courseId.toString() === courseId.toString()
+    )
+
+    const courseCode = title.slice(0, 3)
+    const courseYear = matchedCourse.enrolledAt.toString().split(" ")[3]
+
+    // 2025-ABC${sid}
+    const certificateId = `${courseYear}-${courseCode.toUpperCase()}${
+      sid.split("-")[1]
+    }`
+    // 2025/ABC/${sid}
+    const regid = `${courseYear}/${courseCode.toUpperCase()}/${
+      sid.split("-")[1]
+    }`
+
+    console.log(certificateId, regid)
+
+    const pdfBuffer = await generateCertificate(
+      name,
+      title /* Course's Title */,
+      matchedCourse.certificate.grade /* student's grade */,
+      duration /*courseDuration*/,
+      certificateId,
+      sid,
+      regid,
+      instructors[0].name
+      // instructors[0].sign
+    )
+
+    res.writeHead(200, {
+      "Content-Type": "application/pdf",
+      "Content-Disposition": `attachment; filename=${name
+        .split(" ")
+        .join("_")}-registration-card.pdf`,
+      "Content-Length": pdfBuffer.length,
+    })
+
+    res.end(pdfBuffer)
   } catch (error) {
     console.log(error)
     return res.json({ error })

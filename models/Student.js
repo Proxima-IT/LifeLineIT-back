@@ -11,6 +11,8 @@ const studentSchema = new mongoose.Schema(
     },
     image: {
       type: String,
+      default:
+        "https://i.ibb.co/cScQJj0W/Whats-App-Image-2025-07-12-at-2-18-14-PM.jpg",
     },
     name: {
       type: String,
@@ -64,15 +66,15 @@ const studentSchema = new mongoose.Schema(
           type: String,
           ref: "Course",
         },
-        registrationId: {
-          type: String, // 2025/ABC/${sid}
-        },
-        certificateId: {
-          type: String, // 2025-ABC${sid}
-        },
-        canIssueCertificate: {
-          type: Boolean,
-          default: false,
+        certificate: {
+          canIssue: {
+            type: Boolean,
+            default: false,
+          },
+          grade: {
+            type: String,
+            default: "N/A",
+          },
         },
         enrolledAt: Date,
         paymentStatus: {
