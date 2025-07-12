@@ -56,8 +56,8 @@ exports.certificateController = async (req, res) => {
       certificateId,
       sid,
       regId,
-      instructors[0].name
-      // instructors[0].sign
+      instructors[0].name,
+      instructors[0].sign
     )
 
     res.writeHead(200, {

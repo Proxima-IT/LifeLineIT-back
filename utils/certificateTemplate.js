@@ -17,7 +17,8 @@ async function generateCertificate(
   certificateId,
   sid,
   regId,
-  instructorName
+  instructorName,
+  instructorSign
 ) {
   // Importing the Template
 
@@ -41,6 +42,31 @@ async function generateCertificate(
       y: 352,
       width: qrDims.width,
       height: qrDims.height,
+    })
+
+    const response = await fetch(instructorSign)
+    const arrayBuffer = await response.arrayBuffer()
+    const imageBytes = Buffer.from(arrayBuffer)
+
+    const signDims = qrImage.scale(0.65)
+    const imgType = await getImageMimeType(instructorSign)
+
+    let image
+    if (imgType == "image/jpeg" || imgType == "image/jpg") {
+      image = await pdfDoc.embedJpg(imageBytes)
+    } else if (imgType == "image/png") {
+      image = await pdfDoc.embedPng(imageBytes)
+    } else {
+      throw new Error(
+        "Unsupported image format. Only JPEG and PNG are allowed."
+      )
+    }
+
+    page.drawImage(image, {
+      x: 120,
+      y: 68,
+      width: signDims.width,
+      height: signDims.height,
     })
 
     // Initializing for using custom fonts
