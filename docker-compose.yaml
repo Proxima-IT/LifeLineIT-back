@@ -21,3 +21,10 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+    networks:
+      - internal
+    restart: always
+
+networks:
+  internal:
+    driver: bridge
