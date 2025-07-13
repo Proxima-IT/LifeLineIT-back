@@ -9,7 +9,7 @@ services:
 
   app:
     build: .
-    container_name: my_express_app
+    container_name: lifeline_backend
     ports:
       - "5000:5000"
     env_file:
