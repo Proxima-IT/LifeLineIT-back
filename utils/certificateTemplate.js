@@ -4,9 +4,15 @@ const QRCode = require("qrcode")
 const fontkit = require("fontkit")
 const path = require("path")
 
-const formatDate = () => {
+const formatDate = (issueDate) => {
   const options = { day: "numeric", month: "long", year: "numeric" }
-  return new Date().toLocaleDateString("en-US", options) // e.g., "July 10, 2025"
+  const date = new Date(issueDate)
+  return date.toLocaleDateString("en-US", options)
+}
+
+async function getImageMimeType(url) {
+  const res = await fetch(url, { method: "HEAD" }) // just fetch headers
+  return res.headers.get("content-type") // e.g., image/jpeg or image/png
 }
 
 async function generateCertificate(
@@ -14,6 +20,7 @@ async function generateCertificate(
   course,
   grade,
   courseDuration,
+  issueDate,
   certificateId,
   sid,
   regId,
@@ -48,7 +55,7 @@ async function generateCertificate(
     const arrayBuffer = await response.arrayBuffer()
     const imageBytes = Buffer.from(arrayBuffer)
 
-    const signDims = qrImage.scale(0.65)
+    const signDims = qrImage.scale(0.36)
     const imgType = await getImageMimeType(instructorSign)
 
     let image
@@ -63,8 +70,8 @@ async function generateCertificate(
     }
 
     page.drawImage(image, {
-      x: 120,
-      y: 68,
+      x: 123,
+      y: 80,
       width: signDims.width,
       height: signDims.height,
     })
@@ -87,8 +94,8 @@ async function generateCertificate(
     const robotoFont = await pdfDoc.embedFont(robotoFontBytes)
     const robotoBoldFont = await pdfDoc.embedFont(robotoBoldFontBytes)
 
-    const pageWidth = page.getWidth() // Get Page Width
-    const centerX = pageWidth / 2 // Page's Center (divided by 2)
+    const { width } = page.getSize() // Get Page Width
+    const centerX = width / 2 // Page's Center (divided by 2)
 
     // Get text width (How long width the text will take) in PDF points
     const nameTextWidth = exomediumFont.widthOfTextAtSize(name, 25)
@@ -109,7 +116,7 @@ async function generateCertificate(
     x = centerX - courseTextWidth / 2
 
     page.drawText(course, {
-      x,
+      x: x + 20,
       y: 140,
       size: 18,
       font: robotoBoldFont,
@@ -137,7 +144,7 @@ async function generateCertificate(
       y: 117,
       size: 10,
       font: robotoFont,
-      color: rgb(0, 0, 0),
+      color: rgb(0.172, 0.172, 0.172),
     })
 
     page.drawText(sid, {
@@ -145,7 +152,7 @@ async function generateCertificate(
       y: 100,
       size: 10,
       font: robotoFont,
-      color: rgb(0, 0, 0),
+      color: rgb(0.172, 0.172, 0.172),
     })
 
     page.drawText(regId, {
@@ -153,15 +160,15 @@ async function generateCertificate(
       y: 82,
       size: 10,
       font: robotoFont,
-      color: rgb(0, 0, 0),
+      color: rgb(0.172, 0.172, 0.172),
     })
 
-    page.drawText(formatDate(), {
+    page.drawText(formatDate(issueDate), {
       x: 430,
       y: 56,
       size: 10,
       font: robotoFont,
-      color: rgb(0, 0, 0),
+      color: rgb(0.172, 0.172, 0.172),
     })
 
     page.drawText(instructorName, {

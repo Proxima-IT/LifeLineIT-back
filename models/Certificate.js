@@ -22,6 +22,10 @@ const certificateSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    issueDate: {
+      type: Date,
+      default: Date.now,
+    },
   },
   { timestamps: true }
 )

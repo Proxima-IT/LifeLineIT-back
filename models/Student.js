@@ -76,7 +76,10 @@ const studentSchema = new mongoose.Schema(
             default: "N/A",
           },
         },
-        enrolledAt: Date,
+        enrolledAt: {
+          type: Date,
+          default: Date.now,
+        },
         paymentStatus: {
           type: String,
           enum: ["pending", "paid", "failed"],
