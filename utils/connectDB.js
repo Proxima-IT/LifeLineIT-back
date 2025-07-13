@@ -1,6 +1,4 @@
 const mongoose = require("mongoose")
-const User = require("../models/Student")
-const Course = require("../models/Course")
 
 const connectDB = async () => {
   try {
