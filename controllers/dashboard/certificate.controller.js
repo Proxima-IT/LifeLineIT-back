@@ -81,7 +81,7 @@ exports.certificateController = async (req, res) => {
 
     const pdfBuffer = await generateCertificate(
       name,
-      title.split(" ").slice(0, 3).join(" ") /* Course's Title */,
+      `“${title.split(" ").slice(0, 3).join(" ")}”` /* Course's Title */,
       matchedCourse.certificate.grade /* student's grade */,
       duration /*courseDuration*/,
       issueDate /* issueDate */,
