@@ -52,7 +52,15 @@ router.post(
   resetInfo
 )
 
-router.post("/registration", registrationController)
-router.post("/certificate", certificateController)
+router.post(
+  "/registration",
+  rateLimiter(60 * 1000, 1, "Limit Exceed!"),
+  registrationController
+)
+router.post(
+  "/certificate",
+  rateLimiter(60 * 1000, 1, "Limit Exceed!"),
+  certificateController
+)
 
 module.exports = router
