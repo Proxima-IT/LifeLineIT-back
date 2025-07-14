@@ -51,14 +51,14 @@ const resetInfo = async (req, res) => {
 
       if (findStudent && isMatch) {
         updateFields.password = await bcrypt.hash(updateFields.newpass, 10)
-
-        await Student.updateOne({ _id: req.user.id }, { $set: updateFields })
-        await client.del(`student:${req.user.id}`)
-        res.json({ success: true, message: "Password updated successfully" })
       } else {
-        res.json({ success: false, message: "Password didn't matched" })
+        return res.json({ success: false, message: "Password didn't matched" })
       }
     }
+
+    await Student.updateOne({ _id: req.user.id }, { $set: updateFields })
+    await client.del(`student:${req.user.id}`)
+    res.json({ success: true, message: "Informations Updated successfully" })
   } catch (error) {
     console.log(error)
   }

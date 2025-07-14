@@ -116,9 +116,9 @@ async function generateCertificate(
     x = centerX - courseTextWidth / 2
 
     page.drawText(course, {
-      x: x + 10,
+      x: x + courseTextWidth * 0.12,
       y: 140,
-      size: 18,
+      size: 16,
       font: robotoBoldFont,
       color: rgb(0 / 255, 146 / 255, 210 / 255),
     })

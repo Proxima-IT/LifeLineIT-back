@@ -59,7 +59,7 @@ router.post(
 )
 router.post(
   "/certificate",
-  rateLimiter(60 * 1000, 1, "Limit Exceed!"),
+  // rateLimiter(60 * 1000, 1, "Limit Exceed!"),
   certificateController
 )
 
