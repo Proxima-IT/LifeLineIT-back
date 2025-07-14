@@ -12,13 +12,13 @@ const verifyJWT = require("../middlewares/authMiddleware")
 const rateLimiter = require("../middlewares/rateLimiter")
 
 // ROOT: /api/auth
-router.post(
-  "/otp-verify",
-  rateLimiter(3600 * 1000, 3, "Otp Limit Exceed! Please try again af an hour."),
-  otpVerification
-)
+router.post("/otp-verify", otpVerification)
 
-router.post("/register", registerController)
+router.post(
+  "/register",
+  // rateLimiter(3600 * 1000, 3, "Otp Limit Exceed! Please try again af an hour."),
+  registerController
+)
 
 router.post(
   "/login",
