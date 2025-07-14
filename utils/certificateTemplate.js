@@ -46,7 +46,7 @@ async function generateCertificate(
 
     page.drawImage(qrImage, {
       x: 702,
-      y: 352,
+      y: 360,
       width: qrDims.width,
       height: qrDims.height,
     })
@@ -71,7 +71,7 @@ async function generateCertificate(
 
     page.drawImage(image, {
       x: 145,
-      y: 90,
+      y: 93,
       width: signDims.width,
       height: signDims.height,
     })
@@ -105,7 +105,7 @@ async function generateCertificate(
 
     page.drawText(name, {
       x,
-      y: 290,
+      y: 295,
       size: 25,
       font: exomediumFont,
       color: rgb(0, 0, 0),
@@ -116,8 +116,8 @@ async function generateCertificate(
     x = centerX - courseTextWidth / 2
 
     page.drawText(course, {
-      x: x + courseTextWidth * 0.14,
-      y: 140,
+      x: x + courseTextWidth * 0.1,
+      y: 210,
       size: 16,
       font: robotoBoldFont,
       color: rgb(0 / 255, 146 / 255, 210 / 255),

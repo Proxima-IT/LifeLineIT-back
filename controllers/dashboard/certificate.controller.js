@@ -38,7 +38,7 @@ exports.certificateController = async (req, res) => {
       .filter(Boolean)
       .map((word) => word[0])
       .join("")
-      .substring(0, 3)
+      .substring(0, 2)
       .toUpperCase()
 
     const courseYear = new Date(matchedCourse.enrolledAt)
