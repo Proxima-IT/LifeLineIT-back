@@ -70,8 +70,8 @@ async function generateCertificate(
     }
 
     page.drawImage(image, {
-      x: 123,
-      y: 80,
+      x: 145,
+      y: 90,
       width: signDims.width,
       height: signDims.height,
     })
@@ -116,7 +116,7 @@ async function generateCertificate(
     x = centerX - courseTextWidth / 2
 
     page.drawText(course, {
-      x: x + courseTextWidth * 0.12,
+      x: x + courseTextWidth * 0.14,
       y: 140,
       size: 16,
       font: robotoBoldFont,
@@ -128,51 +128,53 @@ async function generateCertificate(
       y: 234,
       size: 16,
       font: robotoBoldFont,
-      color: rgb(1, 0, 0),
+      color: rgb(0.988, 0.337, 0.012),
     })
 
     page.drawText(courseDuration, {
       x: 444,
       y: 189,
-      size: 13,
+      size: 14,
       font: robotoFont,
       color: rgb(0, 0, 0),
     })
 
     page.drawText(certificateId, {
-      x: 436,
+      x: 425,
       y: 117,
-      size: 10,
+      size: 11,
       font: robotoFont,
-      color: rgb(0.172, 0.172, 0.172),
+      color: rgb(0.31, 0.31, 0.31),
     })
 
     page.drawText(sid, {
-      x: 432,
+      x: 425,
       y: 100,
-      size: 10,
+      size: 11,
       font: robotoFont,
-      color: rgb(0.172, 0.172, 0.172),
+      color: rgb(0.31, 0.31, 0.31),
     })
 
     page.drawText(regId, {
-      x: 432,
+      x: 425,
       y: 82,
-      size: 10,
+      size: 11,
       font: robotoFont,
-      color: rgb(0.172, 0.172, 0.172),
+      color: rgb(0.31, 0.31, 0.31),
     })
 
     page.drawText(formatDate(issueDate), {
-      x: 430,
+      x: 420,
       y: 56,
       size: 10,
       font: robotoFont,
-      color: rgb(0.172, 0.172, 0.172),
+      color: rgb(0.31, 0.31, 0.31),
     })
 
+    const instructorTextWidth = robotoFont.widthOfTextAtSize(instructorName, 18)
+
     page.drawText(instructorName, {
-      x: 100,
+      x: page.getWidth() / 5 - instructorTextWidth / 3,
       y: 78,
       size: 13.5,
       font: robotoFont,
@@ -180,7 +182,7 @@ async function generateCertificate(
     })
 
     page.drawText("Instructor", {
-      x: 100,
+      x: page.getWidth() / 6 + 14,
       y: 67,
       size: 9,
       font: robotoFont,
