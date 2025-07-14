@@ -19,6 +19,9 @@ const allowedOrigins = [
   "http://localhost:5174",
   "https://lifelineit-d5cbf.web.app",
   "https://lifelineit-d5cbf.firebaseapp.com",
+  ,
+  "https://lifeline-it-student-dashboard.web.app/",
+  "https://lifeline-it-student-dashboard.firebase.app/",
 ]
 
 const corsOptions = {
