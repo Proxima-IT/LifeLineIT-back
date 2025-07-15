@@ -26,7 +26,7 @@ router.post(
   loginController
 )
 
-router.post(
+router.get(
   "/logout",
   // rateLimiter(3600 * 2 * 1000, 4, "Please try again later."),
   logoutController
