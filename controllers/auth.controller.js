@@ -155,7 +155,7 @@ exports.loginController = async (req, res) => {
 }
 
 exports.logoutController = (req, res) => {
-  res.clearCookie("token")
+  res.cookie("token", "", { maxAge: 0 })
   return res
     .status(200)
     .json({ logout: true, message: "Logged out successfully" })
