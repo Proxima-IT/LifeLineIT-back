@@ -136,12 +136,15 @@ exports.loginController = async (req, res) => {
     )
 
     res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      // httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+      domain:
+        process.env.NODE_ENV === "production" ? ".lifelineit.com" : undefined,
+      maxAge: 86400000,
       path: "/",
     })
+
     res.json({
       success: true,
       name: student.name,
@@ -155,7 +158,7 @@ exports.loginController = async (req, res) => {
 }
 
 exports.logoutController = (req, res) => {
-  res.cookie("token", "", { maxAge: 0 })
+  res.clearCookie("token")
   return res
     .status(200)
     .json({ logout: true, message: "Logged out successfully" })
