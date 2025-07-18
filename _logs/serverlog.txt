@@ -1,0 +1,3 @@
+Redis has been connected
+MongoDB connected
+Server running on port http://localhost:5000

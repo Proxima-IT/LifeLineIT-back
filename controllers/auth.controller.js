@@ -135,12 +135,20 @@ exports.loginController = async (req, res) => {
       process.env.JWT_SECRET
     )
 
-    res.cookie("token", token, {
-      // httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-      domain:
-        process.env.NODE_ENV === "production" ? ".lifelineit.com" : undefined,
+    // res.cookie("token", token, {
+    //   // httpOnly: true,
+    //   secure: process.env.NODE_ENV === "production",
+    //   sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    //   domain:
+    //     process.env.NODE_ENV === "production" ? ".lifelineit.com" : undefined,
+    //   maxAge: 86400000,
+    //   path: "/",
+    // })
+
+    res.cookie("token", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
       maxAge: 86400000,
       path: "/",
     })

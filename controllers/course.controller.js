@@ -91,19 +91,60 @@ exports.getCoursesBySearch = async (req, res) => {
 // Course Controller
 
 exports.addCourse = async (req, res) => {
-  if (req.body.instructors && typeof req.body.instructors === "string") {
-    req.body.instructors = JSON.parse(req.body.instructors)
+  const data = sanitize(req.body)
+  if (data.instructors && typeof data.instructors === "string") {
+    data.instructors = JSON.parse(data.instructors)
   }
-  req.body.route = req.body.route.split(" ").join("-")
+  data.route = data.route.split(" ").join("-")
 
   try {
-    console.log(req.body)
-    const course = new Course(req.body)
+    const course = new Course(data)
     await course.save()
     res.status(200).json({ message: "Success" })
 
-    // Delete the previous cache, for storing and updating it.
     redisClient.del("courses:all")
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+    console.log(err)
+  }
+}
+
+exports.updateCourse = async (req, res) => {
+  const data = sanitize(req.body)
+  data.route = data.route.split(" ").join("-")
+
+  try {
+    const findCourse = await Course.findOneAndUpdate(
+      { route: data.route },
+      { $set: data },
+      { new: true }
+    )
+
+    redisClient.del("courses:all")
+
+    return findCourse
+      ? res
+          .status(200)
+          .json({ status: true, message: "Course updated successfully" })
+      : res.status(404).json({ status: false, error: "Course not found" })
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+    console.log(err)
+  }
+}
+
+exports.deleteCourse = async (req, res) => {
+  const data = sanitize(req.param)
+
+  try {
+    const findCourse = await Course.findOneAndDelete({ route: data.id })
+    redisClient.del("courses:all")
+
+    return findCourse
+      ? res
+          .status(200)
+          .json({ status: true, message: "Course deleted successfully" })
+      : res.status(404).json({ status: true, error: "Course not found" })
   } catch (err) {
     res.status(500).json({ error: err.message })
     console.log(err)
