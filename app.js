@@ -8,7 +8,6 @@ const cookieParser = require("cookie-parser")
 // Routes
 const authRoutes = require("./routes/auth")
 const courseRoutes = require("./routes/courses")
-const paymentRoutes = require("./routes/payment")
 const studentRoutes = require("./routes/student")
 const dashboardRoutes = require("./routes/dashboard/dashboard")
 
@@ -46,7 +45,6 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/auth", authRoutes)
 app.use("/api/courses", courseRoutes)
-app.use("/api/payment", paymentRoutes)
 app.use("/api/student", studentRoutes)
 
 // Student Dashboard routes
