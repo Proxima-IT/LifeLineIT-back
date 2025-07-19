@@ -4,7 +4,7 @@ const router = express.Router()
 const {
   getStudents,
   createStudent,
-} = require("../controllers/admin/studentController") // Student Controller
+} = require("../controllers/admin/student.controller") // Student Controller
 
 // ADMIN Operation: Student
 
