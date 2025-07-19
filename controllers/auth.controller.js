@@ -21,7 +21,9 @@ exports.otpVerification = async (req, res) => {
 
     console.log("Existing Student:", existingStudent)
     if (existingStudent)
-      return res.status(400).json({ message: "Student already exists" })
+      return res
+        .status(400)
+        .json({ status: false, message: "Student already exists" })
 
     const otpGenerator = require("otp-generator")
     const generatedOtpCode = otpGenerator.generate(6, {
@@ -135,20 +137,12 @@ exports.loginController = async (req, res) => {
       process.env.JWT_SECRET
     )
 
-    // res.cookie("token", token, {
-    //   // httpOnly: true,
-    //   secure: process.env.NODE_ENV === "production",
-    //   sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-    //   domain:
-    //     process.env.NODE_ENV === "production" ? ".lifelineit.com" : undefined,
-    //   maxAge: 86400000,
-    //   path: "/",
-    // })
-
-    res.cookie("token", {
+    res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "None",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+      domain:
+        process.env.NODE_ENV === "production" ? ".lifelineit.com" : undefined,
       maxAge: 86400000,
       path: "/",
     })
