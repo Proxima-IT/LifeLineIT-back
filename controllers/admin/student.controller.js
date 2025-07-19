@@ -4,16 +4,25 @@ const sanitize = require("mongo-sanitize")
 const bcrypt = require("bcrypt")
 
 // Student Controller
+
+/**
+ * Get all students
+ * @param {Object} req Express Request Object
+ * @param {Object} res Express Response Object
+ * @returns {Promise<void>}
+ */
+
 exports.getStudents = async (req, res) => {
   const page = parseInt(sanitize(req.query.page)) || 1
   const limit = parseInt(sanitize(req.query.limit)) || 100
   try {
+    // Get all students by skipping and limiting the results
     const getStudents = await Student.find({})
       .skip((page - 1) * limit)
       .limit(limit)
       .lean()
     res.status(201).json({ users: getStudents })
-    console.log(getStudents.length + " Students Found")
+    console.log(`${getStudents.length} Students Found`)
   } catch (err) {
     res.status(500).json({ error: err.message })
   }

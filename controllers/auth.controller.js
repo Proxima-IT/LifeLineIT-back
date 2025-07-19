@@ -139,10 +139,10 @@ exports.loginController = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-      domain:
-        process.env.NODE_ENV === "production" ? ".lifelineit.com" : undefined,
+      secure: true,
+      sameSite: "None",
+      // domain:
+      //   process.env.NODE_ENV === "production" ? ".lifelineit.com" : undefined,
       maxAge: 86400000,
       path: "/",
     })
