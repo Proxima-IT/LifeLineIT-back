@@ -141,8 +141,7 @@ exports.loginController = async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "None",
-      // domain:
-      //   process.env.NODE_ENV === "production" ? ".lifelineit.com" : undefined,
+      domain: ".lifelineitinstitute.com",
       maxAge: 86400000,
       path: "/",
     })
@@ -160,7 +159,12 @@ exports.loginController = async (req, res) => {
 }
 
 exports.logoutController = (req, res) => {
-  res.clearCookie("token")
+  res.clearCookie("token", {
+    domain: ".lifelineitinstitute.com",
+    path: "/",
+    secure: true,
+    sameSite: "None",
+  })
   return res
     .status(200)
     .json({ logout: true, message: "Logged out successfully" })

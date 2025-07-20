@@ -29,6 +29,7 @@ exports.getStudents = async (req, res) => {
 }
 
 exports.createStudent = async (req, res) => {
+  console.log(req.body)
   const { name, email, phone, password } = sanitize(req.body)
 
   try {
@@ -47,3 +48,20 @@ exports.createStudent = async (req, res) => {
   }
 }
 
+exports.deleteStudent = async (req, res) => {
+  const { sid } = sanitize(req.body)
+  try {
+    const findUser = await Student.findOneAndDelete({ sid })
+    console.log(findUser)
+    if (!findUser) return res.json({ status: false, message: "User not found" })
+
+    res.json({
+      status: true,
+      message: "User deleted successfully",
+      deletedUser: findUser,
+    })
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ error: err.message })
+  }
+}

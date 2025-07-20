@@ -4,11 +4,15 @@ const {
   getCourses,
   getCoursesByName,
   getCoursesBySearch,
+} = require("../controllers/courseView.controller")
+
+// ADMIN CONTROLLERS
+
+const {
   addCourse,
   deleteCourse,
   updateCourse,
-} = require("../controllers/course.controller")
-// ADMIN CONTROLLERS
+} = require("../controllers/admin/courseManage.controller")
 
 const rateLimiter = require("../middlewares/rateLimiter")
 
@@ -19,7 +23,7 @@ router.get("/:name", getCoursesByName) // get Course by route
 
 // ADMIN Operation: Course
 router.post("/add", addCourse) // POST
-router.delete("/delete/:id", deleteCourse) // DELETE
-router.patch("/update/:id", updateCourse)
+router.delete("/delete/:route", deleteCourse) // DELETE
+router.patch("/update/:route", updateCourse)
 
 module.exports = router
