@@ -22,8 +22,8 @@ const allowedOrigins = [
   "https://lifeline-it-student-dashboard.web.app",
   "https://lifeline-it-student-dashboard.firebase.app",
 
-  "https://lifelineitinstitute.com/",
-  "https://dashboard.lifelineitinstitute.com/",
+  "https://lifelineitinstitute.com",
+  "https://dashboard.lifelineitinstitute.com",
 ]
 
 const corsOptions = {
