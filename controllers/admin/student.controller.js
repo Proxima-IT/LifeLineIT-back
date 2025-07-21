@@ -65,3 +65,36 @@ exports.deleteStudent = async (req, res) => {
     res.status(500).json({ error: err.message })
   }
 }
+
+exports.findStudent = async (req, res) => {
+  const sid = sanitize(req.params.sid)
+  try {
+    const findUser = await Student.findOne({ sid })
+    res.json({ status: true, message: "User found", user: findUser })
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ error: err.message })
+  }
+}
+
+exports.updateStudent = async (req, res) => {
+  const data = sanitize(req.body)
+  try {
+    const updateStudent = await Student.findOneAndUpdate(
+      { route },
+      { $set: data },
+      { new: true }
+    )
+
+    client.del(`student:${data.id}`)
+
+    return findCourse
+      ? res
+          .status(200)
+          .json({ status: true, message: "Course updated successfully" })
+      : res.status(404).json({ status: false, error: "Course not found" })
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+    console.log(err)
+  }
+}
