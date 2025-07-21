@@ -14,11 +14,13 @@ exports.registrationController = async (req, res) => {
     const cachedData = await client.get(CACHE_DATA)
 
     let studentData
-    
+
     if (cachedData) {
       studentData = JSON.parse(cachedData)
     } else {
-      studentData = await Student.findOne({ _id: studentId })
+      studentData = await Student.findOne({
+        $or: [{ _id: studentId }, { sid: studentId }],
+      })
     }
 
     const {

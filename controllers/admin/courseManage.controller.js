@@ -5,6 +5,7 @@ const sanitize = require("mongo-sanitize")
 const Course = require("../../models/Course")
 const client = require("../../utils/redisClient")
 
+// ADMIN CONTROLLERS
 exports.addCourse = async (req, res) => {
   const data = sanitize(req.body)
   if (data.instructors && typeof data.instructors === "string") {

@@ -16,7 +16,9 @@ exports.certificateController = async (req, res) => {
 
     let studentData
     if (!cachedData) {
-      studentData = await Student.findOne({ _id: studentId })
+      studentData = await Student.findOne({
+        $or: [{ _id: studentId }, { sid: studentId }],
+      })
     } else {
       studentData = JSON.parse(cachedData)
     }

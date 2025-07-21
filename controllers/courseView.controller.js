@@ -86,3 +86,9 @@ exports.getCoursesBySearch = async (req, res) => {
     res.status(500).json({ error: err.message })
   }
 }
+
+exports.getCourseById = async (req, res) => {
+  const { id } = sanitize(req.body)
+  const findCourse = await Course.findOne({ _id: id }).lean()
+  res.json(findCourse)
+}

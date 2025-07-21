@@ -10,6 +10,8 @@ const authRoutes = require("./routes/auth")
 const courseRoutes = require("./routes/courses")
 const studentRoutes = require("./routes/student")
 const dashboardRoutes = require("./routes/dashboard/dashboard")
+const certificateRoutes = require("./routes/admin/certificate")
+const generalRoutes = require("./routes/admin/general")
 
 const app = express()
 
@@ -25,6 +27,7 @@ const allowedOrigins = [
   "https://lifelineitinstitute.com",
   "https://dashboard.lifelineitinstitute.com",
 ]
+// মেক শিওর করিয়েন যে লিংক এর পরে কোন / বা কিচ্ছু নাই, জাস্ট প্লেইন URL
 
 const corsOptions = {
   origin: allowedOrigins, // function দরকারই নেই
@@ -53,9 +56,10 @@ app.use("/api/student", studentRoutes)
 // Student Dashboard routes
 app.use("/api/dashboard", dashboardRoutes)
 
-app.get("/", (req, res) => {
-  res.send("Server is running")
-})
+// Certificate Routes
+app.use("/api/certificate", certificateRoutes)
+// General Informations Dynamication
+app.use("/api/general", generalRoutes)
 
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" })
