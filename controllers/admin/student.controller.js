@@ -21,7 +21,7 @@ exports.getStudents = async (req, res) => {
       .skip((page - 1) * limit)
       .limit(limit)
       .lean()
-    res.status(201).json({ users: getStudents })
+    res.status(201).json(getStudents)
     console.log(`${getStudents.length} Students Found`)
   } catch (err) {
     res.status(500).json({ error: err.message })

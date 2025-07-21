@@ -3,7 +3,7 @@ const { Types } = require("mongoose")
 const client = require("../../utils/redisClient")
 
 exports.dashboardController = async (req, res) => {
-  const CACHE_DATA = `student:${req.user.id}`
+  const CACHE_DATA = `student:${req.user.sid}`
   console.log(CACHE_DATA)
   const cachedData = await client.get(CACHE_DATA)
 
