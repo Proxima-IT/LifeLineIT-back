@@ -14,7 +14,7 @@ const bcrypt = require("bcrypt")
 
 exports.getStudents = async (req, res) => {
   const page = parseInt(sanitize(req.query.page)) || 1
-  const limit = parseInt(sanitize(req.query.limit)) || 100
+  const limit = parseInt(sanitize(req.query.limit)) || 50
   try {
     // Get all students by skipping and limiting the results
     const getStudents = await Student.find({})
