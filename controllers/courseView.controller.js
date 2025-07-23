@@ -1,6 +1,7 @@
 const Course = require("../models/Course")
 const sanitize = require("mongo-sanitize")
 const client = require("../utils/redisClient")
+const { id_ID } = require("@faker-js/faker")
 
 exports.getCourses = async (req, res) => {
   try {
@@ -88,7 +89,9 @@ exports.getCoursesBySearch = async (req, res) => {
 }
 
 exports.getCourseById = async (req, res) => {
-  const { id } = sanitize(req.body)
+  const { id } = sanitize(req.params)
+  console.log(id)
   const findCourse = await Course.findOne({ _id: id }).lean()
+  console.log(findCourse)
   res.json(findCourse)
 }
