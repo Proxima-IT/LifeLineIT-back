@@ -55,7 +55,7 @@ async function generateCertificate(
     const arrayBuffer = await response.arrayBuffer()
     const imageBytes = Buffer.from(arrayBuffer)
 
-    const signDims = qrImage.scale(0.36)
+    const signDims = qrImage.scale(0.6)
     const imgType = await getImageMimeType(instructorSign)
 
     let image
@@ -70,7 +70,7 @@ async function generateCertificate(
     }
 
     page.drawImage(image, {
-      x: 145,
+      x: 140,
       y: 93,
       width: signDims.width,
       height: signDims.height,

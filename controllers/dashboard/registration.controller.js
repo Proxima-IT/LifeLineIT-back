@@ -13,6 +13,7 @@ exports.registrationController = async (req, res) => {
     const CACHE_DATA = `student:${studentId}`
     const cachedData = await client.get(CACHE_DATA)
 
+    console.log(cachedData)
     let studentData
 
     if (cachedData) {
@@ -38,9 +39,26 @@ exports.registrationController = async (req, res) => {
     const matchedCourse = totalOrders.find(
       (order) => order.courseId.toString() === courseId.toString()
     )
-    const { registrationId, enrolledAt } = matchedCourse
+    const { enrolledAt } = matchedCourse
 
-    const findCourse = await Course.findOne({ _id: courseId }, { duration: 1 })
+    const findCourse = await Course.findOne(
+      { _id: courseId },
+      { duration: 1, title: 1 }
+    )
+    const courseCode = findCourse.title
+      .split(" ")
+      .filter(Boolean)
+      .map((word) => word[0])
+      .join("")
+      .substring(0, 2)
+      .toUpperCase()
+
+    const courseYear = new Date(matchedCourse.enrolledAt)
+      .getFullYear()
+      .toString()
+
+    const registrationId = `${courseYear}/${courseCode}/${sid.split("-")[1]}`
+
     const courseDuration = findCourse ? findCourse.duration : "Unknown"
 
     const courseSession = getSession(

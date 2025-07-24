@@ -79,9 +79,25 @@ exports.findStudent = async (req, res) => {
 
 exports.updateStudent = async (req, res) => {
   const data = sanitize(req.body)
+  const sid = data.sid
   try {
+    if (data.courseAccess) {
+      const findStudent = Student.findOne({ sid })
+      findStudent.totalOrders.push({
+        certificate: {
+          canIssue: false,
+          grade: "N/A",
+        },
+        courseId: data.courseId,
+        enrolledAt: Date.now(),
+        paymentStatus: "paid",
+        paid: "0",
+        courseRoute: data.courseRoute,
+      })
+    }
+
     const updateStudent = await Student.findOneAndUpdate(
-      { route },
+      { sid },
       { $set: data },
       { new: true }
     )
