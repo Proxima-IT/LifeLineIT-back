@@ -1,7 +1,7 @@
 const Course = require("@models/Course")
 const sanitize = require("mongo-sanitize")
 const client = require("@utils/redisClient")
-const logger = require("../_logs/logger")
+const logger = require("@logger")
 
 exports.getCourses = async (req, res) => {
   try {

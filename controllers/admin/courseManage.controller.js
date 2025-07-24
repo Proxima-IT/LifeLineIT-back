@@ -4,7 +4,7 @@
 const sanitize = require("mongo-sanitize")
 const Course = require("@models/Course")
 const client = require("@utils/redisClient")
-const logger = require("../../_logs/logger")
+const logger = require("@logger")
 
 // ADMIN CONTROLLERS
 exports.addCourse = async (req, res) => {

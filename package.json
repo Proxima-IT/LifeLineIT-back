@@ -45,7 +45,7 @@
   },
   "_moduleAliases": {
     "@root": ".",
-    "@logger": "_logs/logger.js",
+    "@logger": "./utils/logger.js",
     "@controllers": "./controllers",
     "@middlewares": "./middlewares",
     "@models": "./models",

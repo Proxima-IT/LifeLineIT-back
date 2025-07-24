@@ -4,7 +4,7 @@ require("winston-daily-rotate-file")
 const path = require("path")
 
 const transport = new winston.transports.DailyRotateFile({
-  filename: path.join(__dirname, "%DATE%.log"),
+  filename: path.join("_logs", "%DATE%.log"),
   datePattern: "DDMMYYYY",
   zippedArchive: true,
   maxSize: "20m",

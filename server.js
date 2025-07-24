@@ -10,6 +10,7 @@ connectDB()
   .then(() => {
     app.listen(PORT, "0.0.0.0", () => {
       logger.info(`Server running on port http://localhost:${PORT}`)
+      logger.info("_________________________")
     })
   })
   .catch((err) => console.error(err))
