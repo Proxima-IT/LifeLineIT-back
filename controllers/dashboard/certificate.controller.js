@@ -1,10 +1,10 @@
-const generateCertificate = require("../../utils/certificateTemplate")
+const generateCertificate = require("@utils/certificateTemplate")
 const sanitize = require("mongo-sanitize")
 // MongoDB Models
-const Certificate = require("../../models/Certificate")
-const Course = require("../../models/Course")
-const client = require("../../utils/redisClient")
-const Student = require("../../models/Student")
+const Certificate = require("@models/Certificate")
+const Course = require("@models/Course")
+const client = require("@utils/redisClient")
+const Student = require("@models/Student")
 
 exports.certificateController = async (req, res) => {
   try {

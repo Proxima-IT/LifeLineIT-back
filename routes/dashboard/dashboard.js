@@ -4,29 +4,29 @@ const express = require("express")
 const router = express.Router()
 
 // JWT Datas
-const verifyJWT = require("../../middlewares/authMiddleware")
+const verifyJWT = require("@middlewares/authMiddleware")
 
 // Controllers:
 const {
   dashboardController,
-} = require("../../controllers/dashboard/dashboard.controller")
+} = require("@controllers/dashboard/dashboard.controller")
 
 const {
   addNotice,
   viewNotice,
-} = require("../../controllers/dashboard/notice.controller")
+} = require("@controllers/dashboard/notice.controller")
 
 const {
   registrationController,
-} = require("../../controllers/dashboard/registration.controller")
+} = require("@controllers/dashboard/registration.controller")
 const {
   certificateController,
-} = require("../../controllers/dashboard/certificate.controller")
+} = require("@controllers/dashboard/certificate.controller")
 
-const resetInfo = require("../../controllers/dashboard/profile.controller")
+const resetInfo = require("@controllers/dashboard/profile.controller")
 
 // Middlewares
-const rateLimiter = require("../../middlewares/rateLimiter")
+const rateLimiter = require("@middlewares/rateLimiter")
 
 // ROOT: /api/dashboard
 router.get(

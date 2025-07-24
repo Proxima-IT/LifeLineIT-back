@@ -1,4 +1,4 @@
-const path = require("path")
+require("module-alias/register")
 const express = require("express")
 const cors = require("cors")
 const helmet = require("helmet")
@@ -6,12 +6,12 @@ const morgan = require("morgan")
 const cookieParser = require("cookie-parser")
 
 // Routes
-const authRoutes = require("./routes/auth")
-const courseRoutes = require("./routes/courses")
-const studentRoutes = require("./routes/student")
-const dashboardRoutes = require("./routes/dashboard/dashboard")
-const certificateRoutes = require("./routes/admin/certificate")
-const generalRoutes = require("./routes/admin/general")
+const authRoutes = require("@routes/auth")
+const courseRoutes = require("@routes/courses")
+const studentRoutes = require("@routes/student")
+const dashboardRoutes = require("@routes/dashboard/dashboard")
+const certificateRoutes = require("@routes/admin/certificate")
+const generalRoutes = require("@routes/admin/general")
 
 const app = express()
 

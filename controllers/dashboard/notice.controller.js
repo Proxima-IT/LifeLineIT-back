@@ -1,6 +1,7 @@
-const Notice = require("../../models/Notice")
+const Notice = require("@models/Notice")
+const client = require("@utils/redisClient")
+
 const sanitize = require("mongo-sanitize")
-const client = require("../../utils/redisClient")
 
 // View Notice
 exports.viewNotice = async (req, res) => {

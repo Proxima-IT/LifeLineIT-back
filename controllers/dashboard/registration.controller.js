@@ -1,10 +1,10 @@
 const sanitize = require("mongo-sanitize")
-const Student = require("../../models/Student")
-const Course = require("../../models/Course")
+const Student = require("@models/Student")
+const Course = require("@models/Course")
 
-const generateRegistrationPDF = require("../../utils/registrationTemplate")
-const getSession = require("../../utils/sessionGen")
-const client = require("../../utils/redisClient")
+const generateRegistrationPDF = require("@utils/registrationTemplate")
+const getSession = require("@utils/sessionGen")
+const client = require("@utils/redisClient")
 
 exports.registrationController = async (req, res) => {
   try {

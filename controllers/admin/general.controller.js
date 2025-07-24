@@ -1,5 +1,5 @@
 const sanitize = require("mongo-sanitize")
-const General = require("../../models/General")
+const General = require("@models/General")
 
 exports.addGeneralSettings = (req, res) => {
   const data = sanitize(req.body)

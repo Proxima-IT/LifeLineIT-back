@@ -5,7 +5,7 @@ const {
   getCoursesByName,
   getCoursesBySearch,
   getCourseById,
-} = require("../controllers/courseView.controller")
+} = require("@controllers/courseView.controller")
 
 // ADMIN CONTROLLERS
 
@@ -13,9 +13,9 @@ const {
   addCourse,
   deleteCourse,
   updateCourse,
-} = require("../controllers/admin/courseManage.controller")
+} = require("@controllers/admin/courseManage.controller")
 
-const rateLimiter = require("../middlewares/rateLimiter")
+const rateLimiter = require("@middlewares/rateLimiter")
 
 // ROOT: /api/courses
 router.get("/", rateLimiter(60 * 5 * 1000, 60, "Too many Requests"), getCourses) // get All Courses

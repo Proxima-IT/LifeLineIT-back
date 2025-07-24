@@ -1,3 +1,4 @@
+const logger = require("@logger")
 const jwt = require("jsonwebtoken")
 
 const verifyJWT = (req, res, next) => {
@@ -10,7 +11,7 @@ const verifyJWT = (req, res, next) => {
     req.user = decoded // user info like name, email, etc.
     next()
   } catch (err) {
-    console.error("Error at authMiddleware:", err)
+    logger.error("Error at authMiddleware", err)
     return res.status(403).json({ status: false, message: "Forbidden" })
   }
 }

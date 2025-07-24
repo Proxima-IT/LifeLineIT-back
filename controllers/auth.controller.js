@@ -3,15 +3,15 @@ const path = require("path")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 // Validation and Sanitization
-const studentSchema = require("../schemas/studentSchema")
+const studentSchema = require("@schemas/studentSchema")
 const sanitize = require("mongo-sanitize")
 
 // Importing Models - MongoDB SChemas(otpSchema)
-const Student = require("../models/Student")
-const Otp = require("../models/Otp")
+const Student = require("@models/Student")
+const Otp = require("@models/Otp")
 
 // Importing Email Sender
-const sendEmail = require("../utils/sendEmail")
+const sendEmail = require("@utils/sendEmail")
 
 // 1. OTP Verification
 exports.otpVerification = async (req, res) => {

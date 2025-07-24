@@ -1,6 +1,6 @@
-const Course = require("../models/Course")
+const Course = require("@models/Course")
 const sanitize = require("mongo-sanitize")
-const client = require("../utils/redisClient")
+const client = require("@utils/redisClient")
 const { id_ID } = require("@faker-js/faker")
 
 exports.getCourses = async (req, res) => {

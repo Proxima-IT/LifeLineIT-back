@@ -1,7 +1,7 @@
 const {
   findCertificate,
   getCertificateInfo,
-} = require("../../controllers/admin/certificate.controller")
+} = require("@controllers/admin/certificate.controller")
 
 const express = require("express")
 const router = express.Router()

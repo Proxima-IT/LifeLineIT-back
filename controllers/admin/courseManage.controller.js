@@ -2,8 +2,8 @@
 // Course Controller
 
 const sanitize = require("mongo-sanitize")
-const Course = require("../../models/Course")
-const client = require("../../utils/redisClient")
+const Course = require("@models/Course")
+const client = require("@utils/redisClient")
 
 // ADMIN CONTROLLERS
 exports.addCourse = async (req, res) => {

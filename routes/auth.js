@@ -5,11 +5,11 @@ const {
   registerController,
   loginController,
   logoutController,
-} = require("../controllers/auth.controller")
+} = require("@controllers/auth.controller")
 
-const verifyJWT = require("../middlewares/authMiddleware")
+const verifyJWT = require("@middlewares/authMiddleware")
 
-const rateLimiter = require("../middlewares/rateLimiter")
+const rateLimiter = require("@middlewares/rateLimiter")
 
 // ROOT: /api/auth
 router.post("/otp-verify", otpVerification)

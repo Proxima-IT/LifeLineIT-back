@@ -1,8 +1,8 @@
 const sanitize = require("mongo-sanitize")
-const Student = require("../../models/Student")
+const Student = require("@models/Student")
+const client = require("@utils/redisClient")
 const bcrypt = require("bcrypt")
 // Client Redis
-const client = require("../../utils/redisClient")
 
 const resetInfo = async (req, res) => {
   try {

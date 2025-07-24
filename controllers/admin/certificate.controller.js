@@ -1,6 +1,6 @@
-const Certificate = require("../../models/Certificate")
-const Student = require("../../models/Student")
-const Course = require("../../models/Course")
+const Certificate = require("@models/Certificate")
+const Student = require("@models/Student")
+const Course = require("@models/Course")
 const sanitize = require("mongo-sanitize")
 
 exports.getCertificateInfo = async (req, res) => {

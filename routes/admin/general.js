@@ -1,7 +1,7 @@
 const {
   getGeneralSettings,
   addGeneralSettings,
-} = require("../../controllers/admin/general.controller")
+} = require("@controllers/admin/general.controller")
 const express = require("express")
 const router = express.Router()
 
