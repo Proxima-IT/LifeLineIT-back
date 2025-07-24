@@ -1,7 +1,7 @@
 const Course = require("@models/Course")
 const sanitize = require("mongo-sanitize")
 const client = require("@utils/redisClient")
-const { id_ID } = require("@faker-js/faker")
+const logger = require("../_logs/logger")
 
 exports.getCourses = async (req, res) => {
   try {
@@ -10,7 +10,7 @@ exports.getCourses = async (req, res) => {
     const cachedCourses = await client.get(CACHE_KEY)
 
     if (cachedCourses) {
-      return res.status(200).json(JSON.parse(cachedCourses))
+      return res.json(JSON.parse(cachedCourses))
     }
 
     // If not, find it from the database
@@ -47,7 +47,7 @@ exports.getCoursesByName = async (req, res) => {
 
     return res.json(course)
   } catch (err) {
-    console.log(err)
+    logger.error(err)
     res.status(500).json({ error: err.message })
   }
 }
@@ -83,15 +83,17 @@ exports.getCoursesBySearch = async (req, res) => {
 
     res.json(course)
   } catch (err) {
-    console.log(err)
+    logger.error(err)
     res.status(500).json({ error: err.message })
   }
 }
 
 exports.getCourseById = async (req, res) => {
-  const { id } = sanitize(req.params)
-  console.log(id)
-  const findCourse = await Course.findOne({ _id: id }).lean()
-  console.log(findCourse)
-  res.json(findCourse)
+  try {
+    const { id } = sanitize(req.params)
+    const findCourse = await Course.findOne({ _id: id }).lean()
+    res.json(findCourse)
+  } catch (error) {
+    logger.error(error)
+  }
 }

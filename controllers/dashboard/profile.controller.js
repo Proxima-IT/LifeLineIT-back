@@ -2,6 +2,7 @@ const sanitize = require("mongo-sanitize")
 const Student = require("@models/Student")
 const client = require("@utils/redisClient")
 const bcrypt = require("bcrypt")
+const logger = require("@logger")
 // Client Redis
 
 const resetInfo = async (req, res) => {
@@ -60,7 +61,7 @@ const resetInfo = async (req, res) => {
     await client.del(`student:${req.user.id}`)
     res.json({ success: true, message: "Informations Updated successfully" })
   } catch (error) {
-    console.log(error)
+    logger.error(error)
   }
 }
 

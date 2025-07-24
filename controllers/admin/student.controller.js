@@ -2,6 +2,7 @@ const Student = require("@models/Student")
 const Course = require("@models/Course")
 const sanitize = require("mongo-sanitize")
 const bcrypt = require("bcrypt")
+const logger = require("@logger")
 
 // Student Controller
 
@@ -61,7 +62,7 @@ exports.deleteStudent = async (req, res) => {
       deletedUser: findUser,
     })
   } catch (err) {
-    console.log(err)
+    logger.error(err)
     res.status(500).json({ error: err.message })
   }
 }
@@ -72,7 +73,7 @@ exports.findStudent = async (req, res) => {
     const findUser = await Student.findOne({ sid })
     res.json({ status: true, message: "User found", user: findUser })
   } catch (err) {
-    console.log(err)
+    logger.error(err)
     res.status(500).json({ error: err.message })
   }
 }
@@ -111,6 +112,6 @@ exports.updateStudent = async (req, res) => {
       : res.status(404).json({ status: false, error: "Course not found" })
   } catch (err) {
     res.status(500).json({ error: err.message })
-    console.log(err)
+    logger.error(err)
   }
 }

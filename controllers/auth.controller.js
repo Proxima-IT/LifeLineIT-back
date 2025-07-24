@@ -1,3 +1,4 @@
+const logger = require("@logger")
 const fs = require("fs").promises
 const path = require("path")
 const bcrypt = require("bcrypt")
@@ -19,7 +20,7 @@ exports.otpVerification = async (req, res) => {
     const { email } = sanitize(req.body)
     const existingStudent = await Student.findOne({ email }).lean()
 
-    console.log("Existing Student:", existingStudent)
+    logger.info("Existing Student", existingStudent)
     if (existingStudent)
       return res
         .status(400)
@@ -68,7 +69,7 @@ exports.registerController = async (req, res) => {
   const { error, value } = studentSchema.validate(sanitize(req.body), {
     stripUnknown: true,
   })
-  console.log("Validation Result:", error, value)
+  logger.info("Validation Result", error, value)
   const { name, email, phone, password, otp } = value
 
   if (error) {
@@ -85,7 +86,7 @@ exports.registerController = async (req, res) => {
       .json({ status: false, message: "OTP not found, deleted." })
   }
 
-  console.log("takenOtpCode:", takenOtpCode)
+  logger.info("takenOtpCode:", takenOtpCode)
   const generatedOtpCode = getOtp.otp
   try {
     if (generatedOtpCode == takenOtpCode) {
@@ -108,7 +109,7 @@ exports.registerController = async (req, res) => {
     }
   } catch (err) {
     res.status(500).json({ error: err.message })
-    console.log(err)
+    logger.error(err)
   }
 }
 
@@ -153,7 +154,7 @@ exports.loginController = async (req, res) => {
       token,
     })
   } catch (err) {
-    console.error("Login Error:", err)
+    logger.error("Login Error:", err)
     res.status(500).json({ error: err.message })
   }
 }

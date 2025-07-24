@@ -4,22 +4,31 @@ require("winston-daily-rotate-file")
 const path = require("path")
 
 const transport = new winston.transports.DailyRotateFile({
-  filename: path.join("logs", "app-%DATE%.log"),
-  datePattern: "YYYY-MM-DD",
-  zippedArchive: true, // compress old logs
-  maxSize: "20m", // max file size
-  maxFiles: "7d", // keep only last 14 days
+  filename: path.join(__dirname, "%DATE%.log"),
+  datePattern: "DDMMYYYY",
+  zippedArchive: true,
+  maxSize: "20m",
+  maxFiles: "7d",
 })
 
 const logger = winston.createLogger({
   level: "info",
   format: winston.format.combine(
-    winston.format.timestamp(),
+    winston.format.errors({ stack: true }),
+    winston.format.timestamp({ format: "DD-MM-YYYY HH:mm:ss" }),
     winston.format.prettyPrint()
   ),
   transports: [
     transport,
-    new winston.transports.Console({ format: winston.format.simple() }),
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.timestamp({ format: "HH:mm:ss" }),
+        winston.format.printf(({ timestamp, level, message }) => {
+          return `${timestamp} [${level}]: ${message}`
+        })
+      ),
+    }),
   ],
 })
 

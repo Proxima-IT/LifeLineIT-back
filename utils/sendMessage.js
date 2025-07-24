@@ -1,4 +1,5 @@
 const axios = require("axios")
+const logger = require("@logger")
 
 const API_KEY = "MV1PqrLgksMTX4aFkvEB"
 const SENDER_ID = "8809617627184"
@@ -15,9 +16,9 @@ async function sendSMS(to, message) {
       },
     })
 
-    console.log("SMS Sent! Response:", response.data)
+    logger.info("SMS Sent! Response:", response.data)
   } catch (error) {
-    console.error("Error sending SMS:", error.response?.data || error.message)
+    logger.error("Error sending SMS:", error.response?.data || error.message)
   }
 }
 

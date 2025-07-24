@@ -3,6 +3,7 @@ const { PDFDocument, rgb, StandardFonts } = require("pdf-lib")
 const QRCode = require("qrcode")
 const fontkit = require("fontkit")
 const path = require("path")
+const logger = require("@logger")
 
 const formatDate = (issueDate) => {
   const options = { day: "numeric", month: "long", year: "numeric" }
@@ -191,10 +192,17 @@ async function generateCertificate(
 
     const updatedPdfBytes = await pdfDoc.save()
 
-    console.log("✅ PDF updated successfully.")
+    logger.log({
+      student: {
+        name,
+        sid,
+        registration,
+      },
+      message: "✅ PDF updated successfully.",
+    })
     return updatedPdfBytes
   } catch (error) {
-    console.log(error)
+    logger.error(error)
   }
 }
 

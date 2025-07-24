@@ -104,7 +104,7 @@ exports.certificateController = async (req, res) => {
 
     res.end(pdfBuffer)
   } catch (error) {
-    console.log(error)
+    logger.error(error)
     return res.json({ error })
   }
 }

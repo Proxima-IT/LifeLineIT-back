@@ -2,6 +2,7 @@ const fs = require("fs")
 const path = require("path")
 const { PDFDocument, rgb, StandardFonts } = require("pdf-lib")
 const fontkit = require("fontkit")
+const logger = require("@logger")
 
 async function getImageMimeType(url) {
   const res = await fetch(url, { method: "HEAD" }) // just fetch headers
@@ -125,11 +126,17 @@ async function generateRegistrationPDF(
     // Save the updated PDF
     const updatedPdfBytes = await pdfDoc.save()
 
-    console.log("✅ PDF updated successfully.")
+    logger.log({
+      student: {
+        name,
+        sid,
+        registration,
+      },
+      message: "✅ PDF updated successfully.",
+    })
     return updatedPdfBytes
   } catch (err) {
-    console.log(err)
-    console.error("❌ Failed to edit PDF:", err.message)
+    logger.error("❌ Failed to edit PDF:", err)
   }
 }
 

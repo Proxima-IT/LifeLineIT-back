@@ -1,4 +1,5 @@
 require("module-alias/register")
+const path = require("path")
 const express = require("express")
 const cors = require("cors")
 const helmet = require("helmet")
@@ -13,6 +14,8 @@ const dashboardRoutes = require("@routes/dashboard/dashboard")
 const certificateRoutes = require("@routes/admin/certificate")
 const generalRoutes = require("@routes/admin/general")
 
+// Basic Auth
+const auth = require("@middlewares/basicAuth")
 const app = express()
 
 const allowedOrigins = [
@@ -43,10 +46,11 @@ app.use(cookieParser())
 
 app.use(express.urlencoded({ extended: true })) // application/x-www-form-urlencoded
 app.use(express.json()) // application/json
+app.use("/logs", auth, express.static(path.join(__dirname, "_logs")))
 
 app.get("/", (req, res) => {
   // Public URL goes here
-  res.redirect("https://www.youtube.com")
+  res.redirect("https://lifelineitinstitute.com")
 })
 // Routes
 app.use("/api/auth", authRoutes)

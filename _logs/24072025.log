@@ -1,0 +1,1358 @@
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '2025-07-24T04:34:09.128Z'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '2025-07-24T04:35:38.011Z'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '2025-07-24T04:36:02.119Z'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:36:09'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'warn',
+  timestamp: '24-07-2025 10:36:32'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:36:44'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:37:07'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:37:18'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:37:19'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:37:22'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:37:23'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:37:25'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:37:25'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:38:36'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:38:37'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:39:15'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:39:16'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:40:43'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:40:52'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:41:14'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:41:14'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:41:21'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:41:21'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:41:34'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:41:35'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:41:50'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:41:54'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:42:02'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:42:09'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:42:13'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:42:15'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:42:16'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:42:16'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:42:20'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:42:21'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:42:21'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:43:12'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:43:14'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:43:14'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:43:20'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:43:21'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:43:21'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:43:26'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:43:27'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:43:27'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:43:29'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:43:30'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:43:30'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:43:54'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:43:57'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:43:57'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:44:03'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:44:05'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:44:08'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:44:11'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:44:11'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:44:11'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:44:20'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:44:21'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:44:21'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:45:01'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:45:02'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:45:02'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:45:15'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:45:16'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:45:16'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:45:54'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:45:55'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:45:55'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:45:59'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:46:01'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:46:01'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:46:37'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:46:42'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:46:43'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:46:43'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:46:46'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:46:47'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:46:47'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:46:52'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:46:53'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:46:53'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:47:03'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:47:06'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:47:06'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:01'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:02'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:02'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:11'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:11'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:11'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:13'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:18'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:19'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:19'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:22'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:23'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:23'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:25'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:26'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:26'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:29'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:31'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:34'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:35'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:35'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:42'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:53'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:54'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:54'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:57'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:59'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:48:59'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:49:02'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:49:05'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:49:05'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:50:14'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:50:15'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:50:15'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:50:42'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:50:44'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:50:51'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:50:56'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:50:58'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:50:59'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:50:59'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:01'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:02'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:02'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:07'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:10'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:13'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:13'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:18'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:22'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:22'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:25'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:26'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:26'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:34'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:35'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:35'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:38'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:42'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:42'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:57'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:58'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:51:58'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:08'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:08'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:08'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:21'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:22'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:22'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:30'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:31'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:31'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:40'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:42'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:43'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:43'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:48'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:50'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:52'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:52'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:58'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:59'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:52:59'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:53:18'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:53:19'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:53:19'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:53:43'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:53:44'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:53:44'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:53:58'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:53:59'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:53:59'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:54:09'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:54:10'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:54:10'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:54:18'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:54:18'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:54:18'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:54:41'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:54:42'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:54:42'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:54:50'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:54:51'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:54:51'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:55:01'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:55:02'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:55:02'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:55:08'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:55:08'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:55:08'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:55:18'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:55:19'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:55:19'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:55:25'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:55:26'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:55:26'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:55:28'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:55:29'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:55:29'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:55:47'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:55:52'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:55:59'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:56:08'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:56:23'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:56:23'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:57:15'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:57:19'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:57:19'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:57:36'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:57:43'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:57:43'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:57:58'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:58:01'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:58:04'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:58:04'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:58:15'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:58:20'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:58:20'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:58:47'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:58:50'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:58:50'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:58:54'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:59:00'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:59:00'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:59:26'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:59:40'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:59:40'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:59:56'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 10:59:59'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 10:59:59'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:00:03'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:00:05'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 11:00:05'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:00:22'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:00:26'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 11:00:26'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:00:51'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:00:51'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 11:00:51'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:00:59'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:01:00'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 11:01:00'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:01:17'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:01:20'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 11:01:20'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:01:44'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:01:45'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:01:48'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:01:49'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 11:01:49'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:02:08'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:02:08'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 11:02:08'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:03:01'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:03:02'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 11:03:02'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:03:36'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:03:38'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 11:03:38'
+}
+{
+  level: 'error',
+  message: "Cannot read properties of undefined (reading 'split')",
+  stack: "TypeError: Cannot read properties of undefined (reading 'split')\n" +
+    '    at exports.getCoursesBySearch (D:\\Codes\\LifeLine\\Lifeline-IT-back\\controllers\\courseView.controller.js:76:49)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)',
+  timestamp: '24-07-2025 11:06:00'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:06:42'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:06:46'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 11:06:46'
+}
+{
+  message: 'Redis has been connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:07:04'
+}
+{
+  message: 'MongoDB connected',
+  level: 'info',
+  timestamp: '24-07-2025 11:07:06'
+}
+{
+  message: 'Server running on port http://localhost:5000',
+  level: 'info',
+  timestamp: '24-07-2025 11:07:06'
+}

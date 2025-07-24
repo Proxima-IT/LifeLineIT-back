@@ -1,3 +1,4 @@
+const logger = require("@logger")
 const Notice = require("@models/Notice")
 const client = require("@utils/redisClient")
 
@@ -19,7 +20,7 @@ exports.viewNotice = async (req, res) => {
     await client.set(CACHE_KEY, JSON.stringify(getAllNotices), { EX: 60 })
     return res.json(getAllNotices)
   } catch (error) {
-    console.log(error)
+    logger.error(error)
     return res.json({ err: error.message })
   }
 }
@@ -36,7 +37,7 @@ exports.addNotice = async (req, res) => {
       message: "Notice was added successfully.",
     })
   } catch (error) {
-    console.log(error)
+    logger.error(error)
     return res.json({ err: error.message })
   }
 }
@@ -57,7 +58,7 @@ exports.updateNotice = async (req, res) => {
       notice: updateNotice,
     })
   } catch (error) {
-    console.log(error)
+    logger.error(error)
     return res.json({ err: error.message })
   }
 }
@@ -74,7 +75,7 @@ exports.deleteNotice = async (req, res) => {
       notice: deleteNotice,
     })
   } catch (error) {
-    console.log(error)
+    logger.error(error)
     return res.json({ err: error.message })
   }
 }

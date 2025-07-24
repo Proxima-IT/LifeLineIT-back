@@ -2,6 +2,7 @@ const Certificate = require("@models/Certificate")
 const Student = require("@models/Student")
 const Course = require("@models/Course")
 const sanitize = require("mongo-sanitize")
+const logger = require("@logger")
 
 exports.getCertificateInfo = async (req, res) => {
   const getAllCertificates = await Certificate.find({}).sort({ _id: -1 }).lean()
@@ -33,7 +34,7 @@ exports.findCertificate = async (req, res) => {
       courseData: { ...findCourse, grade: findCertificate.grade },
     })
   } catch (error) {
-    console.log(error)
+    logger.error(error)
     res.json({ error: error.message })
   }
 }

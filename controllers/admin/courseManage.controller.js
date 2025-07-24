@@ -4,6 +4,7 @@
 const sanitize = require("mongo-sanitize")
 const Course = require("@models/Course")
 const client = require("@utils/redisClient")
+const logger = require("../../_logs/logger")
 
 // ADMIN CONTROLLERS
 exports.addCourse = async (req, res) => {
@@ -21,7 +22,7 @@ exports.addCourse = async (req, res) => {
     client.del("courses:all")
   } catch (err) {
     res.status(500).json({ error: err.message })
-    console.log(err)
+    logger.error(err)
   }
 }
 
@@ -48,7 +49,7 @@ exports.updateCourse = async (req, res) => {
       : res.status(404).json({ status: false, error: "Course not found" })
   } catch (err) {
     res.status(500).json({ error: err.message })
-    console.log(err)
+    logger.error(err)
   }
 }
 
@@ -66,6 +67,6 @@ exports.deleteCourse = async (req, res) => {
       : res.status(404).json({ status: true, error: "Course not found" })
   } catch (err) {
     res.status(500).json({ error: err.message })
-    console.log(err)
+    logger.error(err)
   }
 }

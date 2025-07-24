@@ -5,6 +5,7 @@ const Course = require("@models/Course")
 const generateRegistrationPDF = require("@utils/registrationTemplate")
 const getSession = require("@utils/sessionGen")
 const client = require("@utils/redisClient")
+const logger = require("@logger")
 
 exports.registrationController = async (req, res) => {
   try {
@@ -89,7 +90,7 @@ exports.registrationController = async (req, res) => {
 
     res.end(pdfBuffer)
   } catch (error) {
-    console.log(error)
+    logger.error(error)
     return res.json({ error })
   }
 }

@@ -1,5 +1,6 @@
 const { createClient } = require("redis")
 require("dotenv").config()
+const logger = require("@logger")
 
 const client = createClient({
   url: process.env.REDIS_URI || "redis://redis:6379",
@@ -7,11 +8,11 @@ const client = createClient({
 
 client.connect()
 client.on("connect", () => {
-  console.log("Redis has been connected")
+  logger.info("Redis has been connected")
 })
 
 client.on("error", (err) => {
-  console.error("Redis error:", err)
+  logger.error("Redis error:", err)
 })
 
 client.flushAll()
