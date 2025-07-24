@@ -193,10 +193,12 @@ async function generateCertificate(
     const updatedPdfBytes = await pdfDoc.save()
 
     logger.info({
+      issue: "Certificate",
       student: {
         name,
         sid,
         regId,
+        certificateId,
       },
       message: "✅ PDF updated successfully.",
     })

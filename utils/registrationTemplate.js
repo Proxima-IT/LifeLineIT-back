@@ -127,6 +127,7 @@ async function generateRegistrationPDF(
     const updatedPdfBytes = await pdfDoc.save()
 
     logger.info({
+      issue: "Registration",
       student: {
         name,
         sid,
