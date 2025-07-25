@@ -15,7 +15,7 @@ exports.viewNotice = async (req, res) => {
       return res.json(JSON.parse(cachedData))
     }
 
-    const getAllNotices = await Notice.find({})
+    const getAllNotices = await Notice.find({}).sort({ _id: -1 }).lean()
 
     await client.set(CACHE_KEY, JSON.stringify(getAllNotices), { EX: 60 })
     return res.json(getAllNotices)
