@@ -23,8 +23,8 @@ exports.otpVerification = async (req, res) => {
     logger.info("Existing Student", existingStudent)
     if (existingStudent) {
       return res
-        .status(200)
-        .json({ status: false, message: "Student already exists" })
+        .status(409)
+        .json({ status: false, message: "Oops, the student already exists!" })
     }
 
     const otpGenerator = require("otp-generator")
