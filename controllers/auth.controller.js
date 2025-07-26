@@ -21,10 +21,11 @@ exports.otpVerification = async (req, res) => {
     const existingStudent = await Student.findOne({ email }).lean()
 
     logger.info("Existing Student", existingStudent)
-    if (existingStudent)
+    if (existingStudent) {
       return res
-        .status(400)
+        .status(200)
         .json({ status: false, message: "Student already exists" })
+    }
 
     const otpGenerator = require("otp-generator")
     const generatedOtpCode = otpGenerator.generate(6, {
