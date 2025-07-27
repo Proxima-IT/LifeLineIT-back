@@ -14,6 +14,7 @@ const {
 const {
   addNotice,
   viewNotice,
+  deleteNotice,
 } = require("@controllers/dashboard/notice.controller")
 
 const {
