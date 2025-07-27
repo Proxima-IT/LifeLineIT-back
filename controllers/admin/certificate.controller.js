@@ -31,7 +31,11 @@ exports.findCertificate = async (req, res) => {
 
     res.json({
       studentData: findStudent,
-      courseData: { ...findCourse, grade: findCertificate.grade },
+      courseData: {
+        ...findCourse,
+        grade: findCertificate.grade,
+        issue: findCertificate.issueDate,
+      },
     })
   } catch (error) {
     logger.error(error)
