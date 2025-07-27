@@ -38,7 +38,7 @@ async function generateCertificate(
 
     // Generate QR Code
     const qrDataUrl = await QRCode.toDataURL(
-      `/certificate/verify?cert=${certificateId}`
+      `https://lifelineitinstitute.com/certificate?find=${certificateId}`
     )
     const qrImageBytes = Buffer.from(qrDataUrl.split(",")[1], "base64")
     const qrImage = await pdfDoc.embedPng(qrImageBytes)

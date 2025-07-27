@@ -87,18 +87,18 @@ exports.certificateController = async (req, res) => {
       issueDate = new Date(existingCertificate.issueDate)
     } else {
       issueDate = new Date()
-
-      const certificate = new Certificate({
-        studentId: studentData._id,
-        courseId: findCourse._id,
-        certificateId,
-        regId,
-        issueDate,
-        grade: matchedCourse.certificate.grade,
-      })
-
-      await certificate.save()
     }
+
+    const certificate = new Certificate({
+      studentId: studentData._id,
+      courseId: findCourse._id,
+      certificateId,
+      regId,
+      issueDate,
+      grade: matchedCourse.certificate.grade || grade,
+    })
+
+    await certificate.save()
 
     console.log("Grade", matchedCourse.certificate.grade)
 
