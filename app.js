@@ -21,14 +21,13 @@ const app = express()
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
-  "https://lifelineit-d5cbf.web.app",
-  "https://lifelineit-d5cbf.firebaseapp.com",
-  ,
-  "https://lifeline-it-student-dashboard.web.app",
-  "https://lifeline-it-student-dashboard.firebase.app",
+  "http://localhost:5175",
+  "http://localhost:5176",
+  "http://localhost:5177",
 
   "https://lifelineitinstitute.com",
   "https://dashboard.lifelineitinstitute.com",
+  "https://admin.lifelineitinstitute.com",
 ]
 // মেক শিওর করিয়েন যে লিংক এর পরে কোন / বা কিচ্ছু নাই, জাস্ট প্লেইন URL
 
