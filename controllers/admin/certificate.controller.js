@@ -4,6 +4,11 @@ const Course = require("@models/Course")
 const sanitize = require("mongo-sanitize")
 const logger = require("@logger")
 
+const formatDate = () => {
+  const options = { day: "numeric", month: "long", year: "numeric" }
+  return new Date().toLocaleDateString("en-US", options) // e.g., "July 10, 2025"
+}
+
 exports.getCertificateInfo = async (req, res) => {
   const getAllCertificates = await Certificate.find({}).sort({ _id: -1 }).lean()
   res.json(getAllCertificates)
@@ -34,7 +39,7 @@ exports.findCertificate = async (req, res) => {
       courseData: {
         ...findCourse,
         grade: findCertificate.grade,
-        issue: findCertificate.issueDate,
+        issue: formatDate(findCertificate.issueDate),
       },
     })
   } catch (error) {
