@@ -6,6 +6,7 @@ const generateRegistrationPDF = require("@utils/registrationTemplate")
 const getSession = require("@utils/sessionGen")
 const client = require("@utils/redisClient")
 const logger = require("@logger")
+const { default: mongoose } = require("mongoose")
 
 exports.registrationController = async (req, res) => {
   try {
@@ -20,9 +21,11 @@ exports.registrationController = async (req, res) => {
     if (cachedData) {
       studentData = JSON.parse(cachedData)
     } else {
-      studentData = await Student.findOne({
-        $or: [{ _id: studentId }, { sid: studentId }],
-      })
+      const query = mongoose.Types.ObjectId.isValid(studentId)
+        ? { $or: [{ _id: studentId }, { sid: studentId }] }
+        : { sid: studentId }
+
+      studentData = await Student.findOne(query)
     }
 
     const {
@@ -37,13 +40,25 @@ exports.registrationController = async (req, res) => {
       totalOrders,
     } = studentData
 
-    const matchedCourse = totalOrders.find(
-      (order) => order.courseId.toString() === courseId.toString()
-    )
+    let matchedCourse
+    if (mongoose.Types.ObjectId.isValid(studentId)) {
+      matchedCourse = totalOrders.find(
+        (order) => order.courseId.toString() === courseId.toString()
+      )
+    } else {
+      matchedCourse = {
+        enrolledAt: new Date().getFullYear().toString(),
+      }
+    }
+
     const { enrolledAt } = matchedCourse
+    if (mongoose.Types.ObjectId.isValid(studentId)) {
+    }
 
     const findCourse = await Course.findOne(
-      { _id: courseId },
+      {
+        $or: [{ _id: courseId }, { route: courseId }],
+      },
       { duration: 1, title: 1 }
     )
     const courseCode = findCourse.title
@@ -65,18 +80,6 @@ exports.registrationController = async (req, res) => {
     const courseSession = getSession(
       enrolledAt,
       Number(courseDuration.split(" ")[0])
-    )
-    console.log(
-      image,
-      name,
-      father,
-      mother,
-      gender,
-      dateOfBirth,
-      phone,
-      registrationId,
-      sid,
-      courseSession
     )
 
     const pdfBuffer = await generateRegistrationPDF(

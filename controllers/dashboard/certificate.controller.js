@@ -6,9 +6,12 @@ const Course = require("@models/Course")
 const client = require("@utils/redisClient")
 const Student = require("@models/Student")
 
+const logger = require("@logger")
+const { default: mongoose } = require("mongoose")
+
 exports.certificateController = async (req, res) => {
   try {
-    const { studentId, courseId } = sanitize(req.body)
+    const { studentId, courseId, grade } = sanitize(req.body)
 
     const CACHE_DATA = `student:${studentId}`
     console.log("Cache Key:", CACHE_DATA)
@@ -16,24 +19,36 @@ exports.certificateController = async (req, res) => {
 
     let studentData
     if (!cachedData) {
-      studentData = await Student.findOne({
-        $or: [{ _id: studentId }, { sid: studentId }],
-      })
+      const query = mongoose.Types.ObjectId.isValid(studentId)
+        ? { $or: [{ _id: studentId }, { sid: studentId }] }
+        : { sid: studentId }
+
+      studentData = await Student.findOne(query)
     } else {
       studentData = JSON.parse(cachedData)
     }
 
     const { name, sid, totalOrders } = studentData
 
-    const findCourse = await Course.findOne({
-      _id: courseId,
-    })
+    const query = mongoose.Types.ObjectId.isValid(studentId)
+      ? { $or: [{ _id: courseId }, { route: courseId }] }
+      : { route: courseId }
+
+    const findCourse = await Course.findOne(query)
 
     const { title, duration, instructors } = findCourse
 
-    const matchedCourse = totalOrders.find(
-      (order) => order.courseId.toString() === courseId.toString()
-    )
+    let matchedCourse
+    if (mongoose.Types.ObjectId.isValid(studentId)) {
+      matchedCourse = totalOrders.find(
+        (order) => order.courseId.toString() === courseId.toString()
+      )
+    } else {
+      matchedCourse = {
+        enrolledAt: new Date().getFullYear().toString(),
+        certificate: { grade },
+      }
+    }
 
     const courseCode = title
       .split(" ")
@@ -57,19 +72,25 @@ exports.certificateController = async (req, res) => {
     }`
 
     // Checking if the issue date is already issued
-    const existingCertificate = await Certificate.findOne({
-      studentId,
-      courseId,
-    })
+    let existingCertificate
+    if (mongoose.Types.ObjectId.isValid(studentId)) {
+      existingCertificate = await Certificate.findOne({
+        studentId,
+        courseId,
+      })
+    } else {
+      existingCertificate = false
+    }
 
     let issueDate
     if (existingCertificate) {
       issueDate = new Date(existingCertificate.issueDate)
     } else {
       issueDate = new Date()
+
       const certificate = new Certificate({
-        studentId,
-        courseId,
+        studentId: studentData._id,
+        courseId: findCourse._id,
         certificateId,
         regId,
         issueDate,
@@ -83,7 +104,7 @@ exports.certificateController = async (req, res) => {
 
     const pdfBuffer = await generateCertificate(
       name,
-      `“${title.split(" ").slice(0, 3).join(" ")}”` /* Course's Title */,
+      `“${title.split(" ").slice(0, 2).join(" ")}”` /* Course's Title */,
       matchedCourse.certificate.grade /* student's grade */,
       duration /*courseDuration*/,
       issueDate /* issueDate */,
@@ -104,6 +125,7 @@ exports.certificateController = async (req, res) => {
 
     res.end(pdfBuffer)
   } catch (error) {
+    console.log(error)
     logger.error(error)
     return res.json({ error })
   }
