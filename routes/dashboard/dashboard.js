@@ -26,7 +26,7 @@ const {
 const resetInfo = require("@controllers/dashboard/profile.controller")
 
 // Middlewares
-const rateLimiter = require("@middlewares/rateLimiter")
+// const rateLimiter = require("@middlewares/rateLimiter")
 
 // ROOT: /api/dashboard
 router.get(
@@ -54,7 +54,7 @@ router.post(
 
 router.post(
   "/registration",
-  rateLimiter(60 * 1000, 1, "Limit Exceed!"),
+  // rateLimiter(60 * 1000, 1, "Limit Exceed!"),
   registrationController
 )
 router.post(

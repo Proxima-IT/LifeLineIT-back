@@ -52,15 +52,13 @@ exports.registrationController = async (req, res) => {
     }
 
     const { enrolledAt } = matchedCourse
-    if (mongoose.Types.ObjectId.isValid(studentId)) {
-    }
 
-    const findCourse = await Course.findOne(
-      {
-        $or: [{ _id: courseId }, { route: courseId }],
-      },
-      { duration: 1, title: 1 }
-    )
+    const query = mongoose.Types.ObjectId.isValid(studentId)
+      ? { $or: [{ _id: courseId }, { route: courseId }] }
+      : { route: courseId }
+
+    const findCourse = await Course.findOne(query)
+
     const courseCode = findCourse.title
       .split(" ")
       .filter(Boolean)
