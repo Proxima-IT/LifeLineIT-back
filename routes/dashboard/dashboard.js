@@ -42,6 +42,7 @@ router.get(
 
 router.get("/notices", viewNotice)
 router.post("/notices", addNotice)
+router.delete("/notices/delete/:id", deleteNotice)
 
 router.post(
   "/reset",
