@@ -22,7 +22,7 @@ exports.addGeneralSettings = async (req, res) => {
 exports.getGeneralSettings = async (req, res) => {
   try {
     const getData = await General.find({}).lean()
-    res.json(getData)
+    res.json(getData[0])
   } catch (error) {
     console.log(error)
   }
