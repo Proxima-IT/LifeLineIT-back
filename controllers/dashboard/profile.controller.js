@@ -55,10 +55,11 @@ const resetInfo = async (req, res) => {
       } else {
         return res.json({ success: false, message: "Password didn't matched" })
       }
+
+      await client.del(`student:${findStudent.sid}`)
     }
 
     await Student.updateOne({ _id: req.user.id }, { $set: updateFields })
-    await client.del(`student:${findStudent.sid}`)
     res.json({ success: true, message: "Informations Updated successfully" })
   } catch (error) {
     logger.error(error)
