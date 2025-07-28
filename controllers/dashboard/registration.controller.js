@@ -17,7 +17,7 @@ exports.registrationController = async (req, res) => {
       studentId = `LIT-${studentId}`
     }
     courseId = courseId.toLowerCase().split(" ").join("-")
-    
+
     console.log(studentId, courseId)
 
     const CACHE_DATA = `student:${studentId}`
@@ -36,7 +36,8 @@ exports.registrationController = async (req, res) => {
       studentData = await Student.findOne(query)
     }
 
-    if (!studentData) return res.status(404).json({ error: "User not found" })
+    if (!studentData)
+      return res.status(404).json({ error: "Woah? The User does not exists!" })
 
     const {
       name,
@@ -69,7 +70,8 @@ exports.registrationController = async (req, res) => {
 
     const findCourse = await Course.findOne(query)
 
-    if (!findCourse) return res.status(404).json({ error: "Course not found" })
+    if (!findCourse)
+      return res.status(404).json({ error: "Oops! The Course was not found" })
 
     console.log(courseId, findCourse)
     const courseCode = findCourse.title
