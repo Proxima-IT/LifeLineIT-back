@@ -6,7 +6,7 @@ const generalSchema = new mongoose.Schema({
     trim: true,
   },
   totalStudents: {
-    type: Number,
+    type: String,
     default: 0,
   },
 })
