@@ -12,7 +12,9 @@ exports.addCourse = async (req, res) => {
   if (data.instructors && typeof data.instructors === "string") {
     data.instructors = JSON.parse(data.instructors)
   }
-  data.route = data.route.split(" ").join("-")
+
+  console.log(data.route.toLowerCase().split(" ").join("-"))
+  data.route = data.route.toLowerCase().split(" ").join("-")
 
   try {
     const course = new Course(data)
@@ -28,9 +30,11 @@ exports.addCourse = async (req, res) => {
 
 exports.updateCourse = async (req, res) => {
   let route = sanitize(req.params.route)
-  route = route.split(" ").join("-")
+  route = route.toLowerCase().split(" ").join("-")
 
+  console.log(route)
   const data = sanitize(req.body)
+  data.route = data.route.toLowerCase().split(" ").join("-")
   try {
     const findCourse = await Course.findOneAndUpdate(
       { route },
@@ -40,6 +44,7 @@ exports.updateCourse = async (req, res) => {
 
     console.log(findCourse)
 
+    client.del(`courses:${route}`)
     client.del("courses:all")
 
     return findCourse
@@ -59,6 +64,7 @@ exports.deleteCourse = async (req, res) => {
   try {
     const findCourse = await Course.findOneAndDelete({ route })
     client.del("courses:all")
+    client.del(`courses:${route}`)
 
     return findCourse
       ? res

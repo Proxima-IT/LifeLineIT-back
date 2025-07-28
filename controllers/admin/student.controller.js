@@ -105,11 +105,13 @@ exports.updateStudent = async (req, res) => {
 
     client.del(`student:${data.id}`)
 
-    return findCourse
+    return updateStudent
       ? res
           .status(200)
-          .json({ status: true, message: "Course updated successfully" })
-      : res.status(404).json({ status: false, error: "Course not found" })
+          .json({ status: true, message: "Updated Student successfully" })
+      : res
+          .status(404)
+          .json({ status: false, error: "Updated Student not found" })
   } catch (err) {
     res.status(500).json({ error: err.message })
     logger.error(err)

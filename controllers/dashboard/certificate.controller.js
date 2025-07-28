@@ -8,10 +8,17 @@ const Student = require("@models/Student")
 
 const logger = require("@logger")
 const { default: mongoose } = require("mongoose")
+const { custom } = require("joi")
 
 exports.certificateController = async (req, res) => {
   try {
-    const { studentId, courseId, grade } = sanitize(req.body)
+    let { studentId, courseId, grade } = sanitize(req.body)
+
+    // Input Decorations
+    if (!isNaN(Number(studentId))) {
+      studentId = `LIT-${studentId}`
+    }
+    courseId = courseId.toLowerCase().split(" ").join("-")
 
     const CACHE_DATA = `student:${studentId}`
     console.log("Cache Key:", CACHE_DATA)
@@ -28,13 +35,20 @@ exports.certificateController = async (req, res) => {
       studentData = JSON.parse(cachedData)
     }
 
+    if (studentData == null)
+      return res.status(404).json({ error: "Woah? The User does not exists!" })
+
     const { name, sid, totalOrders } = studentData
 
+    console.log(name, sid, totalOrders)
     const query = mongoose.Types.ObjectId.isValid(studentId)
       ? { $or: [{ _id: courseId }, { route: courseId }] }
       : { route: courseId }
 
     const findCourse = await Course.findOne(query)
+
+    if (findCourse == null)
+      return res.status(404).json({ error: "Oops! The Course was not found" })
 
     const { title, duration, instructors } = findCourse
 
@@ -115,18 +129,24 @@ exports.certificateController = async (req, res) => {
       instructors[0].sign
     )
 
-    res.writeHead(200, {
-      "Content-Type": "application/pdf",
-      "Content-Disposition": `attachment; filename=${name
-        .split(" ")
-        .join("_")}-registration-card.pdf`,
-      "Content-Length": pdfBuffer.length,
-    })
+    if (pdfBuffer instanceof Uint8Array) {
+      res.writeHead(200, {
+        "Content-Type": "application/pdf",
+        "Content-Disposition": `attachment; filename=certificate.pdf`,
+        "Content-Length": pdfBuffer.length,
+      })
 
-    res.end(pdfBuffer)
+      res.end(pdfBuffer)
+    } else {
+      const customError = new Error(
+        `${pdfBuffer.message} Please Cross check your Course Data`
+      )
+      customError.status = 422
+      throw customError
+    }
   } catch (error) {
     console.log(error)
     logger.error(error)
-    return res.json({ error })
+    return res.status(error.status).json({ error: error.message })
   }
 }

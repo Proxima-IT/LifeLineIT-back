@@ -1,6 +1,8 @@
 function getSession(dateInput, months) {
   if (![1, 3, 6].includes(months)) {
-    throw new Error("Duration must be 1, 3 or 6 months")
+    const error = new Error("Duration must be 1, 3 or 6 months")
+    error.status = 400
+    throw error
   }
 
   // Always work in UTC so there’s no timezone surprise:

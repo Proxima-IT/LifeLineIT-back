@@ -70,6 +70,7 @@ const studentSchema = new mongoose.Schema(
           ref: "Course",
         },
         certificate: {
+          //
           canIssue: {
             type: Boolean,
             default: false,
@@ -78,6 +79,7 @@ const studentSchema = new mongoose.Schema(
             type: String,
             default: "N/A",
           },
+          //
         },
         enrolledAt: {
           type: Date,

@@ -205,6 +205,7 @@ async function generateCertificate(
     return updatedPdfBytes
   } catch (error) {
     logger.error(error)
+    return error
   }
 }
 

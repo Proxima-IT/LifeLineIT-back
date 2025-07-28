@@ -136,8 +136,9 @@ async function generateRegistrationPDF(
       message: "✅ PDF updated successfully.",
     })
     return updatedPdfBytes
-  } catch (err) {
-    logger.error("❌ Failed to edit PDF:", err)
+  } catch (error) {
+    logger.error("❌ Failed to edit PDF:", error)
+    return error
   }
 }
 
