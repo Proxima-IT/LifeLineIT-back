@@ -10,6 +10,8 @@ const verifyJWT = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
+    console.log("AT AUTH MIDDLEWARE")
+    console.log(decoded)
     req.user = decoded // user info like name, email, etc.
     next()
   } catch (err) {

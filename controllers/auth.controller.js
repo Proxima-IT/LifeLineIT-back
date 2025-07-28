@@ -120,7 +120,7 @@ exports.loginController = async (req, res) => {
   const { email, password } = sanitize(req.body)
   try {
     const student = await Student.findOne({ email })
-      .select("name email role password")
+      .select("name email role password sid")
       .lean()
 
     if (!student || !(await bcrypt.compare(password, student.password))) {

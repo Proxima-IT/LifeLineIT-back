@@ -6,6 +6,7 @@ const path = require("path")
 exports.dashboardController = async (req, res) => {
   console.log(req.user.sid)
   const CACHE_DATA = `student:${req.user.sid}`
+  console.log(CACHE_DATA)
   const cachedData = await client.get(CACHE_DATA)
 
   console.log(CACHE_DATA, cachedData)
