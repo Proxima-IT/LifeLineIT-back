@@ -11,8 +11,7 @@ const studentSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      default:
-        "https://i.ibb.co/cScQJj0W/Whats-App-Image-2025-07-12-at-2-18-14-PM.jpg",
+      default: "https://i.ibb.co/PZnmFkTh/images.jpg",
     },
     name: {
       type: String,

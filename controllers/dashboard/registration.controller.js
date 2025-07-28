@@ -93,6 +93,11 @@ exports.registrationController = async (req, res) => {
       courseSession
     )
 
+    if (!pdfBuffer || !Buffer.isBuffer(pdfBuffer)) {
+      logger.error("PDF generation failed or returned invalid buffer")
+      return res.status(500).json({ error: "PDF generation failed." })
+    }
+
     res.writeHead(200, {
       "Content-Type": "application/pdf",
       "Content-Disposition": `attachment; filename=${name

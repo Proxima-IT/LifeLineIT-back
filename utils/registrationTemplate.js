@@ -5,8 +5,8 @@ const fontkit = require("fontkit")
 const logger = require("@logger")
 
 async function getImageMimeType(url) {
-  const res = await fetch(url, { method: "HEAD" }) // just fetch headers
-  return res.headers.get("content-type") // e.g., image/jpeg or image/png
+  const res = await fetch(url, { method: "HEAD" })
+  return res.headers.get("content-type")
 }
 
 async function generateRegistrationPDF(
