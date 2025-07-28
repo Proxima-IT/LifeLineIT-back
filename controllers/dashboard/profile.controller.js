@@ -58,7 +58,7 @@ const resetInfo = async (req, res) => {
     }
 
     await Student.updateOne({ _id: req.user.id }, { $set: updateFields })
-    await client.del(`student:${req.user.id}`)
+    await client.del(`student:${findStudent.sid}`)
     res.json({ success: true, message: "Informations Updated successfully" })
   } catch (error) {
     logger.error(error)
