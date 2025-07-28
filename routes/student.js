@@ -5,6 +5,7 @@ const {
   getStudents,
   createStudent,
   deleteStudent,
+  updateStudent,
   findStudent,
 } = require("@controllers/admin/student.controller") // Student Controller
 
@@ -14,6 +15,7 @@ const {
 router.get("/", getStudents) // GET
 router.get("/:sid", findStudent)
 router.post("/create", createStudent) // POST
-router.delete("/delete", deleteStudent) // DELETE
+router.delete("/delete/:sid", deleteStudent) // DELETE
+router.patch("/update/:sid", updateStudent)
 
 module.exports = router

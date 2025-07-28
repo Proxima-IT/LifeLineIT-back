@@ -29,6 +29,19 @@ exports.getStudents = async (req, res) => {
   }
 }
 
+exports.findStudent = async (req, res) => {
+  const sid = sanitize(req.params.sid)
+  try {
+    const student = await Student.findOne({ sid })
+    if (student) res.json({ status: true, student })
+
+    res.json({ status: false, message: "User not found" })
+  } catch (err) {
+    logger.error(err)
+    res.status(500).json({ error: err.message })
+  }
+}
+
 exports.createStudent = async (req, res) => {
   console.log(req.body)
   const { name, email, phone, password } = sanitize(req.body)
@@ -50,7 +63,7 @@ exports.createStudent = async (req, res) => {
 }
 
 exports.deleteStudent = async (req, res) => {
-  const { sid } = sanitize(req.body)
+  const { sid } = sanitize(req.params)
   try {
     const findUser = await Student.findOneAndDelete({ sid })
     console.log(findUser)
@@ -58,20 +71,8 @@ exports.deleteStudent = async (req, res) => {
 
     res.json({
       status: true,
-      message: "User deleted successfully",
       deletedUser: findUser,
     })
-  } catch (err) {
-    logger.error(err)
-    res.status(500).json({ error: err.message })
-  }
-}
-
-exports.findStudent = async (req, res) => {
-  const sid = sanitize(req.params.sid)
-  try {
-    const findUser = await Student.findOne({ sid })
-    res.json({ status: true, message: "User found", user: findUser })
   } catch (err) {
     logger.error(err)
     res.status(500).json({ error: err.message })

@@ -13,7 +13,6 @@ const studentRoutes = require("@routes/student")
 const dashboardRoutes = require("@routes/dashboard/dashboard")
 const certificateRoutes = require("@routes/admin/certificate")
 const generalRoutes = require("@routes/admin/general")
-
 // Basic Auth
 const auth = require("@middlewares/basicAuth")
 const app = express()
