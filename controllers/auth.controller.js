@@ -133,6 +133,7 @@ exports.loginController = async (req, res) => {
       {
         id: student._id,
         name: student.name,
+        sid: student.sid,
         email: student.email,
         role: student.role,
       },

@@ -4,9 +4,11 @@ const client = require("../../utils/redisClient")
 const path = require("path")
 
 exports.dashboardController = async (req, res) => {
+  console.log(req.user.sid)
   const CACHE_DATA = `student:${req.user.sid}`
   const cachedData = await client.get(CACHE_DATA)
 
+  console.log(CACHE_DATA, cachedData)
   if (cachedData) {
     return res.json(JSON.parse(cachedData))
   }
