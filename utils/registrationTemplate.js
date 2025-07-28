@@ -64,13 +64,11 @@ async function generateRegistrationPDF(
       })
     })
 
-    const helveticaFont = await pdfDoc.embedFont(StandardFonts.HelveticaOblique)
-
     page.drawText(courseSession, {
-      x: 400,
+      x: 403,
       y: 264,
-      size: 10,
-      font: helveticaFont,
+      size: 13,
+      font: robotoFont,
       color: rgb(0, 0, 0),
     })
 
