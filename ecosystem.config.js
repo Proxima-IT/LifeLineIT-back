@@ -3,7 +3,11 @@ module.exports = {
     {
       name: "lifeline-backend",
       script: "server.js",
-      instances: "max", // Uses all available CPU cores
+      log_file: "./_logs/console/logs.txt",
+      out_file: "./_logs/console/out.log",
+      error_file: "./_logs/console/err.log",
+      combine_logs: true,
+      instances: "1",
       exec_mode: "cluster", // Enables clustering (load balancing)
       watch: false,
     },

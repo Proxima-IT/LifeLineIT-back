@@ -59,6 +59,7 @@ exports.registrationController = async (req, res) => {
 
     const findCourse = await Course.findOne(query)
 
+    console.log(courseId, findCourse)
     const courseCode = findCourse.title
       .split(" ")
       .filter(Boolean)
@@ -93,10 +94,10 @@ exports.registrationController = async (req, res) => {
       courseSession
     )
 
-    if (!pdfBuffer || !Buffer.isBuffer(pdfBuffer)) {
-      logger.error("PDF generation failed or returned invalid buffer")
-      return res.status(500).json({ error: "PDF generation failed." })
-    }
+    // if (!pdfBuffer || !Buffer.isBuffer(pdfBuffer)) {
+    //   logger.error("PDF generation failed or returned invalid buffer")
+    //   return res.status(500).json({ error: "PDF generation failed." })
+    // }
 
     res.writeHead(200, {
       "Content-Type": "application/pdf",
