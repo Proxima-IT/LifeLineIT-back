@@ -21,18 +21,22 @@ const studentSchema = new mongoose.Schema(
     father: {
       type: String,
       trim: true,
+      default: "",
     },
     mother: {
       type: String,
       trim: true,
+      default: "",
     },
     gender: {
       type: String,
       trim: true,
+      default: "",
     },
     dateOfBirth: {
       type: String,
       trim: true,
+      default: "",
     },
     email: {
       type: String,
