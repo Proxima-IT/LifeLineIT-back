@@ -1,5 +1,6 @@
 const sanitize = require("mongo-sanitize")
 const General = require("@models/General")
+const { get } = require("mongoose")
 
 exports.addGeneralSettings = (req, res) => {
   const data = sanitize(req.body)
@@ -8,7 +9,11 @@ exports.addGeneralSettings = (req, res) => {
   res.json({ message: "Success" })
 }
 
-exports.getGeneralSettings = (req, res) => {
-  const getData = General.findOne({}).lean()
-  res.json(getData)
+exports.getGeneralSettings = async (req, res) => {
+  try {
+    const getData = await General.find({}).lean()
+    res.json(getData)
+  } catch (error) {
+    console.log(error)
+  }
 }
