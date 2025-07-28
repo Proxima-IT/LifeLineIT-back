@@ -7,6 +7,6 @@ const router = express.Router()
 
 // ROOT: /api/general
 router.get("/", getGeneralSettings) // GET
-router.post("/add", addGeneralSettings) // POST
+router.post("/", addGeneralSettings) // POST
 
 module.exports = router
