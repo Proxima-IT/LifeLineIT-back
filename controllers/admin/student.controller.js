@@ -19,6 +19,7 @@ exports.getStudents = async (req, res) => {
   try {
     // Get all students by skipping and limiting the results
     const getStudents = await Student.find({})
+      .sort({ _id: -1 })
       .skip((page - 1) * limit)
       .limit(limit)
       .lean()
