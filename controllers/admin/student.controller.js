@@ -22,7 +22,11 @@ exports.getStudents = async (req, res) => {
       .skip((page - 1) * limit)
       .limit(limit)
       .lean()
-    res.status(201).json(getStudents)
+
+    const totalStudents = await Student.find({}).countDocuments()
+    const totalPages = Math.ceil(totalStudents / limit)
+
+    res.status(201).json({ ...getStudents, totalStudents, totalPages })
     console.log(`${getStudents.length} Students Found`)
   } catch (err) {
     res.status(500).json({ error: err.message })
