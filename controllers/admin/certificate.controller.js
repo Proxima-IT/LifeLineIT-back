@@ -4,9 +4,9 @@ const Course = require("@models/Course")
 const sanitize = require("mongo-sanitize")
 const logger = require("@logger")
 
-const formatDate = () => {
+const formatDate = (issueDate) => {
   const options = { day: "numeric", month: "long", year: "numeric" }
-  return new Date().toLocaleDateString("en-US", options) // e.g., "July 10, 2025"
+  return new Date(issueDate).toLocaleDateString("en-US", options) //
 }
 
 exports.getCertificateInfo = async (req, res) => {
