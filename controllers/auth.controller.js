@@ -79,6 +79,13 @@ exports.registerController = async (req, res) => {
       .json({ status: false, message: error.details[0].message })
   }
 
+  const existingStudent = await Student.findOne({ email }).lean()
+  if (existingStudent) {
+    return res
+      .status(409)
+      .json({ status: false, message: "Oops, the student already exists!" })
+  }
+
   let takenOtpCode = otp
   const getOtp = await Otp.findOne({ email })
   if (!getOtp) {
