@@ -118,7 +118,7 @@ exports.registrationController = async (req, res) => {
       res.end(pdfBuffer)
     } else {
       const customError = new Error(
-        `${pdfBuffer.message} Please Cross check your Course Data`
+        `${pdfBuffer.message} Please Cross check your data.`
       )
       customError.status = 422
       throw customError
