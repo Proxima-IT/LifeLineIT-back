@@ -25,8 +25,11 @@ exports.getStudents = async (req, res) => {
       .lean()
 
     const totalPages = Math.ceil(totalStudents / limit)
+    const totalStudents = await getStudents.length
 
-    res.status(201).json({ ...getStudents, totalStudents, totalPages })
+    res
+      .status(201)
+      .json({ ...getStudents, totalStudents, totalPages, totalStudents })
     console.log(`${getStudents.length} Students Found`)
   } catch (err) {
     res.status(500).json({ error: err.message })
