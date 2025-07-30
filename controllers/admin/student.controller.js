@@ -23,7 +23,6 @@ exports.getStudents = async (req, res) => {
       .limit(limit)
       .lean()
 
-    const totalStudents = await Student.find({}).countDocuments()
     const totalPages = Math.ceil(totalStudents / limit)
 
     res.status(201).json({ ...getStudents, totalStudents, totalPages })
