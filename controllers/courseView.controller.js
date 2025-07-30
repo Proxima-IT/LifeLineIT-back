@@ -90,7 +90,7 @@ exports.getCoursesBySearch = async (req, res) => {
 
 exports.getCourseById = async (req, res) => {
   try {
-    const { id } = sanitize(req.params)
+    const id = sanitize(req.params.id)
     const findCourse = await Course.findOne({ _id: id }).lean()
     res.json(findCourse)
   } catch (error) {

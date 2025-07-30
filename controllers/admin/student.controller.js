@@ -3,6 +3,7 @@ const Course = require("@models/Course")
 const sanitize = require("mongo-sanitize")
 const bcrypt = require("bcrypt")
 const logger = require("@logger")
+const client = require("@utils/redisClient")
 
 // Student Controller
 
@@ -85,23 +86,54 @@ exports.deleteStudent = async (req, res) => {
 
 exports.updateStudent = async (req, res) => {
   const data = sanitize(req.body)
-  const sid = data.sid
+  const sid = sanitize(req.params.sid)
   try {
-    const findCourse = await Course.findOne({ route: data.courseRoute })
+    if (data.courseRoute) {
+      const findCourse = await Course.findOne(
+        { route: data.courseRoute },
+        "_id"
+      )
+      const findStudent = await Student.findOne({ sid })
+      if (!findStudent) return console.log("Student not found")
 
-    if (data.courseAccess) {
-      const findStudent = Student.findOne({ sid })
-      findStudent.totalOrders.push({
-        certificate: {
-          canIssue: false,
-          grade: "N/A",
-        },
-        courseId: findCourse.courseId,
-        enrolledAt: Date.now(),
-        paymentStatus: "paid",
-        paid: "0",
-        courseRoute: data.courseRoute,
-      })
+      const alreadyEnrolled = findStudent.totalOrders.some((order) =>
+        order.courseId.equals(findCourse._id)
+      )
+
+      if (alreadyEnrolled) {
+        console.log("Student already enrolled in this course")
+        return res.json({
+          status: false,
+          message: "Student is already enrolled",
+        })
+      }
+
+      if (findCourse) {
+        const updatedCourse = await Course.updateOne(
+          { _id: findCourse._id },
+          { $addToSet: { enrolledStudents: sid } }
+        )
+        if (updatedCourse.modifiedCount > 0) console.log("Course updated")
+
+        const orderData = {
+          certificate: {
+            canIssue: false,
+            grade: "N/A",
+          },
+          courseId: findCourse._id,
+          enrolledAt: Date.now(),
+          paymentStatus: "paid",
+          paid: "0",
+          courseRoute: data.courseRoute,
+        }
+
+        const updatedStudent = await Student.updateOne(
+          { _id: findStudent._id },
+          { $addToSet: { totalOrders: orderData } }
+        )
+
+        if (updatedStudent.modifiedCount > 0) console.log("Student updated")
+      }
     }
 
     const updateStudent = await Student.findOneAndUpdate(
@@ -110,7 +142,7 @@ exports.updateStudent = async (req, res) => {
       { new: true }
     )
 
-    client.del(`student:${data.id}`)
+    client.del(`student:${sid}`)
 
     return updateStudent
       ? res
