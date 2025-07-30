@@ -1,5 +1,6 @@
 const sanitize = require("mongo-sanitize")
 const Student = require("@models/Student")
+const Course = require("@models/Course")
 const client = require("@utils/redisClient")
 const bcrypt = require("bcrypt")
 const logger = require("@logger")
@@ -8,6 +9,34 @@ const logger = require("@logger")
 const resetInfo = async (req, res) => {
   try {
     const rawBody = sanitize(req.body)
+    const updateFields = {}
+
+    if (Object.prototype.hasOwnProperty.call(rawBody, "route")) {
+      const { route } = rawBody
+      const findCourse = await Course.findOne({ route })
+
+      if (!findCourse) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Course not found" })
+      }
+
+      const totalOrders = [
+        {
+          courseId: findCourse._id,
+          courseRoute: findCourse.route,
+          paid: "0",
+          certificate: {
+            canIssue: false,
+            grade: "N/A",
+          },
+          enrolledAt: Date.now(),
+          paymentStatus: "paid",
+        },
+      ]
+
+      updateFields.totalOrders = totalOrders
+    }
     const allowedFields = [
       "name",
       "image",
@@ -19,7 +48,6 @@ const resetInfo = async (req, res) => {
       "currentpass",
       "newpass",
     ]
-    const updateFields = {}
 
     for (const key of allowedFields) {
       if (Object.prototype.hasOwnProperty.call(rawBody, key)) {
