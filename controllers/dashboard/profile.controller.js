@@ -11,32 +11,6 @@ const resetInfo = async (req, res) => {
     const rawBody = sanitize(req.body)
     const updateFields = {}
 
-    if (Object.prototype.hasOwnProperty.call(rawBody, "route")) {
-      const { route } = rawBody
-      const findCourse = await Course.findOne({ route })
-
-      if (!findCourse) {
-        return res
-          .status(404)
-          .json({ success: false, message: "Course not found" })
-      }
-
-      const totalOrders = [
-        {
-          courseId: findCourse._id,
-          courseRoute: findCourse.route,
-          paid: "0",
-          certificate: {
-            canIssue: false,
-            grade: "N/A",
-          },
-          enrolledAt: Date.now(),
-          paymentStatus: "paid",
-        },
-      ]
-
-      updateFields.totalOrders = totalOrders
-    }
     const allowedFields = [
       "name",
       "image",

@@ -27,7 +27,7 @@ exports.getStudents = async (req, res) => {
     const totalStudents = await Student.countDocuments()
     const totalPages = Math.ceil(totalStudents / limit)
 
-    res.status(201).json(getStudents, totalStudents, totalPages)
+    res.status(201).json({ getStudents, totalPages, totalStudents })
   } catch (err) {
     res.status(500).json({ error: err.message })
   }
@@ -87,6 +87,8 @@ exports.updateStudent = async (req, res) => {
   const data = sanitize(req.body)
   const sid = data.sid
   try {
+    const findCourse = await Course.findOne({ route: data.courseRoute })
+
     if (data.courseAccess) {
       const findStudent = Student.findOne({ sid })
       findStudent.totalOrders.push({
@@ -94,7 +96,7 @@ exports.updateStudent = async (req, res) => {
           canIssue: false,
           grade: "N/A",
         },
-        courseId: data.courseId,
+        courseId: findCourse.courseId,
         enrolledAt: Date.now(),
         paymentStatus: "paid",
         paid: "0",
