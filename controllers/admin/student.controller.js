@@ -124,7 +124,6 @@ exports.updateStudent = async (req, res) => {
           enrolledAt: Date.now(),
           paymentStatus: "paid",
           paid: "0",
-          courseRoute: data.courseRoute,
         }
 
         const updatedStudent = await Student.updateOne(

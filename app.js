@@ -50,6 +50,14 @@ app.get("/", (req, res) => {
   // Public URL goes here
   res.redirect("https://lifelineitinstitute.com")
 })
+
+// CODE SAFETY
+// app.use((req, res, next) => {
+//   const referer = req.headers.referer
+//   console.log("REFER", referer)
+//   next()
+// })
+
 // Routes
 app.use("/api/auth", authRoutes)
 app.use("/api/courses", courseRoutes)

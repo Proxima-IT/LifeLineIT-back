@@ -98,6 +98,7 @@ exports.registerController = async (req, res) => {
   const generatedOtpCode = getOtp.otp
   try {
     if (generatedOtpCode == takenOtpCode) {
+      // Delete the OTP from database
       const hashedPassword = await bcrypt.hash(password, 10)
 
       const student = new Student({
@@ -108,6 +109,7 @@ exports.registerController = async (req, res) => {
       })
 
       await student.save()
+      await Otp.deleteOne({ email })
       res.status(201).json({
         status: true,
         message: "Student has been successfully registered!",

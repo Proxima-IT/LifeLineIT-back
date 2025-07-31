@@ -4,15 +4,16 @@ const client = require("../../utils/redisClient")
 const path = require("path")
 
 exports.dashboardController = async (req, res) => {
-  console.log(req.user.sid)
-  const CACHE_DATA = `student:${req.user.sid}`
-  console.log(CACHE_DATA)
-  const cachedData = await client.get(CACHE_DATA)
+  // console.log(req.user.sid)
+  // const CACHE_DATA = `student:${req.user.sid}`
 
-  console.log(CACHE_DATA, cachedData)
-  if (cachedData) {
-    return res.json(JSON.parse(cachedData))
-  }
+  // console.log(CACHE_DATA)
+  // const cachedData = await client.get(CACHE_DATA)
+
+  // console.log(CACHE_DATA, cachedData)
+  // if (cachedData) {
+  //   return res.json(JSON.parse(cachedData))
+  // }
 
   const findStudent = await Student.findOne({ _id: req.user.id })
   const {
@@ -27,9 +28,14 @@ exports.dashboardController = async (req, res) => {
     phone,
     role,
     registrationCardIssued,
-    totalOrders,
     certificates,
   } = findStudent
+
+  let { totalOrders } = findStudent
+
+  totalOrders = totalOrders.sort(
+    (a, b) => new Date(b.enrolledAt) - new Date(a.enrolledAt)
+  )
 
   const filteredCourses = await Student.aggregate([
     {
@@ -56,7 +62,14 @@ exports.dashboardController = async (req, res) => {
     },
   ])
 
-  const courseStatus = filteredCourses[0] || {
+  let courseStatus = {
+    approvedCourses: filteredCourses[0].approvedCourses.sort(
+      (a, b) => new Date(b.enrolledAt) - new Date(a.enrolledAt)
+    ),
+    pendingCourses: filteredCourses[0].pendingCourses.sort(
+      (a, b) => new Date(b.enrolledAt) - new Date(a.enrolledAt)
+    ),
+  } || {
     approvedCourses: [],
     pendingCourses: [],
   }
@@ -85,7 +98,7 @@ exports.dashboardController = async (req, res) => {
     certificates,
   }
 
-  await client.set(CACHE_DATA, JSON.stringify(responseData), { EX: 60 })
+  // await client.set(CACHE_DATA, JSON.stringify(responseData), { EX: 60 })
 
   res.json(responseData)
 }
