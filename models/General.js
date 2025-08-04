@@ -8,12 +8,15 @@ const generalSchema = new mongoose.Schema({
   studentInfo: {
     totalStudents: {
       type: String,
+      default: "",
     },
     successCount: {
       type: String,
+      default: "",
     },
     courseCompletors: {
       type: String,
+      default: "",
     },
   },
 
