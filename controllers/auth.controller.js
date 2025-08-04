@@ -161,6 +161,7 @@ exports.loginController = async (req, res) => {
     res.json({
       success: true,
       name: student.name,
+      role: student.role,
       message: "Successfully Logged In!",
       token,
     })
