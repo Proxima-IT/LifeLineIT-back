@@ -117,10 +117,23 @@ const courseSchema = new mongoose.Schema(
       required: true,
       validate: [(arr) => arr.length > 0, "At least one instructor required"],
     },
+    cutPrice: {
+      type: String,
+      trim: true,
+    },
     price: {
       type: String,
       trim: true,
       default: "Free",
+    },
+    starCount: {
+      type: String,
+      trim: true,
+      default: "5",
+    },
+    reviewCount: {
+      type: String,
+      trim: true,
     },
     startDate: {
       type: String,
