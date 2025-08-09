@@ -31,7 +31,7 @@ const postApplyController = async (req, res) => {
 }
 
 const actionApplyController = async (req, res) => {
-  const { applyId } = sanitize(req.body)
+  const { applyId, grade } = sanitize(req.body)
   const { action } = sanitize(req.params)
 
   try {
@@ -60,7 +60,12 @@ const actionApplyController = async (req, res) => {
         sid: sid,
         "totalOrders.courseId": new mongoose.Types.ObjectId(courseId),
       },
-      { $set: { "totalOrders.$.certificate.canIssue": true } }
+      {
+        $set: {
+          "totalOrders.$.certificate.canIssue": true,
+          "totalOrders.$.certificate.grade": grade,
+        },
+      }
     )
 
     if (updatedStudent.modifiedCount == 0)
