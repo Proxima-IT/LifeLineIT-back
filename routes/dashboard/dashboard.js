@@ -20,6 +20,13 @@ const {
 const {
   registrationController,
 } = require("@controllers/dashboard/registration.controller")
+
+const {
+  getApplyCertificateController,
+  actionApplyController,
+  postApplyController,
+} = require("@controllers/admin/apply.certificate.controller")
+
 const {
   certificateController,
 } = require("@controllers/dashboard/certificate.controller")
@@ -30,6 +37,7 @@ const resetInfo = require("@controllers/dashboard/profile.controller")
 // const rateLimiter = require("@middlewares/rateLimiter")
 
 // ROOT: /api/dashboard
+
 router.get(
   "/",
   // rateLimiter(
@@ -59,6 +67,11 @@ router.post(
   // rateLimiter(60 * 1000, 1, "Limit Exceed!"),
   registrationController
 )
+
+router.get("/certificate/apply", getApplyCertificateController)
+router.post("/certificate/apply", postApplyController)
+router.post("/certificate/apply/:action", actionApplyController)
+
 router.post(
   "/certificate",
   // rateLimiter(60 * 1000, 1, "Limit Exceed!"),
