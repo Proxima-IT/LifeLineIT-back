@@ -3,6 +3,8 @@ const Student = require("../../models/Student")
 const Apply = require("../../models/Apply")
 const mongoose = require("mongoose")
 
+const sendSMS = require("@utils/sendSMS")
+
 const getApplyCertificateController = async (req, res) => {
   try {
     const applyCertificate = await Apply.find({}).lean()
@@ -16,6 +18,15 @@ const postApplyController = async (req, res) => {
   const { sid, courseId, driveLink } = sanitize(req.body)
 
   try {
+    // Match from the Apply Database Collection with StudentId and CourseId both, if found then return error
+
+    const findApply = await Apply.findOne({ studentId: sid, courseId }).lean()
+    if (findApply)
+      return res.json({
+        status: false,
+        message: "Certificate already applied",
+      })
+
     const applyCertificate = new Apply({
       studentId: sid,
       driveLink: driveLink,
@@ -35,16 +46,6 @@ const actionApplyController = async (req, res) => {
   const { action } = sanitize(req.params)
 
   try {
-    if (action == "reject") {
-      const deleteApply = await Apply.findOneAndDelete({ _id: applyId })
-
-      res.status(200).json({
-        status: deleteApply,
-        message: "Certificate rejected",
-      })
-      return
-    }
-
     const applyData = await Apply.findOne(
       { _id: applyId },
       "studentId courseId"
@@ -54,6 +55,24 @@ const actionApplyController = async (req, res) => {
       return res.json({ status: false, message: "Apply not found" })
 
     const { sid, courseId } = applyData
+    const courseTitle = await Course.findOne({ _id: courseId }, "title").lean()
+    const to = await Student.findOne({ sid }, "phone").lean()
+
+    if (action == "reject") {
+      const deleteApply = await Apply.findOneAndDelete({ _id: applyId })
+
+      // ! SENDING MESSAGE
+      sendSMS(
+        to,
+        `Unfortunately, your request for the ${courseTitle} Certificate has been Rejected. Please Reapply or Contact Authority. StudentID: ${sid}`
+      )
+
+      res.status(200).json({
+        status: deleteApply,
+        message: "Certificate rejected",
+      })
+      return
+    }
 
     const updatedStudent = await Student.updateOne(
       {
@@ -72,6 +91,12 @@ const actionApplyController = async (req, res) => {
       return res.json({ status: false, message: "Something went wrong" })
 
     const deleteApply = await Apply.findOneAndDelete({ _id: applyId })
+
+    // ! SENDING MESSAGE
+    sendSMS(
+      to,
+      `Congratulations! Your request for the ${courseTitle} Certificate has been Approved. Please download your certificate from your dashboard. StudentID: ${sid}`
+    )
 
     res
       .status(200)
