@@ -74,7 +74,7 @@ const actionApplyController = async (req, res) => {
       return
     }
 
-    const updatedStudent = await Student.updateOne(
+    await Student.updateOne(
       {
         sid: sid,
         "totalOrders.courseId": new mongoose.Types.ObjectId(courseId),
@@ -87,7 +87,7 @@ const actionApplyController = async (req, res) => {
       }
     )
 
-    const deleteApply = await Apply.findOneAndDelete({ _id: applyId })
+    await Apply.findOneAndDelete({ _id: applyId })
 
     // ! SENDING MESSAGE
     sendSMS(
@@ -100,6 +100,7 @@ const actionApplyController = async (req, res) => {
       .json({ status: deleteApply, message: "Certificate Approved" })
   } catch (err) {
     res.status(500).json({ error: err.message })
+    logger.error(err)
   }
 }
 
