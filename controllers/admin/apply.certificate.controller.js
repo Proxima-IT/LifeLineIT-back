@@ -3,7 +3,7 @@ const Student = require("../../models/Student")
 const Apply = require("../../models/Apply")
 const mongoose = require("mongoose")
 
-const sendSMS = require("@utils/sendSMS")
+const sendSMS = require("@utils/sendMessage")
 
 const getApplyCertificateController = async (req, res) => {
   try {
@@ -86,9 +86,6 @@ const actionApplyController = async (req, res) => {
         },
       }
     )
-
-    if (updatedStudent.modifiedCount == 0)
-      return res.json({ status: false, message: "Something went wrong" })
 
     const deleteApply = await Apply.findOneAndDelete({ _id: applyId })
 
