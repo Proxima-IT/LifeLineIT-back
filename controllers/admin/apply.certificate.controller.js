@@ -141,6 +141,9 @@ const actionApplyController = async (req, res) => {
       `Congratulations! Your request for the ${courseTitle} Certificate has been Approved. Please download your certificate from your dashboard. StudentID: ${studentId}`
     )
 
+    // delete the apply document
+    await Apply.findOneAndDelete({ _id: applyId })
+
     return res
       .status(200)
       .json({ status: true, message: "Certificate Approved" })
