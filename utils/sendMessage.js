@@ -12,6 +12,8 @@ async function sendSMS(to, message) {
       },
     })
 
+    // console.log(response.data)
+
     logger.info("SMS Sent! Response:", response.data)
   } catch (error) {
     logger.error("Error sending SMS:", error.response?.data || error.message)

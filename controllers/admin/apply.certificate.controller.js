@@ -1,9 +1,11 @@
 const sanitize = require("mongo-sanitize")
 const Student = require("../../models/Student")
+const Course = require("../../models/Course")
 const Apply = require("../../models/Apply")
 const mongoose = require("mongoose")
 
 const sendSMS = require("@utils/sendMessage")
+const logger = require("@logger")
 
 const getApplyCertificateController = async (req, res) => {
   try {
@@ -46,6 +48,7 @@ const actionApplyController = async (req, res) => {
   const { action } = sanitize(req.params)
 
   try {
+    // Fetch apply data with studentId and courseId (courseId is ObjectId)
     const applyData = await Apply.findOne(
       { _id: applyId },
       "studentId courseId"
@@ -54,30 +57,66 @@ const actionApplyController = async (req, res) => {
     if (!applyData)
       return res.json({ status: false, message: "Apply not found" })
 
-    const { sid, courseId } = applyData
-    const courseTitle = await Course.findOne({ _id: courseId }, "title").lean()
-    const to = await Student.findOne({ sid }, "phone").lean()
+    const { studentId, courseId } = applyData
+    console.log(studentId, courseId)
+    // Fetch course title
+    const courseTitleData = await Course.findOne(
+      { _id: courseId },
+      "title"
+    ).lean()
+    const courseTitle = courseTitleData?.title || "Unknown Course"
 
-    if (action == "reject") {
-      const deleteApply = await Apply.findOneAndDelete({ _id: applyId })
+    // Fetch student's phone number (studentId stored in sid field)
+    const studentData = await Student.findOne(
+      { sid: studentId },
+      "phone"
+    ).lean()
+    const to = studentData?.phone
 
-      // ! SENDING MESSAGE
-      sendSMS(
-        to,
-        `Unfortunately, your request for the ${courseTitle} Certificate has been Rejected. Please Reapply or Contact Authority. StudentID: ${sid}`
-      )
-
-      res.status(200).json({
-        status: deleteApply,
-        message: "Certificate rejected",
-      })
-      return
+    if (!to) {
+      return res
+        .status(400)
+        .json({ status: false, message: "Student phone number not found" })
     }
 
-    await Student.updateOne(
+    if (action === "reject") {
+      await Apply.findOneAndDelete({ _id: applyId })
+
+      sendSMS(
+        to,
+        `Unfortunately, your request for the ${courseTitle} Certificate has been Rejected. Please Reapply or Contact Authority. StudentID: ${studentId}`
+      )
+
+      return res.status(200).json({
+        status: true,
+        message: "Certificate rejected",
+      })
+    }
+
+    // Make sure courseId is ObjectId instance for the query
+    const courseObjId =
+      courseId instanceof mongoose.Types.ObjectId
+        ? courseId
+        : new mongoose.Types.ObjectId(courseId)
+
+    // Check if student and course exist in totalOrders array
+    const findStudent = await Student.findOne({
+      sid: studentId,
+      "totalOrders.courseId": courseObjId,
+    }).lean()
+
+    if (!findStudent) {
+      return res.status(404).json({
+        status: false,
+        message: "Student or course not found in totalOrders",
+      })
+    }
+
+    // Update the certificate info inside the matched totalOrders element
+    const updateStudent = await Student.updateOne(
       {
-        sid: sid,
-        "totalOrders.courseId": new mongoose.Types.ObjectId(courseId),
+        sid: studentId,
+        "totalOrders.courseId": courseObjId,
       },
       {
         $set: {
@@ -87,20 +126,27 @@ const actionApplyController = async (req, res) => {
       }
     )
 
-    await Apply.findOneAndDelete({ _id: applyId })
+    if (updateStudent.modifiedCount === 0) {
+      return res.status(500).json({
+        status: false,
+        message: "Failed to update student certificate status",
+      })
+    }
 
-    // ! SENDING MESSAGE
+    // Optionally, delete the Apply document after approval (uncomment if needed)
+    // await Apply.findOneAndDelete({ _id: applyId })
+
     sendSMS(
       to,
-      `Congratulations! Your request for the ${courseTitle} Certificate has been Approved. Please download your certificate from your dashboard. StudentID: ${sid}`
+      `Congratulations! Your request for the ${courseTitle} Certificate has been Approved. Please download your certificate from your dashboard. StudentID: ${studentId}`
     )
 
-    res
+    return res
       .status(200)
-      .json({ status: deleteApply, message: "Certificate Approved" })
+      .json({ status: true, message: "Certificate Approved" })
   } catch (err) {
-    res.status(500).json({ error: err.message })
     logger.error(err)
+    return res.status(500).json({ error: err.message })
   }
 }
 
