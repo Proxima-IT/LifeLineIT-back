@@ -13,6 +13,9 @@ const studentRoutes = require("@routes/student")
 const dashboardRoutes = require("@routes/dashboard/dashboard")
 const certificateRoutes = require("@routes/admin/certificate")
 const generalRoutes = require("@routes/admin/general")
+// Payment Route
+const paymentRoutes = require("@routes/payment")
+
 // Basic Auth
 const auth = require("@middlewares/basicAuth")
 const app = express()
@@ -63,6 +66,8 @@ app.use("/api/auth", authRoutes)
 app.use("/api/courses", courseRoutes)
 app.use("/api/student", studentRoutes)
 
+// Payment bKash
+app.use("/api/payment", paymentRoutes)
 // Student Dashboard routes
 app.use("/api/dashboard", dashboardRoutes)
 
