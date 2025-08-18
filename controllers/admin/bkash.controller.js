@@ -31,8 +31,9 @@ const callbackBkash = async (req, res) => {
     try {
       const result = await executePayment(paymentID)
       console.log("✅ Payment executed:", result)
-
       res.send("✅ Payment completed successfully!")
+
+      // When the user buys the course, they will have the access in their docs
     } catch (err) {
       console.error("❌ Execution failed:", err.message)
       res.send("⚠️ " + err.message)

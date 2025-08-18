@@ -1,7 +1,7 @@
 const sanitize = require("mongo-sanitize")
-const Student = require("../../models/Student")
-const Course = require("../../models/Course")
-const Apply = require("../../models/Apply")
+const Student = require("@models/Student")
+const Course = require("@models/Course")
+const Apply = require("@models/Apply")
 const mongoose = require("mongoose")
 
 const sendSMS = require("@utils/sendMessage")
